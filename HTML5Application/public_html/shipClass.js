@@ -1,7 +1,7 @@
 /* 
- * PETE WROTE THIS
- *
- * Assume this code is to be called after position has been selected and validated (post hack)
+ * Author: Peter Henderson
+ * Date: 19/10/2016
+ * Contribution Log: Name/Date/Description 
  * 
  * 
  */
@@ -11,24 +11,28 @@ var shiptype = 'Carrier';
 var xyFront = [10, 7];
 var xyBack = [10, 3];
 
-switch (shiptype) {
-    case 'Carrier':
-        carrier = new ship(5, xyFront, xyBack);
-        break;
-    case 'Battleship':
-        battleship = new ship(4, xyFront, xyBack);
-        break;
-    case 'Cruiser':
-        cruiser = new ship(3, xyFront, xyBack);
-        break;
-    case 'Submarine':
-        submarine = new ship(3, xyFront, xyBack);
-        break;
-    case 'Destroyer':
-        destroyer = new ship(2, xyFront, xyBack);
-        break;
+function selectShip(shiptype) {
+    switch (shiptype) {
+        case 'Carrier':
+            carrier = new ship(5, xyFront, xyBack);
+            break;
+        case 'Battleship':
+            battleship = new ship(4, xyFront, xyBack);
+            break;
+        case 'Cruiser':
+            cruiser = new ship(3, xyFront, xyBack);
+            break;
+        case 'Submarine':
+            submarine = new ship(3, xyFront, xyBack);
+            break;
+        case 'Destroyer':
+            destroyer = new ship(2, xyFront, xyBack);
+            break;
+
+    }
 
 }
+
 
 //debug alert(JSON.stringify(carrier, null, 4)); 
 
@@ -89,7 +93,7 @@ function ship(size, xyFront, xyBack) {
     for (i = 0; i < this.size; i++) {
         this.hit[i] = false;
     }
-   }
+}
 
 ship.prototype = {
     constructor: ship,
@@ -102,7 +106,6 @@ ship.prototype = {
         }
         ship.isSunk();
     },
-    
     isSunk: function () {
         var sunk = true;
         for (i = 0; i < this.size; i++) {
