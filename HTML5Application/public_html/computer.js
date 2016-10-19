@@ -8,14 +8,14 @@
 
 function makeComputerMove (computerGrid){
     
-    moveCoord = getRandFromArray(computerGrid);
+    var moveCoord = getRandFromArray(computerGrid);
     
-    //Check if hit
+    //var hit = //Check if hit
     
-    if (hit == true){
+    if (hit === true){
         
         //run ship.get hit code
-        //remove from grid array
+        computerGrid = removeItemFromArray(computerGrid, moveCoord);
        
     }
     
