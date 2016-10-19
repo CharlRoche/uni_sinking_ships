@@ -10,7 +10,8 @@
  * 
  */
 
-
+var userFleet = [];
+var compFleet = [];
 //ship variables
 
 var CARRIER_LEN = 5;

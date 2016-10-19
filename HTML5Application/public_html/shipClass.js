@@ -38,7 +38,7 @@ function selectShip(shiptype) {
 
 
 
-function ship(size, xyFront, xyBack) {
+function ship(size, xyFront, xyBack, user) {
 
     //sixe = int size value passed in from case
     //xyFront = array, [0] = x coord, [1] = y
@@ -75,16 +75,16 @@ function ship(size, xyFront, xyBack) {
     if (xyFront[1] > xyBack[1]) { //set each x coord if ASC
         this.y[0] = xyFront[1];
         for (i = 1; i < this.size; i++) {
-            this.coord[i] = this.coord[i]+'|'+xyFront[1] - i;
+            this.coord[i] = this.coord[i] + '|' + xyFront[1] - i;
         }
     } else if (xyFront[1] < xyBack[1]) { //set each x coord if DESC
         this.y[0] = xyFront[1];
         for (i = 1; i < this.size; i++) {
-            this.coord[i] = this.coord[i]+'|'+xyFront[1] + i;
+            this.coord[i] = this.coord[i] + '|' + xyFront[1] + i;
         }
     } else {
         for (i = 0; i < this.size; i++) {
-            this.y[i] = this.coord[i]+'|'+xyFront[1];
+            this.y[i] = this.coord[i] + '|' + xyFront[1];
         }
         this.axis = 'x';
     }
@@ -92,15 +92,16 @@ function ship(size, xyFront, xyBack) {
     for (i = 0; i < this.size; i++) {
         this.hit[i] = false;
     }
+
 }
 
 ship.prototype = {
     constructor: ship,
     getHit: function (hitCoord) {
         //assumed hit location and ship already validated
-        
-            this.hit[this.coord.indexOf(hitCoord)] = true;
-       
+
+        this.hit[this.coord.indexOf(hitCoord)] = true;
+
         ship.isSunk();
     },
     isSunk: function () {
@@ -111,8 +112,21 @@ ship.prototype = {
             }
             this.sunk = sunk;
         }
-    }
+    },
+    addToFleet: function (user) {
 
+        if (user) {
+            for (coord in this.coord) {
+                userfleet[coord] = this;
+
+            }
+        } else {
+            for (coord in this.coord) {
+                compFleet[coord] = this;
+
+            }
+        }
+    }
 };
 
 
