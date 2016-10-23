@@ -97,7 +97,7 @@ ship.prototype = {
         ship.isSunk();
     },
     isSunk: function () {
-        var sunk = true;
+        var sunk = true;// check if this ship is sunk
         for (i = 0; i < this.size; i++) {
             if (this.hit[i] === false) {
                 sunk = false;
