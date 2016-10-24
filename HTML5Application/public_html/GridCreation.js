@@ -5,6 +5,7 @@ var squareSize = 50;
 var playerGrid = [];
 var computerGrid = [];
 
+
 // get the container element
 var gameBoardContainer = document.getElementById("gameboard");
 
@@ -31,5 +32,5 @@ for (i = 0; i < cols; i++) {
         square.style.left = leftPosition + 'px';
     }
 }
-
+//Match computergrid to player grid
 computerGrid = playerGrid;

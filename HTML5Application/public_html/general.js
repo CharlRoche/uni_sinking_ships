@@ -14,6 +14,7 @@ var userScore = 0;
 var compScore = 0;
 var userFleet = [];
 var compFleet = [];
+var gameWon = false;
 //ship variables
 
 var CARRIER_LEN = 5;
