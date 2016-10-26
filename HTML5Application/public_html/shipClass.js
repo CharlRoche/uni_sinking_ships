@@ -84,7 +84,7 @@ function ship(size, xyFront, xyBack, user) {
     for (i = 0; i < this.size; i++) {
         this.hit[i] = false;
     }
-    this.addToFleet(user);
+    //this.addToFleet(user);
 }
 
 ship.prototype = {
