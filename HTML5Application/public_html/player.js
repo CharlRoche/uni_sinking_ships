@@ -1,5 +1,4 @@
-/**
- *
+/*
  * Created by Charlotte Roche on 20/10/2016.
  * Only holds details about the player now. can expand if needed for the MVP
  */
