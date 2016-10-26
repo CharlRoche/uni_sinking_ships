@@ -9,7 +9,7 @@
 function makeComputerMove(computerGrid) {
 
     var moveCoord = getRandFromArray(computerGrid);
-    var ship = isInFleet(true, moveCoord)
+    var ship = isInFleet(true, moveCoord);
     if (ship === -1) {
         console.log('No Hit');
     } else {

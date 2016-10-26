@@ -10,11 +10,37 @@
 //MAIN MENU GOES HERE 
 
 //GAME SETUP GOES HERE - (POST HACK)
+//DECIDE WHO GOES FIRST
 
 //SHIP POSITIONING GOES HERE 
-
+defineCompFleetHack();
+//definePlayerFleetHAck();
 //GAMEPLAY GOES HERE 
+do {
+    switch (playerTurn) {
+        case (true):
+            //Make Player move
+            playerTurn = false;
+            // NEED TO REDRAW GRID HERE
+            //need to chekc if game won here
+            break;
+
+        case (false):
+            //makeComp Move
+            makeComputerMove(computerGrid);
+            playerTurn = true;
+            // NEED TO REDRAW GRID HERE
+            //need to chekc if game won here
+    }
+
+} while (gameWon = false);
+
 
 //POST GAME GOES HERE
+
+
+
+
+
 
 
