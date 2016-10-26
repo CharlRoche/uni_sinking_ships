@@ -5,6 +5,8 @@
 
 
 g1 = new Grid(10,10);
+
+//Needs a ship creation for each of the ships styles with the positioning set below. They will all be horizontally positioned at this point
 s1 = new Ship('distroyer', 1);
 s2 = new Ship('Battleship', 1);
 
