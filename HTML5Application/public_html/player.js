@@ -30,6 +30,15 @@ player.prototype = {
             }
         }
         return moveList;
+    },
+    drawGrid: function () { //draw the players grid containing their ships
+       this.grid; //this contains locations of all of the players ships (and if they have been hit)
+       AI.movelist; //This contains everymove the AI is yet to make.
+       
+       
+       //just realised my OO is crappy and have put in get functions, dont think js specifically needs them however
+       
+       
     }
 };
 

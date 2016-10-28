@@ -3,22 +3,25 @@
  */
 
 
+var player = new player('Pete',10,10);
+var AI = new AI(10,10);
+
 
 g1 = new Grid(10,10);
 
 //Needs a ship creation for each of the ships styles with the positioning set below. They will all be horizontally positioned at this point
-s1 = new Ship('distroyer', 1);
+s1 = new Ship('destroyer', 1);
 s2 = new Ship('Battleship', 1);
 
 //first index = x pos, second index = y pos, third index = if the position has been shot
-s1.setLocations([[1,1,0], [1,2,0]]);
+s1.setLocations([[2,2,0], [1,2,0]]);
 s2.setLocations([[3,0,0], [3,1,0], [3,2,0], [3, 3, 0], [3,4,0]]);
 
 g1.addShip(s1);
 g1.addShip(s2);
 
 console.log(g1);
-
+console.dir(g1);
 //to fire at a ship use g1.fireAtLocation
 //g1.getGrid will get grid array, which you can visual aspects from
 
