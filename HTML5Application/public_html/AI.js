@@ -10,8 +10,6 @@ function AI(xSize, ySize) {
     this.difficulty = 'easy';
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-
-
 }
 
 AI.prototype = {
@@ -33,18 +31,18 @@ AI.prototype = {
         AIShip1.setLocations = ([[2, 8, 0], [2, 9, 0], [2, 10, 0], [2, 11, 0], [2, 12, 0]]);
         this.grid.addShip(AIShip1);
 
-/*    THIS all needs to match above code block
-        var shiptype = 'Battleship';
-        var xyFront = ([[11, 3, 0], [12, 3, 0], [13, 3, 0], [14, 3, 0]]);
-
-        var shiptype = 'Cruiser';
-        var xyFront = ([[7, 2, 0], [7, 3, 0], [7, 4, 0]]);
-
-        var shiptype = 'Submarine';
-        var xyFront = ([[13, 9, 0], [13, 10, 0], [13, 11, 0]]);
-
-        var shiptype = 'Destroyer';
-        var xyFront = ([[6, 13, 0], [7, 13, 0]]);
+        /*
+         * THIS all needs to match above code block
+         * var shiptype = 'Battleship';
+         * var xyFront = ([[11, 3, 0], [12, 3, 0], [13, 3, 0], [14, 3, 0]]);
+         * var shiptype = 'Cruiser';
+         * var xyFront = ([[7, 2, 0], [7, 3, 0], [7, 4, 0]]);
+         * 
+         * var shiptype = 'Submarine';
+         * var xyFront = ([[13, 9, 0], [13, 10, 0], [13, 11, 0]]);
+         * 
+         * var shiptype = 'Destroyer';
+         * var xyFront = ([[6, 13, 0], [7, 13, 0]]);
         */
 
     },
@@ -114,10 +112,15 @@ AI.prototype = {
        
        // need to loop through hit_ships array to split it out and put into
        // CSS ID format
-       //for (i=0; i<diff; i++) {
-           // split out arrays to form ai + x + y to feed into below
-           //document.getElementById("ai34").style.background="grey";
-       //}
+       for (i=0; i<xSize; i++) {
+           //split out arrays to form ai + x + y to feed into below
+           for (j=0; j<ySize; j++){
+               var str1 = "ai";
+               var str2 = i.concat(j);
+               var hitCoord = str1.concat(str2);
+               document.getElementById(hitCoord).style.background="grey";
+           }
+       }
        
        // then calculate the difference between shots_taken and hit_shits and colour the 
        // difference as grey which indicates shots taken which didn't hit a ship
