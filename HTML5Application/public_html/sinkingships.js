@@ -44,9 +44,53 @@ player.drawGrid();
 AI.drawGrid();
 playerTurn = true; //player goes first - can give choice for MVP
 };
+
+function aiShipsAlive(){
+    var deadAIShipCount = 5;
+    if (AIShip1.checkIsAlive()){
+        deadAIShipCount--;
+    }
+    if (AIShip2.checkIsAlive()){
+        deadAIShipCount--;
+    }
+    if (AIShip3.checkIsAlive()){
+        deadAIShipCount--;
+    }
+    if (AIShip4.checkIsAlive()){
+        deadAIShipCount--;
+    }
+    if (AIShip5.checkIsAlive()){
+        deadAIShipCount--;
+    }
+    if (deadAIShipCount==5){
+        gameWon="True";
+    }
+}
+
+function playerShipsAlive(){
+    var deadPlayerShipCount = 5;
+    if (PlayerShip1.checkIsAlive()){
+        deadPlayerShipCount--;
+    }
+    if (PlayerShip2.checkIsAlive()){
+        deadPlayerShipCount--;
+    }
+    if (PlayerShip3.checkIsAlive()){
+        deadPlayerShipCount--;
+    }
+    if (PlayerShip4.checkIsAlive()){
+        deadPlayerShipCount--;
+    }
+    if (PlayerShip5.checkIsAlive()){
+        deadPlayerShipCount--;
+    }
+    if (deadPlayerShipCount==5){
+        gameWon="True";
+    }
+}
+
+
 /*
-
-
 g1 = new Grid(10,10);
 console.log(g1.getGrid());
 g2 = new Grid(10,10);
