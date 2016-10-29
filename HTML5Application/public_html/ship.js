@@ -3,7 +3,7 @@
  * Ship class that works better with the other code, but didn't want to change the shipClass with Petes code in it
  */
 
-function Ship(type, orientation) {
+function ship(type, orientation) {
     this.locations = [];
     this.type = type;
     this.isAlive = true;
@@ -27,8 +27,8 @@ function Ship(type, orientation) {
     }
 }
 
-Ship.prototype = {
-    constructor: Ship,
+ship.prototype = {
+    constructor: ship,
     setLocations: function (locs) {
 
         this.locations = locs;
