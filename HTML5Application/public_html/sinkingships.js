@@ -9,7 +9,9 @@
 //GAME SETUP GOES HERE - (POST HACK)
 //DECIDE WHO GOES FIRST
 
-startGame(15,15);
+startGame(10,10);
+
+
 //GAMEPLAY GOES HERE 
 do {
     switch (playerTurn) {

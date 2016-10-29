@@ -30,12 +30,12 @@ AI.prototype = {
     defineCompFleetHack: function () {//not complete
 
         AIShip1 = new ship('Carrier', 1);
-        AIShip1.setLocations([[2, 8, 0], [2, 9, 0], [2, 10, 0], [2, 11, 0], [2, 12, 0]]);
+        AIShip1.setLocations([[2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0]]);
         this.grid.addShip(AIShip1);
 
 
         AIShip2 = new ship('Battleship', 1);
-        AIShip2.setLocations([[11, 3, 0], [12, 3, 0], [13, 3, 0], [14, 3, 0]]);
+        AIShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
         this.grid.addShip(AIShip2);
 
         AIShip3 = new ship('Cruiser', 1);
@@ -43,11 +43,11 @@ AI.prototype = {
         this.grid.addShip(AIShip3);
 
         AIShip4 = new ship('Submarine', 1);
-        AIShip4.setLocations([[13, 9, 0], [13, 10, 0], [13, 11, 0]]);
+        AIShip4.setLocations([[9, 7, 0], [9, 8, 0], [9, 9, 0]]);
         this.grid.addShip(AIShip4);
 
         AIShip5 = new ship('Destroyer', 1);
-        AIShip5.setLocations([[6, 13, 0], [7, 13, 0]]);
+        AIShip5.setLocations([[6, 9, 0], [7, 9, 0]]);
         this.grid.addShip(AIShip5);
 
     },
@@ -91,12 +91,9 @@ AI.prototype = {
                 square.style.left = leftPosition + 'px';
             }
         }
-
-        // need to plot in grey on the AI screen where the player has shot at. 
-        // Shots they have taken is the difference between full array and Player.movelist
-        // TO DO: allShots needs to be a standard set placed elsewhere for MVP for better efficency
-
-        var allShots = []
+      // creates general array of al possible moves
+       // hardcoded to grid size ten, will need to amend for MVP
+       var allShots = [];
         for (i = 0; i < 10; i++) {
             for (j = 0; j < 10; j++) {
                 allShots.push(i + ',' + j);
@@ -105,43 +102,57 @@ AI.prototype = {
 
 
         // shots_taken is the shots they have taken:
-        // it is the difference between allShots and player.movelist
-        var shots_taken = allShots.filter(x > player.moveList.indexOf(x) < 0);
+        // it is the difference between allShots and AI.movelist
+        //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
+        var shotsTakenPlayer = diffArray(allShots, AI.moveList);
+
+
+
 
 
         // for shots_taken, find the intersection with the AI ships.
         // any intersections will indicate the player has hit the AI
         // therefore for intersection set doc element background colour to red
 
-        //var hit_ships = // workout intersection here...
+        var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
 
         // need to loop through hit_ships array to split it out and put into
         // CSS ID format
-        for (i = 0; i < xSize; i++) {
-            for (j = 0; j < ySize; j++) {
-                var str1 = i.concat(j)
-                var str2 = "ai"
-                var hitCoords = str2.concat(str1)
-                document.getElementById(hitCoords).style.background="grey";
+        var numLoops = hitShipsPlayer.length;
+        for(i=0; i<numLoops; i++) {
+            // get item in array
+            var getArray = hitShipsPlayer[i];
+            // get row
+            var row = getArray[0];
+            var col = getArray[1];
+            var str1 = row.concat(col);
+            var str2 = "ai";
+            var hitCoords = str2.concat(str1);
+            document.getElementById(hitCoords).style.background="red";
             }
-        }
-        //
-        //}
-
+                        
         // then calculate the difference between shots_taken and hit_shits and colour the 
         // difference as grey which indicates shots taken which didn't hit a ship
 
-        // var missed_ships = shots_taken.filter(x => hit_ships.indexOf(x) < 0 );
+        var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
 
-        // need to loop through missed_ships array to split it out and put into
-        // CSS ID format
-        //for (i=0; i<diff; i++) {
-        // split out arrays to form ai + x + y to feed into below
-        //document.getElementById("ai34").style.background="grey";
-        //}
+        var numLoops = missedShipsPlayer.length;
+        for(i=0; i<numLoops; i++) {
+            // get item in array
+            var getArray = missedShipsPlayer[i];
+            // get row
+            var row = getArray[0];
+            var col = getArray[1];
+            var str1 = row.concat(col);
+            var str2 = "ai";
+            var hitCoords = str2.concat(str1);
+            document.getElementById(hitCoords).style.background="grey";
+            }
 
-        //just realised my OO is crappy and have put in get functions, dont think js specifically needs them however
 
+
+       
+    
 
     }
 };
