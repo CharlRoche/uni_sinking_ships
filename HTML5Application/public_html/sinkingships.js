@@ -1,10 +1,50 @@
 /**
  * Created by Charlotte Roche on 25/10/2016.
+ * Contribution Log: Name/Date/Description
+ * Peter Henderson/29/10/2016/Added game structure, start game function - updated to add content from original main.js file.
  */
 
+//MAIN MENU GOES HERE 
 
-var player = new player('Pete',10,10);
-var AI = new AI(10,10);
+//GAME SETUP GOES HERE - (POST HACK)
+//DECIDE WHO GOES FIRST
+
+startGame(15,15);
+//GAMEPLAY GOES HERE 
+do {
+    switch (playerTurn) {
+        case (true):
+            player.makePlayerMove();
+            AI.drawGrid();
+            //need to check if game won here
+            playerTurn = false;
+            break;
+
+        case (false):
+            AI.makeComputerMoveEasy();
+            
+            player.drawGrid();
+            //need to check if game won here
+            playerTurn = true;
+            break;
+    }
+
+} while (gameWon === false);
+
+
+//POST GAME GOES HERE
+
+function startGame(xLength, yLength){
+    
+player = new player('Pete',xLength,yLength);
+AI = new AI(xLength,yLength);
+player.definePlayerFleetHack();
+AI.defineCompFleetHack();
+player.drawGrid();
+AI.drawGrid();
+playerTurn = true; //player goes first - can give choice for MVP
+};
+/*
 
 
 g1 = new Grid(10,10);
