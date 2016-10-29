@@ -38,6 +38,18 @@ document.getElementById("p32").style.background="black";
 document.getElementById("p33").style.background="black";
 document.getElementById("p34").style.background="black";
 
+
+// example of what it looks like when user hit AI ship
+document.getElementById("ai14").style.background="red";
+document.getElementById("ai59").style.background="red";
+
+// example of what it looks like when user has taken a go but missed
+document.getElementById("ai15").style.background="grey";
+document.getElementById("ai24").style.background="grey";
+document.getElementById("ai88").style.background="grey";
+document.getElementById("ai57").style.background="grey";
+document.getElementById("ai11").style.background="grey";
+
 console.log(g1);
 console.dir(g1);
 //to fire at a ship use g1.fireAtLocation
