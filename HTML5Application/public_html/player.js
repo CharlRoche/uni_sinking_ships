@@ -31,6 +31,30 @@ player.prototype = {
         }
         return moveList;
     },
+    definePlayerFleetHack: function () {
+
+        PlayerShip1 = new ship('Carrier', 1);
+        PlayerShip1.setLocations([[2, 8, 0], [2, 9, 0], [2, 10, 0], [2, 11, 0], [2, 12, 0]]);
+        this.grid.addShip(PlayerShip1);
+
+
+        PlayerShip2 = new ship('Battleship', 1);
+        PlayerShip2.setLocations([[11, 3, 0], [12, 3, 0], [13, 3, 0], [14, 3, 0]]);
+        this.grid.addShip(PlayerShip2);
+
+        PlayerShip3 = new ship('Cruiser', 1);
+        PlayerShip3.setLocations([[7, 2, 0], [7, 3, 0], [7, 4, 0]]);
+        this.grid.addShip(PlayerShip3);
+
+        PlayerShip4 = new ship('Submarine', 1);
+        PlayerShip4.setLocations([[13, 9, 0], [13, 10, 0], [13, 11, 0]]);
+        this.grid.addShip(PlayerShip4);
+
+        PlayerShip5 = new ship('Destroyer', 1);
+        PlayerShip5.setLocations([[6, 13, 0], [7, 13, 0]]);
+        this.grid.addShip(PlayerShip5);
+
+    },
     drawGrid: function () { //draw the players grid containing their ships
         var squareSize = 50;
         var gameBoardContainer = document.getElementById("gameboard");
