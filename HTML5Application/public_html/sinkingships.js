@@ -91,6 +91,8 @@ function playerShipsAlive(){
     return deadPlayerShipCount;
 }
 
+var aiScore = aiShipsAlive();
+var userScore = playerShipsAlive();
 
 /*
 g1 = new Grid(10,10);
