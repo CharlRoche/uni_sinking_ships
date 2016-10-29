@@ -62,7 +62,7 @@ function aiShipsAlive(){
     if (AIShip5.checkIsAlive()){
         deadAIShipCount--;
     }
-    if (deadAIShipCount==5){
+    if (deadAIShipCount===5){
         gameWon="True";
     }
     return deadAIShipCount;
@@ -85,7 +85,7 @@ function playerShipsAlive(){
     if (PlayerShip5.checkIsAlive()){
         deadPlayerShipCount--;
     }
-    if (deadPlayerShipCount==5){
+    if (deadPlayerShipCount===5){
         gameWon="True";
     }
     return deadPlayerShipCount;
