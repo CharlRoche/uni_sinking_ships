@@ -10,8 +10,8 @@
  * 
  */
 
-var userScore = 0;
-var compScore = 0;
+var userScore = playerShipsAlive();
+var compScore = aiShipsAlive();
 var userFleet = [];
 var compFleet = [];
 var gameWon = false;
