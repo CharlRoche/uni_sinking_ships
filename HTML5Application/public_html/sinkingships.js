@@ -8,9 +8,10 @@ var AI = new AI(10,10);
 
 
 g1 = new Grid(10,10);
-
+console.log(g1.getGrid());
+g2 = new Grid(10,10);
 player.drawGrid();
-
+AI.drawGrid();
 
 //Needs a ship creation for each of the ships styles with the positioning set below. They will all be horizontally positioned at this point
 s1 = new Ship('destroyer', 1);
@@ -27,15 +28,15 @@ g1.addShip(s2);
 // These will need adding into the addShip function later
 // also have functionality to add ship on click
 //place s1 on grid
-document.getElementById(88).style.background="black";
-document.getElementById(78).style.background="black";
+document.getElementById("p88").style.background="black";
+document.getElementById("p78").style.background="black";
 
 //place s2 on grid
-document.getElementById(30).style.background="black";
-document.getElementById(31).style.background="black";
-document.getElementById(32).style.background="black";
-document.getElementById(33).style.background="black";
-document.getElementById(34).style.background="black";
+document.getElementById("p30").style.background="black";
+document.getElementById("p31").style.background="black";
+document.getElementById("p32").style.background="black";
+document.getElementById("p33").style.background="black";
+document.getElementById("p34").style.background="black";
 
 console.log(g1);
 console.dir(g1);
@@ -53,7 +54,7 @@ console.dir(g1);
 //example of code working, uncomment if needed
 
 /*
-g1.fireAtLocation(1,1);
+    g1.fireAtLocation(1,1);
 s1.checkIsAlive();
 g1.fireAtLocation(1,2);
 s1.checkIsAlive();

@@ -43,8 +43,9 @@ player.prototype = {
 		gameBoardContainer.appendChild(square);
 
                 // give each div element a unique id based on its row and column, like "s00"
-		square.id = Number(String(i) + String(j)) ;	
-
+		//square.id = Number(String(i) + String(j)) ;	
+                // The p signifys that it is the id for the players board
+                square.id = "p" + String(i) + String(j) ;	
             
 		// set each grid square's coordinates: multiples of the current row or column number
 		var topPosition = j * squareSize;
