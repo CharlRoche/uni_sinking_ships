@@ -36,6 +36,12 @@ function removeItemFromArray(array, value) {
     }
 }
 
+
+
+
+
+//DEPRECATED
+
 function isInFleet(user, target) {
 
     var ship;
@@ -68,5 +74,3 @@ function isInFleet(user, target) {
     }
     return ship;
 }
-
-
