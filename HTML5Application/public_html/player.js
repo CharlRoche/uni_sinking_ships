@@ -39,12 +39,12 @@ player.prototype = {
     definePlayerFleetHack: function () {
 
         PlayerShip1 = new ship('Carrier', 1);
-        PlayerShip1.setLocations([[2, 8, 0], [2, 9, 0], [2, 10, 0], [2, 11, 0], [2, 12, 0]]);
+        PlayerShip1.setLocations([[2, 5, 0], [2, 4, 0], [2, 3, 0], [2, 2, 0], [2, 1, 0]]);
         this.grid.addShip(PlayerShip1);
 
 
         PlayerShip2 = new ship('Battleship', 1);
-        PlayerShip2.setLocations([[11, 3, 0], [12, 3, 0], [13, 3, 0], [14, 3, 0]]);
+        PlayerShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
         this.grid.addShip(PlayerShip2);
 
         PlayerShip3 = new ship('Cruiser', 1);
@@ -52,11 +52,11 @@ player.prototype = {
         this.grid.addShip(PlayerShip3);
 
         PlayerShip4 = new ship('Submarine', 1);
-        PlayerShip4.setLocations([[13, 9, 0], [13, 10, 0], [13, 11, 0]]);
+        PlayerShip4.setLocations([[9, 7, 0], [9, 8, 0], [9, 9, 0]]);
         this.grid.addShip(PlayerShip4);
 
         PlayerShip5 = new ship('Destroyer', 1);
-        PlayerShip5.setLocations([[6, 13, 0], [7, 13, 0]]);
+        PlayerShip5.setLocations([[6, 6, 0], [7, 6, 0]]);
         this.grid.addShip(PlayerShip5);
 
     },
@@ -74,28 +74,79 @@ player.prototype = {
                 // give each div element a unique id based on its row and column, like "s00"
                 //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
-                square.id = "p" + String(i) + String(j);
+                square.id = "p" + String(i) + String(j) ;	
+            
+		// set each grid square's coordinates: multiples of the current row or column number
+		var topPosition = j * squareSize;
+		var leftPosition = i * squareSize;			
+		
+		// use CSS absolute positioning to place each grid square on the page
+		square.style.top = topPosition + 'px';
+		square.style.left = leftPosition + 'px';						
+	}
+    }   
 
-                // set each grid square's coordinates: multiples of the current row or column number
-                var topPosition = j * squareSize;
-                var leftPosition = i * squareSize;
-
-                // use CSS absolute positioning to place each grid square on the page
-                square.style.top = topPosition + 'px';
-                square.style.left = leftPosition + 'px';
+      // creates general array of al possible moves
+       // hardcoded to grid size ten, will need to amend for MVP
+       var allShots = [];
+        for (i = 0; i < 10; i++) {
+            for (j = 0; j < 10; j++) {
+                allShots.push(i + ',' + j);
             }
         }
 
-        //this.grid; //this contains locations of all of the players ships (and if they have been hit)
-        //AI.movelist; //This contains everymove the AI is yet to make.
 
-        // Abby to do:
-        // loop through AI.movelist and for i and j change colour
-        // once this has been done similar code can be used at MVP for adding ship
-
-        //just realised my OO is crappy and have put in get functions, dont think js specifically needs them however
+        // shots_taken is the shots they have taken:
+        // it is the difference between allShots and AI.movelist
+        //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
+        var shotsTakenAI = diffArray(allShots, player.moveList);
 
 
+
+
+
+        // for shots_taken, find the intersection with the AI ships.
+        // any intersections will indicate the player has hit the AI
+        // therefore for intersection set doc element background colour to red
+
+        var hitShipsAI = intersection(shotsTakenAI, allShots);
+
+        // need to loop through hit_ships array to split it out and put into
+        // CSS ID format
+        var numLoops = hitShipsAI.length;
+        for(i=0; i<numLoops; i++) {
+            // get item in array
+            var getArray = hitShipsAI[i];
+            // get row
+            var row = getArray[0];
+            var col = getArray[1];
+            var str2 = "p";
+            var str3 = ",";
+            var hitCoords = str2+row+str3+col;
+            document.getElementById(hitCoords).style.background="red";
+            }
+                        
+        // then calculate the difference between shots_taken and hit_shits and colour the 
+        // difference as grey which indicates shots taken which didn't hit a ship
+
+        var missedShipsAI = shotsTakenAI.filter(x => hitShipsAI.indexOf(x) < 0 );
+
+        var numLoops = missedShipsAI.length;
+        for(i=0; i<numLoops; i++) {
+            // get item in array
+            var getArray = missedShipsAI[i];
+            // get row
+            var row = getArray[0];
+            var col = getArray[1];
+            var str2 = "p";
+            var str3 = ",";
+            var hitCoords = str2+row+str3+col;
+            document.getElementById(hitCoords).style.background="grey";
+            }
+
+
+
+       
     }
 };
 
