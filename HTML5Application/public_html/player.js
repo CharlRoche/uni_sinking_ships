@@ -9,8 +9,8 @@ function player(name, xSize, ySize) {
     this.name = name;
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-
-
+    this.hitPlayer = [];
+    this.missedPlayer = [];
 
 }
 
@@ -27,7 +27,7 @@ player.prototype = {
         var x = coord[0];
         var y = coord[1];
         AI.grid.fireAtLocation(x, y);
-        this.moveList = removeItemFromArray(this.moveList, moveCoord);
+        removeItemFromArray(this.moveList, moveCoord);
         player.drawGrid();
 
     },
@@ -89,6 +89,17 @@ player.prototype = {
     }  
         player.drawGrid();
     },
+    hitShipDraw: function(x,y) {
+        var eleID = "ai"+x+","+y;
+        this.hitPlayer.push(eleID);
+        document.getElementById(eleID).style.background="red";
+    },
+    
+    missedShipDraw: function (x,y) {
+        var eleID = "ai"+x+","+y;
+        this.missedPlayer.push(eleID);
+        document.getElementById(eleID).style.background="grey";
+    },
     drawGrid: function () { //draw the players grid containing their ships
   
 
@@ -121,7 +132,7 @@ player.prototype = {
         document.getElementById("p1,8").style.background="green";
         document.getElementById("p2,8").style.background="green";
 
-     /*   
+      /*  
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -136,7 +147,6 @@ player.prototype = {
         var seen = [];
         var shotsTakenAI = [];
         var length1 = (player.moveList).length;
-        console.log(length1);
         for ( var i = 0; i < (player.moveList).length; i++)
             seen[player.moveList[i]] = true;
         for ( var i = 0; i < allShots.length; i++)
@@ -146,7 +156,7 @@ player.prototype = {
 
         //var shotsTakenAI = diffArray((allShots), (player.moveList));
 
-
+        // difference between all shots and hit ships
 
 
 
@@ -166,16 +176,17 @@ player.prototype = {
         // need to loop through hit_ships array to split it out and put into
         // CSS ID format
         var numLoops = hitShipsAI.length;
+        console.log(numLoops);
         for(i=0; i<numLoops; i++) {
             // get item in array
             var getArray = hitShipsAI[i];
+            console.log(getArray);
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "p";
+            var col = getArray[2];
+            var str2 = "ai";
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="red";
             }
                         
@@ -191,17 +202,16 @@ player.prototype = {
             var getArray = missedShipsAI[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "p";
+            var col = getArray[2];
+            var str2 = "ai";
             var str3 = ",";
-            var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
-            document.getElementById(hitCoords).style.background="grey";
+            var missedCoords = str2+row+str3+col;
+            document.getElementById(missedCoords).style.background="grey";
             }
 
 
 
        
-   */ }
+  */  }
 };
 

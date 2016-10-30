@@ -10,6 +10,8 @@ function AI(xSize, ySize) {
     this.difficulty = 'easy';
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
+    this.hitAI = [];
+    this.missedAI = [];
 
 
 }
@@ -21,9 +23,10 @@ AI.prototype = {
         var coord = move.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
-        player.grid.fireAtLocation(x,y)
-        this.moveList = removeItemFromArray(this.moveList, move);
-
+        player.grid.fireAtLocation(x,y);
+        
+        removeItemFromArray(this.moveList, move);
+       
     },
     makeComputerMoveMed: function () {
     },
@@ -96,10 +99,21 @@ AI.prototype = {
         }
 
     },
+    hitShipDraw: function(x,y) {
+        var eleID = "p"+x+","+y;
+        this.hitAI.push(eleID);
+        document.getElementById(eleID).style.background="red";
+    },
+    
+    missedShipDraw: function (x,y) {
+        var eleID = "p"+x+","+y;
+        this.missedAI.push(eleID);
+        document.getElementById(eleID).style.background="grey";
+    },
     drawGrid: function () { //draw the AI's grid containing their ships (hidden)
         
 
-
+    /*
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -114,7 +128,7 @@ AI.prototype = {
         // it is the difference between allShots and AI.movelist
         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
         //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-     /*   
+        
         var seen = [];
         var shotsTakePlayer = [];
         for ( var i = 0; i < AI.moveList.length; i++)
@@ -143,12 +157,11 @@ AI.prototype = {
             var getArray = hitShipsPlayer[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "ai";
+            var col = getArray[2];
+            var str2 = "p";
             var str3 = ",";
-            var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
-            document.getElementById(hitCoords).style.background="red";
+            var hitCoords1 = str2+row+str3+col;
+            document.getElementById(hitCoords1).style.background="red";
             }
                         
         // then calculate the difference between shots_taken and hit_shits and colour the 
@@ -165,18 +178,17 @@ AI.prototype = {
             var getArray = missedShipsPlayer[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "ai";
+            var col = getArray[2];
+            var str2 = "p";
             var str3 = ",";
-            console.log("hitcoords" + hitCoords);
-            var hitCoords = str2+row+str3+col;
-            document.getElementById(hitCoords).style.background="grey";
+            var missedCoords1 = str2+row+str3+col;
+            document.getElementById(missedCoords1).style.background="grey";
             }
 
 
-*/
+
        
     
 
-    }
+    */}
 };

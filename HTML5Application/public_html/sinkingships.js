@@ -21,7 +21,6 @@ function startPlayerMove(target) {
 
     player.makePlayerMove(target);
     AI.drawGrid();
-    console.log("here");
     var userScore = playerShipsAlive();
 
     if (gameWon === true) {
