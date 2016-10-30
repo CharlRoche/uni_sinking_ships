@@ -36,21 +36,7 @@ function removeItemFromArray(array, value) {
     }
 }
 
-function diffArray(a, b) {
-  var seen = [], diff = [];
-  for ( var i = 0; i < b.length; i++)
-      seen[b[i]] = true;
-  for ( var i = 0; i < a.length; i++)
-      if (!seen[a[i]])
-          diff.push(a[i]);
-  return diff;
-}
 
-function intersection ( A , B ) 
-{
-    var m = A.reduce(function(m, v) { m[v] = 1; return m; }, {});
-    return B.filter(function(v) { return m[v]; });
-}
 
 
 

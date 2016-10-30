@@ -110,8 +110,15 @@ AI.prototype = {
         // shots_taken is the shots they have taken:
         // it is the difference between allShots and AI.movelist
         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
-        var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-
+        //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
+        
+        var seen = [];
+        var shotsTakePlayer = [];
+        for ( var i = 0; i < (AI.moveList).length; i++)
+            seen[AI.moveList[i]] = true;
+        for ( var i = 0; i < (allShots).length; i++)
+            if (!seen[allShots[i]])
+                shotsTakenPlayer.push(allShots[i]);
 
 
 
@@ -120,7 +127,10 @@ AI.prototype = {
         // any intersections will indicate the player has hit the AI
         // therefore for intersection set doc element background colour to red
 
-        var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
+        //var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
+
+        var m1 = (shotsTakenPlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
+        var hitShipsPlayer = (allShots).filter(function(v) { return m1[v]; });
 
         // need to loop through hit_ships array to split it out and put into
         // CSS ID format
@@ -140,7 +150,10 @@ AI.prototype = {
         // then calculate the difference between shots_taken and hit_shits and colour the 
         // difference as grey which indicates shots taken which didn't hit a ship
 
-        var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
+        //var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
+        var m2 = (shotsTakenPlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
+        var missedShipsPlayer = (hitShipsPlayer).filter(function(v) { return m1[v]; });
+
 
         var numLoops = missedShipsPlayer.length;
         for(i=0; i<numLoops; i++) {
