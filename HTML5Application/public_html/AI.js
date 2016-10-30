@@ -117,9 +117,15 @@ AI.prototype = {
 
         // need to loop through hit_ships array to split it out and put into
         // CSS ID format
-        //for (i=0; i<diff; i++) {
-        // split out arrays to form ai + x + y to feed into below
-        //document.getElementById("ai34").style.background="grey";
+        for (i = 0; i < xSize; i++) {
+            for (j = 0; j < ySize; j++) {
+                var str1 = i.concat(j)
+                var str2 = "ai"
+                var hitCoords = str2.concat(str1)
+                document.getElementById(hitCoords).style.background="grey";
+            }
+        }
+        //
         //}
 
         // then calculate the difference between shots_taken and hit_shits and colour the 
