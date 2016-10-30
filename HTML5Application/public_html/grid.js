@@ -50,7 +50,6 @@ Grid.prototype = {
 			currentShip.shootShip(x,y);
                         if (playerTurn === true) {
                             player.hitShipDraw(x,y);
-                            window.alert('this was a player');
                         }if (playerTurn === false) {
                             AI.hitShipDraw(x,y);
                         }
@@ -62,7 +61,6 @@ Grid.prototype = {
                         //window.alert('You missed!');
                         if (playerTurn === true) {
                             player.missedShipDraw(x,y);
-                            window.alert('this was a player');
                         }if (playerTurn === false) {
                             AI.missedShipDraw();
                         }
