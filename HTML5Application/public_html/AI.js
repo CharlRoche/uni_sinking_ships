@@ -18,9 +18,9 @@ AI.prototype = {
     constructor: AI,
     makeComputerMoveEasy: function () {
         var move = getRandMove();
-        var moveCoord = move.split(',').map(Number);
-        player.grid.fireAtLocation(moveCoord)
-        this.moveList = removeItemFromArray(this.moveList, moveCoord);
+        var Coord = move.split(',').map(Number);
+        player.grid.fireAtLocation(Coord)
+        this.moveList = removeItemFromArray(this.moveList, move);
 
     },
     makeComputerMoveMed: function () {
