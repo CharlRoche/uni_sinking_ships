@@ -165,17 +165,17 @@ player.prototype = {
         // need to loop through hit_ships array to split it out and put into
         // CSS ID format
         var numLoops = hitShipsAI.length;
+        console.log(numLoops);
         for(i=0; i<numLoops; i++) {
             // get item in array
             var getArray = hitShipsAI[i];
+            console.log(getArray);
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "p";
+            var col = getArray[2];
+            var str2 = "ai";
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
-           //window.alert("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="red";
             }
                         
@@ -191,12 +191,11 @@ player.prototype = {
             var getArray = missedShipsAI[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "p";
+            var col = getArray[2];
+            var str2 = "ai";
             var str3 = ",";
-            var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
-            document.getElementById(hitCoords).style.background="grey";
+            var missedCoords = str2+row+str3+col;
+            document.getElementById(missedCoords).style.background="grey";
             }
 
 

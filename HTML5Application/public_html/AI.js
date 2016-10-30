@@ -144,12 +144,11 @@ AI.prototype = {
             var getArray = hitShipsPlayer[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "ai";
+            var col = getArray[2];
+            var str2 = "p";
             var str3 = ",";
-            var hitCoords = str2+row+str3+col;
-            console.log("hitcoords" + hitCoords);
-            document.getElementById(hitCoords).style.background="red";
+            var hitCoords1 = str2+row+str3+col;
+            document.getElementById(hitCoords1).style.background="red";
             }
                         
         // then calculate the difference between shots_taken and hit_shits and colour the 
@@ -166,12 +165,11 @@ AI.prototype = {
             var getArray = missedShipsPlayer[i];
             // get row
             var row = getArray[0];
-            var col = getArray[1];
-            var str2 = "ai";
+            var col = getArray[2];
+            var str2 = "p";
             var str3 = ",";
-            console.log("hitcoords" + hitCoords);
-            var hitCoords = str2+row+str3+col;
-            document.getElementById(hitCoords).style.background="grey";
+            var missedCoords1 = str2+row+str3+col;
+            document.getElementById(missedCoords1).style.background="grey";
             }
 
 
