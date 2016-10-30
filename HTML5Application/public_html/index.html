@@ -10,7 +10,7 @@
         text-align: center;
         margin: 60px auto;
         width: 70%;
-        max-width: 950px;
+        max-width: 1150px;
         }
 
 
@@ -31,6 +31,7 @@ p, button, input {
 	margin:0 auto 2em auto;
 	width:500px;
 	height:500px;
+        float:left;
 }
 
 #gameboard div {
@@ -56,6 +57,7 @@ p, button, input {
 	margin:0 auto 2em auto;
 	width:500px;
 	height:500px;
+        float:right;
 }
 
 #aigameboard div {
@@ -88,13 +90,13 @@ p, button, input {
         </form>
         
         
-        <p> Your Score:<script>document.write(playerShipsAlive());</script></p>
-        <p> Computer's Score:<script>document.write(aiShipsAlive());</script></p>
+        <p id="pscore"> Your Score:</p>
+        <p id="cscore"> Computer's Score:</p>
         
         
-            <div id="gameboard"></div>
+        <div id="gameboard"></div>
 
-            <div id="aigameboard"></div>
+        <div id="aigameboard"></div>
 
 
         <script src="jquery-1.6.1.js"></script>
