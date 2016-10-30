@@ -21,11 +21,10 @@ player.prototype = {
     },
     makePlayerMove: function (){
 
-        
-       
-        
-        var moveCoord;//Turn into coord array here
-        AI.grid.fireAtLocation(moveCoord);
+        var moveCoord = move.substring(2);
+        Coord = moveCoord.split(',').map(Number);
+        AI.grid.fireAtLocation(Coord);
+
         this.moveList = removeItemFromArray(this.moveList, moveCoord);
         
 
