@@ -21,6 +21,12 @@ player.prototype = {
     },
     makePlayerMove: function (){
         
+       
+        
+        var moveCoord;//Turn into coord array here
+        AI.grid.fireAtLocation(moveCoord);
+        this.moveList = removeItemFromArray(this.moveList, moveCoord);
+        
     },
     buildMoveList: function (xSize, ySize) {
         var moveList = [];
