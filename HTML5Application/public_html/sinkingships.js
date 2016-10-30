@@ -29,6 +29,7 @@ function startPlayerMove(target) {
     {
         makeAIMove();
     }
+    document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive()
 }
 
 
@@ -44,6 +45,8 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
+    
+    document.getElementById("cscore").innerHTML = "Computer's Score: " + aiShipsAlive()
 };
 
 
