@@ -45,10 +45,12 @@ Grid.prototype = {
 	fireAtLocation: function (x,y) {
 		if (typeof this.getGrid()[x][y] != 'undefined')	{
 			currentShip = this.getGrid()[x][y];
-			console.log('Ship hit at ' + x + ' ' + y);
+			//console.log('Ship hit at [' + x + '], [' + y+']');
+                        window.alert('You hit a ship at [' + x + ', ' + y+']');
 			currentShip.shootShip(x,y);
 		}else{
-			console.log('No ship found');
+			//console.log('No ship found');
+                        window.alert('You missed!')
 		}
 	}
 };

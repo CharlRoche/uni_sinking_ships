@@ -114,7 +114,7 @@ AI.prototype = {
         // it is the difference between allShots and AI.movelist
         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
         //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-     /*   
+        
         var seen = [];
         var shotsTakePlayer = [];
         for ( var i = 0; i < AI.moveList.length; i++)
@@ -174,7 +174,7 @@ AI.prototype = {
             }
 
 
-*/
+
        
     
 

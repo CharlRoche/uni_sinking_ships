@@ -121,7 +121,7 @@ player.prototype = {
         document.getElementById("p1,8").style.background="green";
         document.getElementById("p2,8").style.background="green";
 
-     /*   
+        
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -136,7 +136,6 @@ player.prototype = {
         var seen = [];
         var shotsTakenAI = [];
         var length1 = (player.moveList).length;
-        console.log(length1);
         for ( var i = 0; i < (player.moveList).length; i++)
             seen[player.moveList[i]] = true;
         for ( var i = 0; i < allShots.length; i++)
@@ -176,6 +175,7 @@ player.prototype = {
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
             console.log("hitcoords" + hitCoords);
+           //window.alert("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="red";
             }
                         
@@ -202,6 +202,6 @@ player.prototype = {
 
 
        
-   */ }
+    }
 };
 
