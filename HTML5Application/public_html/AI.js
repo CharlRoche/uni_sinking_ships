@@ -40,11 +40,11 @@ AI.prototype = {
 
 
         AIShip2 = new ship('Battleship', 1);
-        AIShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
+        AIShip2.setLocations([[6, 5, 0], [7, 5, 0], [8, 5, 0], [9, 5, 0]]);
         this.grid.addShip(AIShip2);
 
         AIShip3 = new ship('Cruiser', 1);
-        AIShip3.setLocations([[7, 2, 0], [7, 3, 0], [7, 4, 0]]);
+        AIShip3.setLocations([[4, 2, 0], [4, 3, 0], [4, 4, 0]]);
         this.grid.addShip(AIShip3);
 
         AIShip4 = new ship('Submarine', 1);
