@@ -26,7 +26,7 @@ player.prototype = {
         var coord = moveCoord.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
-        AI.grid.fireAtLocation(x, y);
+        AI.grid.fireAtLocation(x, y, true);
         removeItemFromArray(this.moveList, moveCoord);
         player.drawGrid();
 

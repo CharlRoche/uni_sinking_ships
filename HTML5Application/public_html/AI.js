@@ -23,7 +23,7 @@ AI.prototype = {
         var coord = move.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
-        player.grid.fireAtLocation(x,y);
+        player.grid.fireAtLocation(x,y, false);
         
         removeItemFromArray(this.moveList, move);
        

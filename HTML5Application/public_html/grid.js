@@ -42,27 +42,29 @@ Grid.prototype = {
 			this.grd[currentloc[0]][currentloc[1]] = ship;
 		}
 	},
-	fireAtLocation: function (x,y) {
+	fireAtLocation: function (x,y, playerTurn) {
 		if (typeof this.getGrid()[x][y] != 'undefined')	{
 			currentShip = this.getGrid()[x][y];
-			//console.log('Ship hit at [' + x + '], [' + y+']');
-                        window.alert('You hit a ship at [' + x + ', ' + y+']');
+			console.log('Ship hit at [' + x + '], [' + y+']');
+                        //window.alert('You hit a ship at [' + x + ', ' + y+']');
 			currentShip.shootShip(x,y);
                         if (playerTurn === true) {
                             player.hitShipDraw(x,y);
-                        }else {
+                            window.alert('this was a player');
+                        }if (playerTurn === false) {
                             AI.hitShipDraw(x,y);
                         }
                                 
 
 
 		}else{
-			//console.log('No ship found');
-                        window.alert('You missed!');
+			console.log('No ship found');
+                        //window.alert('You missed!');
                         if (playerTurn === true) {
                             player.missedShipDraw(x,y);
-                        }else {
-                            AI.hitShipDraw();
+                            window.alert('this was a player');
+                        }if (playerTurn === false) {
+                            AI.missedShipDraw();
                         }
 
 
