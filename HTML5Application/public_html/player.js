@@ -19,14 +19,21 @@ player.prototype = {
     getName: function () {
         return this.name;
     },
+<<<<<<< HEAD
     makePlayerMove: function (move){
 
         var moveCoord = move.substring(2);
         Coord = moveCoord.split(',').map(Number);
         AI.grid.fireAtLocation(Coord);
 
+=======
+    makePlayerMove: function (move) {
+
+        var moveCoord = move.substring(2);
+        Coord = moveCoord.split(',').map(Number);
+        AI.grid.fireAtLocation(Coord);
+>>>>>>> Peteh
         this.moveList = removeItemFromArray(this.moveList, moveCoord);
-        
 
     },
     buildMoveList: function (xSize, ySize) {
@@ -68,13 +75,13 @@ player.prototype = {
         // this has been hard coded for the hack, taken form gridCreation
         for (i = 0; i < 10; i++) {
             for (j = 0; j < 10; j++) {
-		
-		// create a new div HTML element for each grid square and make it the right size
-		var square = document.createElement("div");
-		gameBoardContainer.appendChild(square);
+
+                // create a new div HTML element for each grid square and make it the right size
+                var square = document.createElement("div");
+                gameBoardContainer.appendChild(square);
 
                 // give each div element a unique id based on its row and column, like "s00"
-		//square.id = Number(String(i) + String(j)) ;	
+                //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
                 square.id = "p" + String(i) + String(j) ;	
             
