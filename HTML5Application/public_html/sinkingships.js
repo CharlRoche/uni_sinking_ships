@@ -90,7 +90,7 @@ function aiShipsAlive() {
         deadAIShipCount--;
     }
     if (deadAIShipCount === 5) {
-        gameWon = "True";
+        endGame();
     }
     return deadAIShipCount;
 }
@@ -113,7 +113,7 @@ function playerShipsAlive() {
         deadPlayerShipCount--;
     }
     if (deadPlayerShipCount === 5) {
-        gameWon = "True";
+        endGame();
     }
     return deadPlayerShipCount;
 }
