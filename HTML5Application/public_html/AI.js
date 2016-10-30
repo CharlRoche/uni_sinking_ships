@@ -17,9 +17,11 @@ function AI(xSize, ySize) {
 AI.prototype = {
     constructor: AI,
     makeComputerMoveEasy: function () {
-        var move = getRandMove();
-        var Coord = move.split(',').map(Number);
-        player.grid.fireAtLocation(Coord)
+        var move = AI.getRandMove();
+        var coord = move.split(',').map(Number);
+        var x = coord[0];
+        var y = coord[1];
+        player.grid.fireAtLocation(x,y)
         this.moveList = removeItemFromArray(this.moveList, move);
 
     },
@@ -81,7 +83,6 @@ AI.prototype = {
                 //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
                 square.id = "ai" + String(i) + "," + String(j);
-
                 square.onclick = function() {startPlayerMove(this.id);};
 
                 // set each grid square's coordinates: multiples of the current row or column number
