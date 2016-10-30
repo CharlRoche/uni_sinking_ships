@@ -28,6 +28,7 @@ player.prototype = {
         var y = coord[1];
         AI.grid.fireAtLocation(x, y);
         this.moveList = removeItemFromArray(this.moveList, moveCoord);
+        player.drawGrid();
 
     },
     buildMoveList: function (xSize, ySize) {
@@ -62,7 +63,7 @@ player.prototype = {
         this.grid.addShip(PlayerShip5);
 
     },
-    drawGrid: function () { //draw the players grid containing their ships
+    drawInitialGrid: function () {
         var squareSize = 50;
         var gameBoardContainer = document.getElementById("gameboard");
         // this has been hard coded for the hack, taken form gridCreation
@@ -85,7 +86,11 @@ player.prototype = {
 		square.style.top = topPosition + 'px';
 		square.style.left = leftPosition + 'px';						
 	}
-    }   
+    }  
+        player.drawGrid();
+    },
+    drawGrid: function () { //draw the players grid containing their ships
+  
 
 
         //place on board Carrier
@@ -115,7 +120,8 @@ player.prototype = {
         //Destroyer
         document.getElementById("p1,8").style.background="green";
         document.getElementById("p2,8").style.background="green";
-        
+
+     /*   
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -129,9 +135,11 @@ player.prototype = {
         // it is the difference between allShots and AI.movelist
         var seen = [];
         var shotsTakenAI = [];
+        var length1 = (player.moveList).length;
+        console.log(length1);
         for ( var i = 0; i < (player.moveList).length; i++)
             seen[player.moveList[i]] = true;
-        for ( var i = 0; i < (allShots).length; i++)
+        for ( var i = 0; i < allShots.length; i++)
             if (!seen[allShots[i]])
                 shotsTakenAI.push(allShots[i]);
 
@@ -167,6 +175,7 @@ player.prototype = {
             var str2 = "p";
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
+            console.log("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="red";
             }
                         
@@ -186,12 +195,13 @@ player.prototype = {
             var str2 = "p";
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
+            console.log("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="grey";
             }
 
 
 
        
-    }
+   */ }
 };
 

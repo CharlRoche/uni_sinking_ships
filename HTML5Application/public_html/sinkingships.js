@@ -21,7 +21,7 @@ function startPlayerMove(target) {
 
     player.makePlayerMove(target);
     AI.drawGrid();
-    playerShipsAlive();
+    console.log("here");
     var userScore = playerShipsAlive();
 
     if (gameWon === true) {
@@ -45,8 +45,7 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
-}
-;
+};
 
 
 function startGame(xLength, yLength) {//configures and starts the game
@@ -55,8 +54,8 @@ function startGame(xLength, yLength) {//configures and starts the game
     AI = new AI(xLength, yLength);
     player.definePlayerFleetHack();
     AI.defineCompFleetHack();
-    player.drawGrid();
-    AI.drawGrid();
+    player.drawInitialGrid();
+    AI.drawInitialGrid();
     playerTurn = true; //player goes first - can give choice for MVP
 
     if (playerTurn === false) {

@@ -67,7 +67,7 @@ AI.prototype = {
         }
         return moveList;
     },
-    drawGrid: function () { //draw the AI's grid containing their ships (hidden)
+    drawInitialGrid: function() {
         var squareSize = 50;
         var gameBoardContainer = document.getElementById("aigameboard");
         // this has been hard coded for the hack, taken form gridCreation
@@ -94,6 +94,9 @@ AI.prototype = {
                 square.style.left = leftPosition + 'px';
             }
         }
+
+    },
+    drawGrid: function () { //draw the AI's grid containing their ships (hidden)
         
 
 
@@ -111,14 +114,14 @@ AI.prototype = {
         // it is the difference between allShots and AI.movelist
         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
         //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-        
+     /*   
         var seen = [];
         var shotsTakePlayer = [];
-        for ( var i = 0; i < (AI.moveList).length; i++)
+        for ( var i = 0; i < AI.moveList.length; i++)
             seen[AI.moveList[i]] = true;
-        for ( var i = 0; i < (allShots).length; i++)
+        for ( var i = 0; i < allShots.length; i++)
             if (!seen[allShots[i]])
-                shotsTakenPlayer.push(allShots[i]);
+                shotsTakePlayer.push(allShots[i]);
 
 
 
@@ -129,7 +132,7 @@ AI.prototype = {
 
         //var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
 
-        var m1 = (shotsTakenPlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
+        var m1 = (shotsTakePlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
         var hitShipsPlayer = (allShots).filter(function(v) { return m1[v]; });
 
         // need to loop through hit_ships array to split it out and put into
@@ -144,6 +147,7 @@ AI.prototype = {
             var str2 = "ai";
             var str3 = ",";
             var hitCoords = str2+row+str3+col;
+            console.log("hitcoords" + hitCoords);
             document.getElementById(hitCoords).style.background="red";
             }
                         
@@ -151,7 +155,7 @@ AI.prototype = {
         // difference as grey which indicates shots taken which didn't hit a ship
 
         //var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
-        var m2 = (shotsTakenPlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
+        var m2 = (shotsTakePlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
         var missedShipsPlayer = (hitShipsPlayer).filter(function(v) { return m1[v]; });
 
 
@@ -164,12 +168,13 @@ AI.prototype = {
             var col = getArray[1];
             var str2 = "ai";
             var str3 = ",";
+            console.log("hitcoords" + hitCoords);
             var hitCoords = str2+row+str3+col;
             document.getElementById(hitCoords).style.background="grey";
             }
 
 
-
+*/
        
     
 
