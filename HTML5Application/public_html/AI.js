@@ -10,6 +10,8 @@ function AI(xSize, ySize) {
     this.difficulty = 'easy';
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
+    this.hitAI = [];
+    this.missedAI = [];
 
 
 }
@@ -97,10 +99,21 @@ AI.prototype = {
         }
 
     },
+    hitShipDraw: function(x,y) {
+        var eleID = "p"+x+","+y;
+        this.hitAI.push(eleID);
+        document.getElementById(eleID).style.background="red";
+    },
+    
+    missedShipDraw: function (x,y) {
+        var eleID = "p"+x+","+y;
+        this.missedAI.push(eleID);
+        document.getElementById(eleID).style.background="grey";
+    },
     drawGrid: function () { //draw the AI's grid containing their ships (hidden)
         
 
-
+    /*
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -177,5 +190,5 @@ AI.prototype = {
        
     
 
-    }
+    */}
 };

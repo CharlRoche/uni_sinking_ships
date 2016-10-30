@@ -48,9 +48,24 @@ Grid.prototype = {
 			//console.log('Ship hit at [' + x + '], [' + y+']');
                         window.alert('You hit a ship at [' + x + ', ' + y+']');
 			currentShip.shootShip(x,y);
+                        if (playerTurn === true) {
+                            player.hitShipDraw(x,y);
+                        }else {
+                            AI.hitShipDraw(x,y);
+                        }
+                                
+
+
 		}else{
 			//console.log('No ship found');
-                        window.alert('You missed!')
+                        window.alert('You missed!');
+                        if (playerTurn === true) {
+                            player.missedShipDraw(x,y);
+                        }else {
+                            AI.hitShipDraw();
+                        }
+
+
 		}
 	}
 };

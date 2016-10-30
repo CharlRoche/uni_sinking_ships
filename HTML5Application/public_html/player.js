@@ -9,8 +9,8 @@ function player(name, xSize, ySize) {
     this.name = name;
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-
-
+    this.hitPlayer = [];
+    this.missedPlayer = [];
 
 }
 
@@ -89,6 +89,17 @@ player.prototype = {
     }  
         player.drawGrid();
     },
+    hitShipDraw: function(x,y) {
+        var eleID = "ai"+x+","+y;
+        this.hitPlayer.push(eleID);
+        document.getElementById(eleID).style.background="red";
+    },
+    
+    missedShipDraw: function (x,y) {
+        var eleID = "ai"+x+","+y;
+        this.missedPlayer.push(eleID);
+        document.getElementById(eleID).style.background="grey";
+    },
     drawGrid: function () { //draw the players grid containing their ships
   
 
@@ -121,7 +132,7 @@ player.prototype = {
         document.getElementById("p1,8").style.background="green";
         document.getElementById("p2,8").style.background="green";
 
-        
+      /*  
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
@@ -145,7 +156,7 @@ player.prototype = {
 
         //var shotsTakenAI = diffArray((allShots), (player.moveList));
 
-
+        // difference between all shots and hit ships
 
 
 
@@ -201,6 +212,6 @@ player.prototype = {
 
 
        
-    }
+  */  }
 };
 
