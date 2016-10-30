@@ -21,13 +21,12 @@ player.prototype = {
     },
 
     makePlayerMove: function (move) {
-
+        
         var moveCoord = move.substring(2);
         var coord = moveCoord.split(',').map(Number);
-        alert(JSON.stringify(coord, null, 4));
         var x = coord[0];
         var y = coord[1];
-        AI.grid.fireAtLocation(x,y);
+        AI.grid.fireAtLocation(x, y);
         this.moveList = removeItemFromArray(this.moveList, moveCoord);
 
     },
@@ -45,14 +44,13 @@ player.prototype = {
         PlayerShip1 = new ship('Carrier', 1);
         PlayerShip1.setLocations([[2, 5, 0], [2, 4, 0], [2, 3, 0], [2, 2, 0], [2, 1, 0]]);
         this.grid.addShip(PlayerShip1);
-
-
+        
         PlayerShip2 = new ship('Battleship', 1);
         PlayerShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
         this.grid.addShip(PlayerShip2);
 
         PlayerShip3 = new ship('Cruiser', 1);
-        PlayerShip3.setLocations([[7, 2, 0], [7, 3, 0], [7, 4, 0]]);
+        PlayerShip3.setLocations([[7, 5, 0], [7, 6, 0], [7, 7, 0]]);
         this.grid.addShip(PlayerShip3);
 
         PlayerShip4 = new ship('Submarine', 1);
@@ -60,7 +58,7 @@ player.prototype = {
         this.grid.addShip(PlayerShip4);
 
         PlayerShip5 = new ship('Destroyer', 1);
-        PlayerShip5.setLocations([[6, 6, 0], [7, 6, 0]]);
+        PlayerShip5.setLocations([[1, 8, 0], [2, 8, 0]]);
         this.grid.addShip(PlayerShip5);
 
     },
@@ -79,7 +77,6 @@ player.prototype = {
                 //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
                 square.id = "p" + String(i) + "," + String(j) ;	
-            
 		// set each grid square's coordinates: multiples of the current row or column number
 		var topPosition = j * squareSize;
 		var leftPosition = i * squareSize;			
@@ -90,6 +87,35 @@ player.prototype = {
 	}
     }   
 
+
+        //place on board Carrier
+        document.getElementById("p2,5").style.background="green";
+        document.getElementById("p2,4").style.background="green";
+        document.getElementById("p2,3").style.background="green";
+        document.getElementById("p2,2").style.background="green";
+        document.getElementById("p2,1").style.background="green";
+        
+        //Batteship
+        document.getElementById("p6,3").style.background="green";
+        document.getElementById("p7,3").style.background="green";
+        document.getElementById("p8,3").style.background="green";
+        document.getElementById("p9,3").style.background="green";
+        
+        
+        //Cruiser
+        document.getElementById("p7,5").style.background="green";
+        document.getElementById("p7,6").style.background="green";
+        document.getElementById("p7,7").style.background="green";
+        
+        //Submarine
+        document.getElementById("p9,7").style.background="green";
+        document.getElementById("p9,8").style.background="green";
+        document.getElementById("p9,9").style.background="green";
+        
+        //Destroyer
+        document.getElementById("p1,8").style.background="green";
+        document.getElementById("p2,8").style.background="green";
+        
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];

@@ -62,6 +62,7 @@ function startGame(xLength, yLength) {//configures and starts the game
     if (playerTurn === false) {
         makeAIMove  //when player turn, function is started onclick
     }
+
 }
 ;
 

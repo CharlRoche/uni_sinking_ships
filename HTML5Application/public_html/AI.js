@@ -18,8 +18,10 @@ AI.prototype = {
     constructor: AI,
     makeComputerMoveEasy: function () {
         var move = AI.getRandMove();
-        var Coord = move.split(',').map(Number);
-        player.grid.fireAtLocation(Coord)
+        var coord = move.split(',').map(Number);
+        var x = coord[0];
+        var y = coord[1];
+        player.grid.fireAtLocation(x,y)
         this.moveList = removeItemFromArray(this.moveList, move);
 
     },
@@ -92,6 +94,9 @@ AI.prototype = {
                 square.style.left = leftPosition + 'px';
             }
         }
+        
+
+
       // creates general array of al possible moves
        // hardcoded to grid size ten, will need to amend for MVP
        var allShots = [];
