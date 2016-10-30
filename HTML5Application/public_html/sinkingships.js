@@ -17,6 +17,7 @@ startGame(10,10);
 //GAMEPLAY GOES HERE 
 function startPlayerMove(target) {
 
+alert(JSON.stringify(target, null, 4));
     player.makePlayerMove(target);
     AI.drawGrid();
     playerShipsAlive();
@@ -64,7 +65,7 @@ function startGame(xLength, yLength) {//configures and starts the game
 ;
 
 function endGame() {
-    alert("Games Over");//should probs do something a little more interesting here
+    alert("Game Over");//should probs do something a little more interesting here
 }
 ;
 
