@@ -23,8 +23,11 @@ player.prototype = {
     makePlayerMove: function (move) {
 
         var moveCoord = move.substring(2);
-        Coord = moveCoord.split(',').map(Number);
-        AI.grid.fireAtLocation(Coord);
+        var coord = moveCoord.split(',').map(Number);
+        alert(JSON.stringify(coord, null, 4));
+        var x = coord[0];
+        var y = coord[1];
+        AI.grid.fireAtLocation(x,y);
         this.moveList = removeItemFromArray(this.moveList, moveCoord);
 
     },

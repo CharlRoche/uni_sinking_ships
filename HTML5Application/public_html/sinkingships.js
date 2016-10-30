@@ -18,7 +18,7 @@ startGame(10,10);
 function startPlayerMove(target) {
 
 
-alert("player Move Started"+ target);
+
     player.makePlayerMove(target);
     AI.drawGrid();
     playerShipsAlive();
