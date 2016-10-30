@@ -62,7 +62,7 @@ Grid.prototype = {
                         if (playerTurn === true) {
                             player.missedShipDraw(x,y);
                         }if (playerTurn === false) {
-                            AI.missedShipDraw();
+                            AI.missedShipDraw(x,y);
                         }
 
 
