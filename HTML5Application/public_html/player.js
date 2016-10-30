@@ -19,7 +19,7 @@ player.prototype = {
     getName: function () {
         return this.name;
     },
-    makePlayerMove: function (){
+    makePlayerMove: function (move){
 
         var moveCoord = move.substring(2);
         Coord = moveCoord.split(',').map(Number);
