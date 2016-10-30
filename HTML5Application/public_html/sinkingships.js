@@ -46,7 +46,7 @@ function makeAIMove() {
         endGame();
     }
     
-    document.getElementById("cscore").innerHTML = "Computer's Score: " + aiShipsAlive()
+    document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
 };
 
 
