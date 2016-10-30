@@ -36,7 +36,7 @@ function startPlayerMove(target) {
 function makeAIMove() {
     
     AI.makeComputerMoveEasy();
-    player.drawGrid();
+    //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
     var aiScore = aiShipsAlive();

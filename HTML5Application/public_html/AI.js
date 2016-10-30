@@ -110,6 +110,7 @@ AI.prototype = {
         this.missedAI.push(eleID);
         document.getElementById(eleID).style.background="grey";
     },
+
     drawGrid: function () { //draw the AI's grid containing their ships (hidden)
         
 

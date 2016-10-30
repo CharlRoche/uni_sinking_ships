@@ -28,7 +28,7 @@ player.prototype = {
         var y = coord[1];
         AI.grid.fireAtLocation(x, y, true);
         removeItemFromArray(this.moveList, moveCoord);
-        player.drawGrid();
+        //player.drawGrid();
 
     },
     buildMoveList: function (xSize, ySize) {
