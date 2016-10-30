@@ -85,16 +85,16 @@ p, button, input {
         <form action="welcome.html" method="get">
         <p><input type="Submit" value="Click to quit" style="height:50px; width:200px;"/></p>
                
-       </form>
-        <p> Your Score: </p>
-        <p> Computer's Score: </p>
+        </form>
         
         
-
+        <p> Your Score:<script>document.write(playerShipsAlive());</script></p>
+        <p> Computer's Score:<script>document.write(aiShipsAlive());</script></p>
+        
+        
             <div id="gameboard"></div>
 
             <div id="aigameboard"></div>
-
 
 
         <script src="jquery-1.6.1.js"></script>
