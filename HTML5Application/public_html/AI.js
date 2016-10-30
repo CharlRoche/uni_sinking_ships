@@ -21,9 +21,10 @@ AI.prototype = {
         var coord = move.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
-        player.grid.fireAtLocation(x,y)
-        this.moveList = removeItemFromArray(this.moveList, move);
-
+        player.grid.fireAtLocation(x,y);
+        
+        removeItemFromArray(this.moveList, move);
+       
     },
     makeComputerMoveMed: function () {
     },
