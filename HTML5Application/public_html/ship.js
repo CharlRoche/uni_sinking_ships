@@ -62,6 +62,38 @@ ship.prototype = {
                 this.getLocations()[i][2] = 1;
             }
         }
+    },
+    buildAIFleet: function (gridSize) {
+
+        //Constants until user can change number of ships
+
+        carrierCount = 1;
+        battleshipCount = 1;
+        crusierCount = 1;
+        submarineCount = 1;
+        destroyerCount = 1;
+
+        for (var i = 0; i < carrierCount; i++) {
+            placeShip(CARRIER_LEN);
+        }
+        for (var i = 0; i < battleshipCount; i++) {
+            placeShip(BATTLESHIP_LEN);
+        }
+        for (var i = 0; i < crusierCount; i++) {
+            placeShip(CRUISER_LEN);
+        }
+        for (var i = 0; i < submarineCount; i++) {
+            placeShip(SUBMARINE_LEN);
+        }
+        for (var i = 0; i < destroyerCount; i++) {
+            placeShip(DESTROYER_LEN);
+        }
+
+
+
+    },
+    placeShip: function (length) {
+
     }
 };
 
