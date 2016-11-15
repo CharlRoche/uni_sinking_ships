@@ -10,6 +10,7 @@ function AI(xSize, ySize) {
     this.difficulty = 'easy';
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
+    this.buildAIFleet(1,1,1,1,1);
     this.hitAI = [];
     this.missedAI = [];
 
@@ -23,10 +24,10 @@ AI.prototype = {
         var coord = move.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
-        player.grid.fireAtLocation(x,y, false);
-        
+        player.grid.fireAtLocation(x, y, false);
+
         removeItemFromArray(this.moveList, move);
-       
+
     },
     makeComputerMoveMed: function () {
     },
@@ -58,7 +59,8 @@ AI.prototype = {
     },
     getRandMove: function () {
 
-        var rand = this.moveList[Math.floor(Math.random() * this.moveList.length)];
+        //var rand = this.moveList[Math.floor(Math.random() * this.moveList.length)];
+        var rand = getRandFromArray(this.moveList);
         return rand;
     },
     buildMoveList: function (xSize, ySize) {
@@ -70,7 +72,7 @@ AI.prototype = {
         }
         return moveList;
     },
-    drawInitialGrid: function() {
+    drawInitialGrid: function () {
         var squareSize = 50;
         var gameBoardContainer = document.getElementById("aigameboard");
         // this has been hard coded for the hack, taken form gridCreation
@@ -86,7 +88,9 @@ AI.prototype = {
                 //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
                 square.id = "ai" + String(i) + "," + String(j);
-                square.onclick = function() {startPlayerMove(this.id);};
+                square.onclick = function () {
+                    startPlayerMove(this.id);
+                };
 
                 // set each grid square's coordinates: multiples of the current row or column number
                 var topPosition = j * squareSize;
@@ -99,97 +103,207 @@ AI.prototype = {
         }
 
     },
-    hitShipDraw: function(x,y) {
-        var eleID = "p"+x+","+y;
+    hitShipDraw: function (x, y) {
+        var eleID = "p" + x + "," + y;
         this.hitAI.push(eleID);
-        document.getElementById(eleID).style.background="red";
+        document.getElementById(eleID).style.background = "red";
     },
-    
-    missedShipDraw: function (x,y) {
-        var eleID = "p"+x+","+y;
+    missedShipDraw: function (x, y) {
+        var eleID = "p" + x + "," + y;
         this.missedAI.push(eleID);
-        document.getElementById(eleID).style.background="grey";
+        document.getElementById(eleID).style.background = "grey";
     },
+    buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { //Randomly Build AI Fleet
 
-    drawGrid: function () { //draw the AI's grid containing their ships (hidden)
-        
 
-    /*
-      // creates general array of al possible moves
-       // hardcoded to grid size ten, will need to amend for MVP
-       var allShots = [];
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
-                allShots.push(i + ',' + j);
+        console.log('buildAIFleet');
+        var shipCount = 0;
+
+        for (var i = 0; i < carrierCount; i++) {
+            var location = getRandShipLocation(CARRIER_LEN);
+
+            AIShip[shipCount] = new ship('Carrier', 1);
+            AIShip[shipCount].setLocations(location);
+            this.grid.addShip(AIShip[shipCount]);
+            shipCount++;
+
+        }
+        for (var i = 0; i < battleshipCount; i++) {
+            var location = getRandShipLocation(BATTLESHIP_LEN);
+
+            AIShip[shipCount] = new ship('Battleship', 1);
+            AIShip[shipCount].setLocations(location);
+            this.grid.addShip(AIShip[shipCount]);
+            shipCount++;
+
+
+        }
+        for (var i = 0; i < crusierCount; i++) {
+            var location = getRandShipLocation(CRUISER_LEN);
+
+            AIShip[shipCount] = new ship('Cruiser', 1);
+            AIShip[shipCount].setLocations(location);
+            this.grid.addShip(AIShip[shipCount]);
+            shipCount++;
+
+
+        }
+        for (var i = 0; i < submarineCount; i++) {
+            var location = getRandShipLocation(SUBMARINE_LEN);
+
+            AIShip[shipCount] = new ship('Submarine', 1);
+            AIShip[shipCount].setLocations(location);
+            this.grid.addShip(AIShip[shipCount]);
+            shipCount++;
+
+        }
+        for (var i = 0; i < destroyerCount; i++) {
+            var location = getRandShipLocation(DESTROYER_LEN);
+
+            AIShip[shipCount] = new ship('Destroyer', 1);
+            AIShip[shipCount].setLocations(location);
+            this.grid.addShip(AIShip[shipCount]);
+            shipCount++;
+
+
+        }
+//restore Movelist
+        this.moveList = this.buildMoveList(xSize, ySize);
+
+    },
+    getRandShipLocation: function (length) {
+        console.log('getRandShipLocation');
+
+        invalidLocation = true;
+        while (invalidLocation === true) {
+
+            var target = getRandFromArray(this.moveList);
+            var coord = target.split(',').map(Number);
+            var x = coord[0];
+            var y = coord[0];
+            var direction = getRandFromArray(['n', 's', 'e', 'w']);
+            var location = [];
+
+            switch (direction()) {
+                case 'n':
+                    for (var i = 0; i < length; i++) {
+                        location.push(x + ',' + (y + i));
+                    }
+                    break;
+                case 's':
+                    for (var i = 0; i < length; i++) {
+                        location.push(x + ',' + (y - i));
+                    }
+                    break;
+                case 'e':
+                    for (var i = 0; i < length; i++) {
+                        location.push((x + i) + ',' + y);
+                    }
+                    break;
+                case 'w':
+                    for (var i = 0; i < length; i++) {
+                        location.push((x - i) + ',' + y);
+                    }
+                    break;
+            }
+            invalidLocation = validateShipLocation(location);
+        }
+        for (i = 0; i < location.length; i++) {
+            removeItemFromArray(this.movelist, location[i]);
+        }
+        return location;
+    },
+    validateShipLocation: function (location) {
+
+        valid = true;
+        for (var i = 0; i < location.length; i++) {
+
+            if (!this.moveList.includes(location[i])) {
+                valid = false;
             }
         }
+        return valid;
+
+    },
+    drawGrid: function () { //draw the AI's grid containing their ships (hidden)
 
 
-        // shots_taken is the shots they have taken:
-        // it is the difference between allShots and AI.movelist
-        //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
-        //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-        
-        var seen = [];
-        var shotsTakePlayer = [];
-        for ( var i = 0; i < AI.moveList.length; i++)
-            seen[AI.moveList[i]] = true;
-        for ( var i = 0; i < allShots.length; i++)
-            if (!seen[allShots[i]])
-                shotsTakePlayer.push(allShots[i]);
-
-
-
-
-        // for shots_taken, find the intersection with the AI ships.
-        // any intersections will indicate the player has hit the AI
-        // therefore for intersection set doc element background colour to red
-
-        //var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
-
-        var m1 = (shotsTakePlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
-        var hitShipsPlayer = (allShots).filter(function(v) { return m1[v]; });
-
-        // need to loop through hit_ships array to split it out and put into
-        // CSS ID format
-        var numLoops = hitShipsPlayer.length;
-        for(i=0; i<numLoops; i++) {
-            // get item in array
-            var getArray = hitShipsPlayer[i];
-            // get row
-            var row = getArray[0];
-            var col = getArray[2];
-            var str2 = "p";
-            var str3 = ",";
-            var hitCoords1 = str2+row+str3+col;
-            document.getElementById(hitCoords1).style.background="red";
-            }
-                        
-        // then calculate the difference between shots_taken and hit_shits and colour the 
-        // difference as grey which indicates shots taken which didn't hit a ship
-
-        //var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
-        var m2 = (shotsTakePlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
-        var missedShipsPlayer = (hitShipsPlayer).filter(function(v) { return m1[v]; });
-
-
-        var numLoops = missedShipsPlayer.length;
-        for(i=0; i<numLoops; i++) {
-            // get item in array
-            var getArray = missedShipsPlayer[i];
-            // get row
-            var row = getArray[0];
-            var col = getArray[2];
-            var str2 = "p";
-            var str3 = ",";
-            var missedCoords1 = str2+row+str3+col;
-            document.getElementById(missedCoords1).style.background="grey";
-            }
-
-
-
-       
-    
-
-    */}
+        /*
+         // creates general array of al possible moves
+         // hardcoded to grid size ten, will need to amend for MVP
+         var allShots = [];
+         for (i = 0; i < 10; i++) {
+         for (j = 0; j < 10; j++) {
+         allShots.push(i + ',' + j);
+         }
+         }
+         
+         
+         // shots_taken is the shots they have taken:
+         // it is the difference between allShots and AI.movelist
+         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
+         //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
+         
+         var seen = [];
+         var shotsTakePlayer = [];
+         for ( var i = 0; i < AI.moveList.length; i++)
+         seen[AI.moveList[i]] = true;
+         for ( var i = 0; i < allShots.length; i++)
+         if (!seen[allShots[i]])
+         shotsTakePlayer.push(allShots[i]);
+         
+         
+         
+         
+         // for shots_taken, find the intersection with the AI ships.
+         // any intersections will indicate the player has hit the AI
+         // therefore for intersection set doc element background colour to red
+         
+         //var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
+         
+         var m1 = (shotsTakePlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
+         var hitShipsPlayer = (allShots).filter(function(v) { return m1[v]; });
+         
+         // need to loop through hit_ships array to split it out and put into
+         // CSS ID format
+         var numLoops = hitShipsPlayer.length;
+         for(i=0; i<numLoops; i++) {
+         // get item in array
+         var getArray = hitShipsPlayer[i];
+         // get row
+         var row = getArray[0];
+         var col = getArray[2];
+         var str2 = "p";
+         var str3 = ",";
+         var hitCoords1 = str2+row+str3+col;
+         document.getElementById(hitCoords1).style.background="red";
+         }
+         
+         // then calculate the difference between shots_taken and hit_shits and colour the 
+         // difference as grey which indicates shots taken which didn't hit a ship
+         
+         //var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
+         var m2 = (shotsTakePlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
+         var missedShipsPlayer = (hitShipsPlayer).filter(function(v) { return m1[v]; });
+         
+         
+         var numLoops = missedShipsPlayer.length;
+         for(i=0; i<numLoops; i++) {
+         // get item in array
+         var getArray = missedShipsPlayer[i];
+         // get row
+         var row = getArray[0];
+         var col = getArray[2];
+         var str2 = "p";
+         var str3 = ",";
+         var missedCoords1 = str2+row+str3+col;
+         document.getElementById(missedCoords1).style.background="grey";
+         }
+         
+         
+         
+         
+         
+         
+         */}
 };

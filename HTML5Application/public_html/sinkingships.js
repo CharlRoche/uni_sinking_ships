@@ -5,12 +5,6 @@
  * Peter Henderson/30/10/2016/Completely reworked gameflow to allow for waiting for user click for their move.
  */
 
-//MAIN MENU GOES HERE 
-
-//GAME SETUP GOES HERE - (POST HACK)
-//DECIDE WHO GOES FIRST
-
-
 startGame(10,10);
 
 
@@ -61,7 +55,7 @@ function startGame(xLength, yLength) {//configures and starts the game
     playerTurn = true; //player goes first - can give choice for MVP
 
     if (playerTurn === false) {
-        makeAIMove  //when player turn, function is started onclick
+        makeAIMove;  //when player turn, function is started onclick
     }
 
 }
