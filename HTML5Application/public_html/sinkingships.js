@@ -5,7 +5,7 @@
  * Peter Henderson/30/10/2016/Completely reworked gameflow to allow for waiting for user click for their move.
  */
 
-startGame(10,10);
+startGame(10, 10);
 
 
 //GAMEPLAY GOES HERE 
@@ -29,7 +29,7 @@ function startPlayerMove(target) {
 
 
 function makeAIMove() {
-    
+
     AI.makeComputerMoveEasy();
     //player.drawGrid();
     aiShipsAlive();
@@ -39,9 +39,10 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
-    
+
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
-};
+}
+;
 
 
 function startGame(xLength, yLength) {//configures and starts the game
@@ -49,9 +50,10 @@ function startGame(xLength, yLength) {//configures and starts the game
     player = new player('Pete', xLength, yLength);
     AI = new AI(xLength, yLength);
     player.definePlayerFleetHack();
-    AI.defineCompFleetHack();
     player.drawInitialGrid();
     AI.drawInitialGrid();
+    console.log(player.grid);
+    console.log(AI.grid);
     playerTurn = true; //player goes first - can give choice for MVP
 
     if (playerTurn === false) {
@@ -67,27 +69,41 @@ function endGame() {
 ;
 
 function aiShipsAlive() {
-    var deadAIShipCount = 5;
-    if (AIShip1.checkIsAlive()) {
-        deadAIShipCount--;
+
+    var deadAIShipCount = 0
+    for (var i = 0; i < AI.ship.length; i++) {
+        if (!AI.ship[i].checkIsAlive()) {
+            deadAIShipCount++;
+        }
     }
-    if (AIShip2.checkIsAlive()) {
-        deadAIShipCount--;
-    }
-    if (AIShip3.checkIsAlive()) {
-        deadAIShipCount--;
-    }
-    if (AIShip4.checkIsAlive()) {
-        deadAIShipCount--;
-    }
-    if (AIShip5.checkIsAlive()) {
-        deadAIShipCount--;
-    }
-    if (deadAIShipCount === 5) {
+    if (deadAIShipCount === (AI.ship.length)) {
         endGame();
     }
     return deadAIShipCount;
 }
+;
+/*function aiShipsAlive() {
+ var deadAIShipCount = 5;
+ if (AIShip1.checkIsAlive()) {
+ deadAIShipCount--;
+ }
+ if (AIShip2.checkIsAlive()) {
+ deadAIShipCount--;
+ }
+ if (AIShip3.checkIsAlive()) {
+ deadAIShipCount--;
+ }
+ if (AIShip4.checkIsAlive()) {
+ deadAIShipCount--;
+ }
+ if (AIShip5.checkIsAlive()) {
+ deadAIShipCount--;
+ }
+ if (deadAIShipCount === 5) {
+ endGame();
+ }
+ return deadAIShipCount;
+ }*/
 
 function playerShipsAlive() {
     var deadPlayerShipCount = 5;

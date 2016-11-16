@@ -8,9 +8,13 @@
 
 function AI(xSize, ySize) {
     this.difficulty = 'easy';
+    this.ship = [];
     this.moveList = this.buildMoveList(xSize, ySize);
+    console.log(this.moveList);
     this.grid = new Grid(xSize, ySize);
-    this.buildAIFleet(1,1,1,1,1);
+    this.buildAIFleet(1, 1, 1, 1, 1);
+
+    this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
 
@@ -33,33 +37,32 @@ AI.prototype = {
     },
     makeComputerMoveHard: function () {
     },
-    defineCompFleetHack: function () {//not complete
-
-        AIShip1 = new ship('Carrier', 1);
-        AIShip1.setLocations([[2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0]]);
-        this.grid.addShip(AIShip1);
-
-
-        AIShip2 = new ship('Battleship', 1);
-        AIShip2.setLocations([[6, 5, 0], [7, 5, 0], [8, 5, 0], [9, 5, 0]]);
-        this.grid.addShip(AIShip2);
-
-        AIShip3 = new ship('Cruiser', 1);
-        AIShip3.setLocations([[4, 2, 0], [4, 3, 0], [4, 4, 0]]);
-        this.grid.addShip(AIShip3);
-
-        AIShip4 = new ship('Submarine', 1);
-        AIShip4.setLocations([[9, 7, 0], [9, 8, 0], [9, 9, 0]]);
-        this.grid.addShip(AIShip4);
-
-        AIShip5 = new ship('Destroyer', 1);
-        AIShip5.setLocations([[6, 9, 0], [7, 9, 0]]);
-        this.grid.addShip(AIShip5);
-
-    },
+    /* defineCompFleetHack: function () {
+     
+     AIShip1 = new ship('Carrier', 1);
+     AIShip1.setLocations([[2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0]]);
+     this.grid.addShip(AIShip1);
+     
+     
+     AIShip2 = new ship('Battleship', 1);
+     AIShip2.setLocations([[6, 5, 0], [7, 5, 0], [8, 5, 0], [9, 5, 0]]);
+     this.grid.addShip(AIShip2);
+     
+     AIShip3 = new ship('Cruiser', 1);
+     AIShip3.setLocations([[4, 2, 0], [4, 3, 0], [4, 4, 0]]);
+     this.grid.addShip(AIShip3);
+     
+     AIShip4 = new ship('Submarine', 1);
+     AIShip4.setLocations([[9, 7, 0], [9, 8, 0], [9, 9, 0]]);
+     this.grid.addShip(AIShip4);
+     
+     AIShip5 = new ship('Destroyer', 1);
+     AIShip5.setLocations([[6, 9, 0], [7, 9, 0]]);
+     this.grid.addShip(AIShip5);
+     
+     },*/
     getRandMove: function () {
 
-        //var rand = this.moveList[Math.floor(Math.random() * this.moveList.length)];
         var rand = getRandFromArray(this.moveList);
         return rand;
     },
@@ -116,113 +119,122 @@ AI.prototype = {
     buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { //Randomly Build AI Fleet
 
 
-        console.log('buildAIFleet');
-        var shipCount = 0;
+
+        var shipCount = 0; //index for this.ship array
+
+
+
+        //for each ship type
 
         for (var i = 0; i < carrierCount; i++) {
-            var location = getRandShipLocation(CARRIER_LEN);
-
-            AIShip[shipCount] = new ship('Carrier', 1);
-            AIShip[shipCount].setLocations(location);
-            this.grid.addShip(AIShip[shipCount]);
+            var location = this.getRandShipLocation(5);
+            this.ship[shipCount] = new ship('Carrier', 1);
+            this.ship[shipCount].setLocations(location);
+            this.grid.addShip(this.ship[shipCount]);
             shipCount++;
-
         }
         for (var i = 0; i < battleshipCount; i++) {
-            var location = getRandShipLocation(BATTLESHIP_LEN);
-
-            AIShip[shipCount] = new ship('Battleship', 1);
-            AIShip[shipCount].setLocations(location);
-            this.grid.addShip(AIShip[shipCount]);
+            var location = this.getRandShipLocation(4);
+            this.ship[shipCount] = new ship('Battleship', 1);
+            this.ship[shipCount].setLocations(location);
+            this.grid.addShip(this.ship[shipCount]);
             shipCount++;
-
-
         }
         for (var i = 0; i < crusierCount; i++) {
-            var location = getRandShipLocation(CRUISER_LEN);
+            var location = this.getRandShipLocation(3);
 
-            AIShip[shipCount] = new ship('Cruiser', 1);
-            AIShip[shipCount].setLocations(location);
-            this.grid.addShip(AIShip[shipCount]);
+            this.ship[shipCount] = new ship('Cruiser', 1);
+            this.ship[shipCount].setLocations(location);
+            this.grid.addShip(this.ship[shipCount]);
             shipCount++;
 
 
         }
         for (var i = 0; i < submarineCount; i++) {
-            var location = getRandShipLocation(SUBMARINE_LEN);
+            var location = this.getRandShipLocation(2);
 
-            AIShip[shipCount] = new ship('Submarine', 1);
-            AIShip[shipCount].setLocations(location);
-            this.grid.addShip(AIShip[shipCount]);
+            this.ship[shipCount] = new ship('Submarine', 1);
+            this.ship[shipCount].setLocations(location);
+            this.grid.addShip(this.ship[shipCount]);
             shipCount++;
 
         }
         for (var i = 0; i < destroyerCount; i++) {
-            var location = getRandShipLocation(DESTROYER_LEN);
+            var location = this.getRandShipLocation(2);
 
-            AIShip[shipCount] = new ship('Destroyer', 1);
-            AIShip[shipCount].setLocations(location);
-            this.grid.addShip(AIShip[shipCount]);
+            this.ship[shipCount] = new ship('Destroyer', 1);
+            this.ship[shipCount].setLocations(location);
+            this.grid.addShip(this.ship[shipCount]);
             shipCount++;
 
 
         }
-//restore Movelist
-        this.moveList = this.buildMoveList(xSize, ySize);
+
 
     },
     getRandShipLocation: function (length) {
-        console.log('getRandShipLocation');
+
 
         invalidLocation = true;
-        while (invalidLocation === true) {
+        while (invalidLocation === true) {//repeat finding a random position until a valid location is found
 
-            var target = getRandFromArray(this.moveList);
-            var coord = target.split(',').map(Number);
+            var target = getRandFromArray(this.moveList); // get random start position
+            var coord = target.split(',').map(Number); //split to x and y
             var x = coord[0];
             var y = coord[0];
-            var direction = getRandFromArray(['n', 's', 'e', 'w']);
-            var location = [];
+            var direction = getRandFromArray(['n', 's', 'e', 'w']); //select a random direction
+            var locat = [];
 
-            switch (direction()) {
+//build location array of each grid
+            switch (direction) {
                 case 'n':
                     for (var i = 0; i < length; i++) {
-                        location.push(x + ',' + (y + i));
+                        locat.push([x, (y + i)]);
                     }
                     break;
                 case 's':
+
                     for (var i = 0; i < length; i++) {
-                        location.push(x + ',' + (y - i));
+                        locat.push([x, (y - i)]);
                     }
                     break;
                 case 'e':
                     for (var i = 0; i < length; i++) {
-                        location.push((x + i) + ',' + y);
+                        locat.push([(x + i), y]);
                     }
                     break;
                 case 'w':
                     for (var i = 0; i < length; i++) {
-                        location.push((x - i) + ',' + y);
+                        locat.push([(x - i), y]);
+
                     }
                     break;
             }
-            invalidLocation = validateShipLocation(location);
+            invalidLocation = this.validateShipLocation(locat);
         }
-        for (i = 0; i < location.length; i++) {
-            removeItemFromArray(this.movelist, location[i]);
+        
+        for (i = 0; i < locat.length; i++) {
+            //remove each seleted location from move list so it cannot be selected again
+            var remove = locat[i][0] + ',' + locat[i][1];
+            removeItemFromArray(this.moveList, remove);
+           
         }
-        return location;
+        //DEBUG
+        for (i=0;i<locat.length;i++){
+            console.log(locat[i][0]+','+locat[i][1]);
+        }
+        return locat;
     },
-    validateShipLocation: function (location) {
+    validateShipLocation: function (locat) {
 
-        valid = true;
-        for (var i = 0; i < location.length; i++) {
-
-            if (!this.moveList.includes(location[i])) {
-                valid = false;
+        invalid = false;
+        for (var i = 0; i < locat.length; i++) {
+            var coord = locat[i][0] + ',' + locat[i][1];
+            if (!this.moveList.includes(coord)) { //location is only valid if it exists in the movelist
+                invalid = true;
             }
         }
-        return valid;
+        return invalid;
 
     },
     drawGrid: function () { //draw the AI's grid containing their ships (hidden)
