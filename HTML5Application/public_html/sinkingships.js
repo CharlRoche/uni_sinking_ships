@@ -3,17 +3,15 @@
  * Contribution Log: Name/Date/Description
  * Peter Henderson/29/10/2016/Added game structure, start game function - updated to add content from original main.js file.
  * Peter Henderson/30/10/2016/Completely reworked gameflow to allow for waiting for user click for their move.
+ * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
 
+var aiScore = aiShipsAlive();
+var userScore = playerShipsAlive();
 startGame(10, 10);
 
-
-//GAMEPLAY GOES HERE 
-function startPlayerMove(target) {
-
-
-
-    player.makePlayerMove(target);
+function startPlayerMove(target){
+player.makePlayerMove(target);
     AI.drawGrid();
     var userScore = playerShipsAlive();
 
@@ -23,11 +21,8 @@ function startPlayerMove(target) {
     {
         makeAIMove();
     }
-    document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive()
-}
-
-
-
+    document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive();
+};
 function makeAIMove() {
 
     AI.makeComputerMoveEasy();
@@ -41,11 +36,8 @@ function makeAIMove() {
     }
 
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
-}
-;
-
-
-function startGame(xLength, yLength) {//configures and starts the game
+};
+function startGame(xLength, yLength){//configures and starts the game
 
     player = new player('Pete', xLength, yLength);
     AI = new AI(xLength, yLength);
@@ -60,29 +52,26 @@ function startGame(xLength, yLength) {//configures and starts the game
         makeAIMove;  //when player turn, function is started onclick
     }
 
-}
-;
-
+};
 function endGame() {
     alert("Games Over");//should probs do something a little more interesting here
-}
-;
-
+};
 function aiShipsAlive() {
 
-    var deadAIShipCount = 0
+    var deadAIShipCount = AI.ship.length;
     for (var i = 0; i < AI.ship.length; i++) {
-        if (!AI.ship[i].checkIsAlive()) {
-            deadAIShipCount++;
+        if (AI.ship[i].checkIsAlive()) {
+            deadAIShipCount--;
         }
     }
-    if (deadAIShipCount === (AI.ship.length)) {
+    if (deadAIShipCount === AI.ship.length) {
         endGame();
     }
     return deadAIShipCount;
-}
-;
-/*function aiShipsAlive() {
+};
+/*DEPREATED
+ * 
+ * function aiShipsAlive() {
  var deadAIShipCount = 5;
  if (AIShip1.checkIsAlive()) {
  deadAIShipCount--;
@@ -104,7 +93,6 @@ function aiShipsAlive() {
  }
  return deadAIShipCount;
  }*/
-
 function playerShipsAlive() {
     var deadPlayerShipCount = 5;
     if (PlayerShip1.checkIsAlive()) {
@@ -127,10 +115,6 @@ function playerShipsAlive() {
     }
     return deadPlayerShipCount;
 }
-
-var aiScore = aiShipsAlive();
-var userScore = playerShipsAlive();
-
 /*
  g1 = new Grid(10,10);
  console.log(g1.getGrid());

@@ -3,6 +3,7 @@
  *Author: Peter Henderson
  *Date: 18/10/2016
  *Contribution Log: Name/Date/Description
+ *Peter Henderson 17/11/2016 Added functions buildAIFleet, getRandShipLocation and validateShipLocation to allow random ship placement
  *
  */
 
@@ -10,10 +11,8 @@ function AI(xSize, ySize) {
     this.difficulty = 'easy';
     this.ship = [];
     this.moveList = this.buildMoveList(xSize, ySize);
-    console.log(this.moveList);
     this.grid = new Grid(xSize, ySize);
     this.buildAIFleet(1, 1, 1, 1, 1);
-
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
@@ -29,9 +28,7 @@ AI.prototype = {
         var x = coord[0];
         var y = coord[1];
         player.grid.fireAtLocation(x, y, false);
-
         removeItemFromArray(this.moveList, move);
-
     },
     makeComputerMoveMed: function () {
     },
@@ -62,7 +59,6 @@ AI.prototype = {
      
      },*/
     getRandMove: function () {
-
         var rand = getRandFromArray(this.moveList);
         return rand;
     },
@@ -116,21 +112,15 @@ AI.prototype = {
         this.missedAI.push(eleID);
         document.getElementById(eleID).style.background = "grey";
     },
-    buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { //Randomly Build AI Fleet
-
-
-
+    buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { 
+        //Randomly Build AI Fleet
         var shipCount = 0; //index for this.ship array
-
-
-
         //for each ship type
-
         for (var i = 0; i < carrierCount; i++) {
-            var location = this.getRandShipLocation(5);
-            this.ship[shipCount] = new ship('Carrier', 1);
-            this.ship[shipCount].setLocations(location);
-            this.grid.addShip(this.ship[shipCount]);
+            var location = this.getRandShipLocation(5); //get positions
+            this.ship[shipCount] = new ship('Carrier', 1);//create ship
+            this.ship[shipCount].setLocations(location);//add locations
+            this.grid.addShip(this.ship[shipCount]);//add ship to grid
             shipCount++;
         }
         for (var i = 0; i < battleshipCount; i++) {
@@ -142,35 +132,25 @@ AI.prototype = {
         }
         for (var i = 0; i < crusierCount; i++) {
             var location = this.getRandShipLocation(3);
-
             this.ship[shipCount] = new ship('Cruiser', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
-
-
         }
         for (var i = 0; i < submarineCount; i++) {
-            var location = this.getRandShipLocation(2);
-
+            var location = this.getRandShipLocation(3);
             this.ship[shipCount] = new ship('Submarine', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
-
         }
         for (var i = 0; i < destroyerCount; i++) {
             var location = this.getRandShipLocation(2);
-
             this.ship[shipCount] = new ship('Destroyer', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
-
-
         }
-
-
     },
     getRandShipLocation: function (length) {
 
