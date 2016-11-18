@@ -6,9 +6,10 @@
  * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
 
+
+startGame(10, 10);
 var aiScore = aiShipsAlive();
 var userScore = playerShipsAlive();
-startGame(10, 10);
 
 function startPlayerMove(target){
 player.makePlayerMove(target);
@@ -69,6 +70,7 @@ function aiShipsAlive() {
     }
     return deadAIShipCount;
 };
+
 /*DEPREATED
  * 
  * function aiShipsAlive() {
