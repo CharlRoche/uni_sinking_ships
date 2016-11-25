@@ -7,8 +7,8 @@
  *
  */
 
-function AI(xSize, ySize) {
-    this.difficulty = 'easy';
+function AI(xSize, ySize, difficulty) {
+    this.difficulty = difficulty;
     this.ship = [];
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);

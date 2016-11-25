@@ -10,24 +10,24 @@
 xLength = 10;
 yLength = 10;
 difficulty = 'easy';
+playerTurn = true;
 getSettings();
-startGame(xLength, yLength);
-var aiScore = aiShipsAlive();
-var userScore = playerShipsAlive();
+startGame(xLength, yLength, difficulty, playerTurn);
+//var aiScore = aiShipsAlive();
+//var userScore = playerShipsAlive();
 
-function startGame(xLength, yLength) {//configures and starts the game
+function startGame(xLength, yLength, difficulty, playerTurn) {//configures and starts the game
 
     player = new player('Pete', xLength, yLength);
-    AI = new AI(xLength, yLength);
+    AI = new AI(xLength, yLength, difficulty);
     player.definePlayerFleetHack();
     player.drawInitialGrid();
     AI.drawInitialGrid();
-    console.log(player.grid);
-    console.log(AI.grid);
-    playerTurn = true; //player goes first - can give choice for MVP
+    //debug console.log(player.grid);
+    //debug console.log(AI.grid);
 
-    if (playerTurn === false) {
-        makeAIMove;  //when player turn, function is started onclick
+    if (playerTurn === 'false') {
+        makeAIMove();  //when player turn, function is started onclick
     }
 
 }
@@ -40,21 +40,24 @@ function getSettings() {
         var temp = parts[i].split("=");
         $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
     }
-    
+
     if ($_GET.hasOwnProperty('boardsize')) {
         xLength = $_GET['boardsize'];
         yLength = $_GET['boardsize'];
     }
-    if ($_GET.hasOwnProperty('difficulty')){
+    if ($_GET.hasOwnProperty('difficulty')) {
         difficulty = $_GET['difficulty'];
     }
-
+    if ($_GET.hasOwnProperty('playerTurn')) {
+        playerTurn = $_GET['playerTurn'];
+    }
+    
 }
 ;
 
 function startPlayerMove(target) {
+    
     player.makePlayerMove(target);
-
     var userScore = playerShipsAlive();
 
     if (gameWon === true) {
@@ -69,7 +72,6 @@ function startPlayerMove(target) {
 function makeAIMove() {
 
     AI.makeComputerMoveEasy();
-    //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
     var aiScore = aiShipsAlive();
@@ -77,7 +79,6 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
-
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
 }
 ;
