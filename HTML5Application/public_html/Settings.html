@@ -2,39 +2,46 @@
 <html>
     <style>
 
-    body {
-        background-color: lightskyblue;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: top center;
-        text-align: center;
-    }
-    
+        body {
+            background-color: lightskyblue;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top center;
+            text-align: center;
+        }
+
     </style>
     <h1> Select Your Game Options:</h1>
-      
-    
-	<body>
-                
-                <form action="index.html" method="get">  
-                <fieldset>
+
+
+    <body>
+
+        <form action="index.html" method="get"> 
+
+            <fieldset>
+                <legend>Difficulty:</legend>
+                <p><input type="radio" name="difficulty" value="easy" checked="checked" /> Easy</p>
+                <p><input type="radio" name="difficulty" value="hard" /> Hard</p>
+            </fieldset> 
+
+            <fieldset>
                 <legend>How Big Would you like the game board to be:</legend>
                 <p><input type="radio" name="boardsize" value="10" checked="checked" /> 10x10</p>
                 <p><input type="radio" name="boardsize" value="15" /> 15x15</p>
                 <p><input type="radio" name="boardsize" value="20" /> 20x20</p>
-                </fieldset>
-                           
-                <fieldset>
+            </fieldset>
+
+            <fieldset>
                 <legend>How big will player's fleets be:</legend>
                 <p><input type="radio" name="fleetsize" value="3" checked="checked" /> 3 Ships</p>
                 <p><input type="radio" name="fleetsize" value="5" /> 5 Ships</p>
                 <p><input type="radio" name="fleetsize" value="8" /> 8 Ships</p>
-                </fieldset>                        
-                
-                <p><input type="Submit" value="Start" style="height:50px; width:200px"/></p>
-                </form>
-	
+            </fieldset>                        
 
-	</body>
+            <p><input type="Submit" value="Start" style="height:50px; width:200px"/></p>
+        </form>
+
+
+    </body>
 
 </html>
