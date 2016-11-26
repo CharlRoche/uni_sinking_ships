@@ -10,8 +10,7 @@
  * 
  */
 
-var userScore = playerShipsAlive();
-var compScore = aiShipsAlive();
+
 var userFleet = [];
 var compFleet = [];
 var gameWon = false;
@@ -35,46 +34,3 @@ function removeItemFromArray(array, value) {
         array.splice(index, 1);
     }
 }
-
-
-
-
-
-//DEPRECATED
-
-function isInFleet(user, target) {
-
-    var ship;
-    if (user) {
-        for (i = 0; i < userFleet.length; i++) {
-            for (j = 0; j < userFleet[i].coord.length; j++) {
-                if (target === userFleet[i].coord[j]) {
-                    ship = userFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
-        }
-    } else if (user === false) {
-        for (i = 0; i < compFleet.length; i++) {
-            for (j = 0; j < compFleet[i].coord.length; j++) {
-                if (target === compFleet[i].coord[j]) {
-                    ship = compFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
-        }
-    } else {
-        ship = -1;
-    }
-    return ship;
-}
-
-
-
-

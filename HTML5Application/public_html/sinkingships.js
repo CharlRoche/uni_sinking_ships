@@ -11,6 +11,8 @@ xLength = 10;
 yLength = 10;
 difficulty = 'easy';
 playerTurn = true;
+//default settings
+
 getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
 //var aiScore = aiShipsAlive();
@@ -21,8 +23,8 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
     player = new player('Pete', xLength, yLength);
     AI = new AI(xLength, yLength, difficulty);
     player.definePlayerFleetHack();
-    player.drawInitialGrid();
-    AI.drawInitialGrid();
+    player.drawInitialGrid(xLength, yLength);
+    AI.drawInitialGrid(xLength, yLength);
     //debug console.log(player.grid);
     //debug console.log(AI.grid);
 
