@@ -26,7 +26,8 @@ player.makePlayerMove(target);
 };
 function makeAIMove() {
 
-    AI.makeComputerMoveEasy();
+    //AI.makeComputerMoveEasy();
+    AI.makeComputerMoveHard();
     //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;

@@ -21,7 +21,6 @@ player.prototype = {
     },
 
     makePlayerMove: function (move) {
-        
         var moveCoord = move.substring(2);
         var coord = moveCoord.split(',').map(Number);
         var x = coord[0];
