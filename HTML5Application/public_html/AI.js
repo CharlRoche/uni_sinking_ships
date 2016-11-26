@@ -60,7 +60,7 @@ AI.prototype = {
             if (sunkLastTurn ===1) {
                 makeComputerMoveEasy();
             }
-            
+        
             // list of adjacent squares to last move
             var x = lastTurnHit[0];
             var y = lastTurnHit[1];
@@ -73,63 +73,71 @@ AI.prototype = {
             var moveListSet = new Set(this.moveList);
             // find what is in adjSquares set and not in the moveList
             var alreadyHit = new Set(adjSquaresSet);
+        
             for (var elem of moveListSet) {
                 alreadyHit.delete(elem);
             }
-            
+        
             // check direction
-            if (alreadyHit ! null) {
+            if (alreadyHit.size()===0) {
                 // check length of already hit
                 var lenHit = len(alreadyHit);
                 //take first coord for now
                 var alreadyHitX = coord[0];
                 var alreadyHitY = coord[1];
+             
                 if (alreadyHitX > x) {
                     //  it's row below, same y val
                     // fire at (x+1, y);
                     player.grid.fireAtLocation(x+1, y, false);
                     this.lastTurn = [x+1,y];
                     removeItemFromArray(this.moveList, this.lastTurn);
+                    
                 } else if (alreadyHitX < x) {
                     //  it's row above above, same y val
                     // fire at (x-1, y);
                     player.grid.fireAtLocation(x-1, y, false);
                     this.lastTurn = [x-1,y];
                     removeItemFromArray(this.moveList, this.lastTurn);
+                   
                 } else {
                     //  same row
+                    //broke here
                     if (alreadyHitY > y) {
                         //      it's to the right
                         // fire at (x, y+1);
                         player.grid.fireAtLocation(x, y+1, false);
                         this.lastTurn = [x,y+1];
                         removeItemFromArray(this.moveList, this.lastTurn);
+                        this.status = "brainStepOne"; 
                     } else if (alreadyHitY < y) {
                         //      it's to the left
                         // fire at (x, y-1);
                         player.grid.fireAtLocation(x, y-1, false);
-                        this.lastTurn = [x,y-1];
+                        this.lastTurn = [x,y+1];
                         removeItemFromArray(this.moveList, this.lastTurn);
+                        this.status = "brainStepOne"; 
                     }
                 }
+            } else {
+                        getRandFromArray(adjSquares);
+                        //code duped from user go easy so may take this bit and pop into
+                        // a function later to reduce lines
+                        var coord = move.split(',').map(Number);
+                        var x = coord[0];
+                        var y = coord[1];
+                        player.grid.fireAtLocation(x, y, false);
+                        this.lastTurn = [x,y];
+                        removeItemFromArray(this.moveList, this.lastTurn);
+                        this.status = "brainStepZero";
+            } 
             
 
                 //TO DO: 
                 //for above Find end of last hit for that column/row + fire
             
-                this.status = "brainStepOne";
-            } else {
-                getRandFromArray(adjSquares);
-                //code duped from user go easy so may take this bit and pop into
-                // a function later to reduce lines
-                var coord = move.split(',').map(Number);
-                var x = coord[0];
-                var y = coord[1];
-                player.grid.fireAtLocation(x, y, false);
-                this.lastTurn = [x,y];
-                removeItemFromArray(this.moveList, move);
-                this.status = "brainStepZero";
-            }
+                
+
 
         } else {
             //Random fire at the list of all possible positions could fire at
@@ -137,9 +145,9 @@ AI.prototype = {
             this.status = "brainStepZero"; // Abby check logic on this line
         
         }
-        return this.status;
+        return this.status; 
     },
-    brainStepOne: function () { /*
+    brainStepOne: function () { 
         if (hitLastTurn === 1) { //hit on last turn 
             if (sunkLastTurn ===1) { //If last go sunk a ship 
                 brainStepZero();
@@ -157,7 +165,7 @@ AI.prototype = {
                     player.grid.fireAtLocation(x, y-2, false);
                     this.lastTurn = [x,y-2];
                     removeItemFromArray(this.moveList, this.lastTurn);
-                }
+                } 
                 // check if right of it has been hit already
                 var eleID = "p" + x + "," + y+1;
                 var colour = document.getElementById(eleID).style.background;
@@ -194,8 +202,8 @@ AI.prototype = {
                 }
 
                 this.status = "brainStepOne";
-        }
-        } else {
+            } 
+        } else { 
             //	 Fire other end of row/ column
             // do as above but if find it's hit then move in opp direction
             // can you hitLastTurn because that shouldn't have changed
@@ -208,6 +216,7 @@ AI.prototype = {
             var eleID = "p" + x + "," + y-1;
             var colour = document.getElementById(eleID).style.background;
             console.log(colour);
+            
             if (colour === "red") {
                 // it's been hit
                 // fire at x, y+1
@@ -224,17 +233,19 @@ AI.prototype = {
                 player.grid.fireAtLocation(x, y-1, false);
                 this.lastTurn = [x,y-1];
                 removeItemFromArray(this.moveList, this.lastTurn);
-            }
+            } 
             // check if above it has been hit already
             var eleID = "p" + x-1 + "," + y;
             var colour = document.getElementById(eleID).style.background;
             console.log(colour);
-            if (colour === "red") {
+            
+            
+            if (colour === "red") { 
                 //it's been hit
                 // fire at x+1, y
-                player.grid.fireAtLocation(x+1, y, false);
-                this.lastTurn = [x+1,y];
-                removeItemFromArray(this.moveList, this.lastTurn;
+                player.grid.fireAtLocation(x+1, y, false); 
+                this.lastTurn = [x+1,y]; 
+                removeItemFromArray(this.moveList, this.lastTurn); 
             } 
             // check if below it has been hit already
             var eleID = "p" + x+1 + "," + y;
@@ -246,11 +257,11 @@ AI.prototype = {
                 player.grid.fireAtLocation(x-1, y, false);
                 this.lastTurn = [x-1,y];
                 removeItemFromArray(this.moveList, this.lastTurn);
-            }
+            } 
             this.status = "brainStepZero";
         }
     
-    return this.status;*/
+    return this.status;
 
     },
     /* defineCompFleetHack: function () {
