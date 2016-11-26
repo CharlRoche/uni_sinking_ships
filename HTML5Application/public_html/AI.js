@@ -16,6 +16,12 @@ function AI(xSize, ySize) {
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
+    this.status = 0; // is this the correct place to hold this?
+    this.hitLastTurn =0; // is this the correct place to hold this?
+    this.sunkLastTurn =0; // is this the correct place to hold this?
+    this.lastTurn = [0,0]; // this is the co-ords of the AI's last move
+    this.lastHitTurn = [0,0]; //place last hit on
+
 
 
 }
@@ -28,11 +34,224 @@ AI.prototype = {
         var x = coord[0];
         var y = coord[1];
         player.grid.fireAtLocation(x, y, false);
+        this.lastTurn = [x,y];
+        var eleID = "p" + x + "," + y-1;
+        var colour = document.getElementById(eleID).style.background;
+        console.log("this is the colour");
+        console.log(colour);
         removeItemFromArray(this.moveList, move);
     },
     makeComputerMoveMed: function () {
     },
     makeComputerMoveHard: function () {
+        // Need to check if this method called each time
+        if (status === 0 ){
+            // first go is random move
+            makeComputerMoveEasy();
+            this.status = "brainStepZero";
+        } else if (status === "brainStepZero") {
+            brainStepZero();
+        } else if (status === "brainStepOne") {
+            brainStepOne();
+        }
+    },
+    brainStepZero: function () { 
+        if (hitLastTurn === 1) {
+            if (sunkLastTurn ===1) {
+                makeComputerMoveEasy();
+            }
+            
+            // list of adjacent squares to last move
+            var x = lastTurnHit[0];
+            var y = lastTurnHit[1];
+            var adjSquares = [(x+1, y) // one below
+                                , (x-1, y) // one above
+                                , (x, y-1) // one to left
+                                , (x, y+1)] // one to the right
+              
+            var adjSquaresSet = new Set(adjSquares);
+            var moveListSet = new Set(this.moveList);
+            // find what is in adjSquares set and not in the moveList
+            var alreadyHit = new Set(adjSquaresSet);
+            for (var elem of moveListSet) {
+                alreadyHit.delete(elem);
+            }
+            
+            // check direction
+            if (alreadyHit ! null) {
+                // check length of already hit
+                var lenHit = len(alreadyHit);
+                //take first coord for now
+                var alreadyHitX = coord[0];
+                var alreadyHitY = coord[1];
+                if (alreadyHitX > x) {
+                    //  it's row below, same y val
+                    // fire at (x+1, y);
+                    player.grid.fireAtLocation(x+1, y, false);
+                    this.lastTurn = [x+1,y];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                } else if (alreadyHitX < x) {
+                    //  it's row above above, same y val
+                    // fire at (x-1, y);
+                    player.grid.fireAtLocation(x-1, y, false);
+                    this.lastTurn = [x-1,y];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                } else {
+                    //  same row
+                    if (alreadyHitY > y) {
+                        //      it's to the right
+                        // fire at (x, y+1);
+                        player.grid.fireAtLocation(x, y+1, false);
+                        this.lastTurn = [x,y+1];
+                        removeItemFromArray(this.moveList, this.lastTurn);
+                    } else if (alreadyHitY < y) {
+                        //      it's to the left
+                        // fire at (x, y-1);
+                        player.grid.fireAtLocation(x, y-1, false);
+                        this.lastTurn = [x,y-1];
+                        removeItemFromArray(this.moveList, this.lastTurn);
+                    }
+                }
+            
+
+                //TO DO: 
+                //for above Find end of last hit for that column/row + fire
+            
+                this.status = "brainStepOne";
+            } else {
+                getRandFromArray(adjSquares);
+                //code duped from user go easy so may take this bit and pop into
+                // a function later to reduce lines
+                var coord = move.split(',').map(Number);
+                var x = coord[0];
+                var y = coord[1];
+                player.grid.fireAtLocation(x, y, false);
+                this.lastTurn = [x,y];
+                removeItemFromArray(this.moveList, move);
+                this.status = "brainStepZero";
+            }
+
+        } else {
+            //Random fire at the list of all possible positions could fire at
+            makeComputerMoveEasy();
+            this.status = "brainStepZero"; // Abby check logic on this line
+        
+        }
+        return this.status;
+    },
+    brainStepOne: function () { /*
+        if (hitLastTurn === 1) { //hit on last turn 
+            if (sunkLastTurn ===1) { //If last go sunk a ship 
+                brainStepZero();
+            } else {
+                var x = this.lastTurnHit[0];
+                var y = this.lastTurnHit[1];
+                // hit next square along. need a variable to hold last square hit
+                // check if left of it been hit already
+                var eleID = "p" + x + "," + y-1;
+                var colour = document.getElementById(eleID).style.background;
+                console.log(colour);
+                if (colour === "red") {
+                    // it's been hit
+                    // fire at x, y-2
+                    player.grid.fireAtLocation(x, y-2, false);
+                    this.lastTurn = [x,y-2];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                }
+                // check if right of it has been hit already
+                var eleID = "p" + x + "," + y+1;
+                var colour = document.getElementById(eleID).style.background;
+                console.log(colour);
+                if (colour === "red") {
+                    //it's been hit
+                    // fire at x, y+2
+                    player.grid.fireAtLocation(x, y+2, false);
+                    this.lastTurn = [x,y+2];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                } 
+                // check if above it has been hit already
+                var eleID = "p" + x-1 + "," + y;
+                var colour = document.getElementById(eleID).style.background;
+                console.log(colour);
+                if (colour === "red") {
+                    //it's been hit
+                    // fire at x-2, y
+                    player.grid.fireAtLocation(x-2, y, false);
+                    this.lastTurn = [x-2,y];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                }
+
+                // check if below it has been hit already
+                var eleID = "p" + x+1 + "," + y;
+                var colour = document.getElementById(eleID).style.background;
+                console.log(colour);
+                if (colour === "red") {
+                    //it's been hit
+                    // fire at x+2, y
+                    player.grid.fireAtLocation(x+2, y, false);
+                    this.lastTurn = [x+2,y];
+                    removeItemFromArray(this.moveList, this.lastTurn);
+                }
+
+                this.status = "brainStepOne";
+        }
+        } else {
+            //	 Fire other end of row/ column
+            // do as above but if find it's hit then move in opp direction
+            // can you hitLastTurn because that shouldn't have changed
+            // TO DO: make sure hitLastTurn only sets when they actually hit on
+            // the last go
+            var x = this.lastTurnHit[0];
+            var y = this.lastTurnHit[1];
+                // hit next square along. need a variable to hold last square hit
+                // check if left of it been hit already
+            var eleID = "p" + x + "," + y-1;
+            var colour = document.getElementById(eleID).style.background;
+            console.log(colour);
+            if (colour === "red") {
+                // it's been hit
+                // fire at x, y+1
+                player.grid.fireAtLocation(x, y+1, false);
+                this.lastTurn = [x,y+1];
+                removeItemFromArray(this.moveList, this.lastTurn);
+            } 
+            var eleID = "p" + x + "," + y+1;
+            var colour = document.getElementById(eleID).style.background;
+            console.log(colour);
+            if (colour === "red") {
+                //it's been hit
+                // fire at x, y-1
+                player.grid.fireAtLocation(x, y-1, false);
+                this.lastTurn = [x,y-1];
+                removeItemFromArray(this.moveList, this.lastTurn);
+            }
+            // check if above it has been hit already
+            var eleID = "p" + x-1 + "," + y;
+            var colour = document.getElementById(eleID).style.background;
+            console.log(colour);
+            if (colour === "red") {
+                //it's been hit
+                // fire at x+1, y
+                player.grid.fireAtLocation(x+1, y, false);
+                this.lastTurn = [x+1,y];
+                removeItemFromArray(this.moveList, this.lastTurn;
+            } 
+            // check if below it has been hit already
+            var eleID = "p" + x+1 + "," + y;
+            var colour = document.getElementById(eleID).style.background;
+            console.log(colour);
+            if (colour === "red") {
+                //it's been hit
+                // fire at x-1, y
+                player.grid.fireAtLocation(x-1, y, false);
+                this.lastTurn = [x-1,y];
+                removeItemFromArray(this.moveList, this.lastTurn);
+            }
+            this.status = "brainStepZero";
+        }
+    
+    return this.status;*/
+
     },
     /* defineCompFleetHack: function () {
      
@@ -106,11 +325,14 @@ AI.prototype = {
         var eleID = "p" + x + "," + y;
         this.hitAI.push(eleID);
         document.getElementById(eleID).style.background = "red";
+        this.lastHitTurn = [x,y];
+        this.hitLastTurn = 1;
     },
     missedShipDraw: function (x, y) {
         var eleID = "p" + x + "," + y;
         this.missedAI.push(eleID);
         document.getElementById(eleID).style.background = "grey";
+        this.hitLastTurn = 0;
     },
     buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { 
         //Randomly Build AI Fleet
