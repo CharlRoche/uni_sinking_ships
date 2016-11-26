@@ -7,12 +7,11 @@
  */
 
 
-xLength = 10;
-yLength = 10;
-difficulty = 'easy';
-playerTurn = true;
+var xLength = 10;
+var yLength = 10;
+var difficulty = 'easy';
+var playerTurn = true;
 //default settings
-
 getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
 //var aiScore = aiShipsAlive();
@@ -27,7 +26,7 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
     AI.drawInitialGrid(xLength, yLength);
     //debug console.log(player.grid);
     //debug console.log(AI.grid);
-
+refreshTime();
     if (playerTurn === 'false') {
         makeAIMove();  //when player turn, function is started onclick
     }

@@ -16,8 +16,7 @@ function AI(xSize, ySize, difficulty) {
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
-    console.log(this.moveList);
-}
+   }
 
 AI.prototype = {
     constructor: AI,
