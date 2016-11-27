@@ -11,7 +11,6 @@ function player(name, xSize, ySize) {
     this.grid = new Grid(xSize, ySize);
     this.hitPlayer = [];
     this.missedPlayer = [];
-
 }
 
 player.prototype = {
@@ -19,16 +18,15 @@ player.prototype = {
     getName: function () {
         return this.name;
     },
-
     makePlayerMove: function (move) {
-        
+
         var moveCoord = move.substring(2);
         var coord = moveCoord.split(',').map(Number);
         var x = coord[0];
         var y = coord[1];
         AI.grid.fireAtLocation(x, y, true);
-        removeItemFromArray(this.moveList, moveCoord);
-        //player.drawGrid();
+        removeItemFromArray(this.moveList, moveCoord); //Player Move list not required???
+
 
     },
     buildMoveList: function (xSize, ySize) {
@@ -45,7 +43,7 @@ player.prototype = {
         PlayerShip1 = new ship('Carrier', 1);
         PlayerShip1.setLocations([[2, 5, 0], [2, 4, 0], [2, 3, 0], [2, 2, 0], [2, 1, 0]]);
         this.grid.addShip(PlayerShip1);
-        
+
         PlayerShip2 = new ship('Battleship', 1);
         PlayerShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
         this.grid.addShip(PlayerShip2);
@@ -63,155 +61,71 @@ player.prototype = {
         this.grid.addShip(PlayerShip5);
 
     },
-    drawInitialGrid: function () {
-        var squareSize = 50;
+    drawInitialGrid: function (xLength, yLength) {
+        var squareSize = 20;
         var gameBoardContainer = document.getElementById("gameboard");
         // this has been hard coded for the hack, taken form gridCreation
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
+        for (i = 0; i < xLength; i++) {
+            for (j = 0; j < yLength; j++) {
 
                 // create a new div HTML element for each grid square and make it the right size
                 var square = document.createElement("div");
                 gameBoardContainer.appendChild(square);
 
                 // give each div element a unique id based on its row and column, like "s00"
-                //square.id = Number(String(i) + String(j)) ;	
                 // The p signifys that it is the id for the players board
-                square.id = "p" + String(i) + "," + String(j) ;	
-		// set each grid square's coordinates: multiples of the current row or column number
-		var topPosition = j * squareSize;
-		var leftPosition = i * squareSize;			
-		
-		// use CSS absolute positioning to place each grid square on the page
-		square.style.top = topPosition + 'px';
-		square.style.left = leftPosition + 'px';						
-	}
-    }  
-        player.drawGrid();
-    },
-    hitShipDraw: function(x,y) {
-        var eleID = "ai"+x+","+y;
-        this.hitPlayer.push(eleID);
-        document.getElementById(eleID).style.background="red";
-    },
-    
-    missedShipDraw: function (x,y) {
-        var eleID = "ai"+x+","+y;
-        this.missedPlayer.push(eleID);
-        document.getElementById(eleID).style.background="grey";
-    },
-    drawGrid: function () { //draw the players grid containing their ships
-  
+                square.id = "p" + String(i) + "," + String(j);
+                // set each grid square's coordinates: multiples of the current row or column number
+                var topPosition = j * squareSize;
+                var leftPosition = i * squareSize;
 
-
-        //place on board Carrier
-        document.getElementById("p2,5").style.background="green";
-        document.getElementById("p2,4").style.background="green";
-        document.getElementById("p2,3").style.background="green";
-        document.getElementById("p2,2").style.background="green";
-        document.getElementById("p2,1").style.background="green";
-        
-        //Batteship
-        document.getElementById("p6,3").style.background="green";
-        document.getElementById("p7,3").style.background="green";
-        document.getElementById("p8,3").style.background="green";
-        document.getElementById("p9,3").style.background="green";
-        
-        
-        //Cruiser
-        document.getElementById("p7,5").style.background="green";
-        document.getElementById("p7,6").style.background="green";
-        document.getElementById("p7,7").style.background="green";
-        
-        //Submarine
-        document.getElementById("p9,7").style.background="green";
-        document.getElementById("p9,8").style.background="green";
-        document.getElementById("p9,9").style.background="green";
-        
-        //Destroyer
-        document.getElementById("p1,8").style.background="green";
-        document.getElementById("p2,8").style.background="green";
-
-      /*  
-      // creates general array of al possible moves
-       // hardcoded to grid size ten, will need to amend for MVP
-       var allShots = [];
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
-                allShots.push(i + ',' + j);
+                // use CSS absolute positioning to place each grid square on the page
+                square.style.top = topPosition + 'px';
+                square.style.left = leftPosition + 'px';
             }
         }
+        player.drawGrid();
+    },
+    hitShipDraw: function (x, y) {
+        var eleID = "ai" + x + "," + y;
+        this.hitPlayer.push(eleID);
+        document.getElementById(eleID).style.background = "red";
+        $("#id").off('click');
+    },
+    missedShipDraw: function (x, y) {
+        var eleID = "ai" + x + "," + y;
+        this.missedPlayer.push(eleID);
+        document.getElementById(eleID).style.background = "grey";
+    },
+    drawGrid: function () { //draw the players grid containing their ships
 
-        // shots_taken is the shots they have taken:
-        // it is the difference between allShots and AI.movelist
-        var seen = [];
-        var shotsTakenAI = [];
-        var length1 = (player.moveList).length;
-        for ( var i = 0; i < (player.moveList).length; i++)
-            seen[player.moveList[i]] = true;
-        for ( var i = 0; i < allShots.length; i++)
-            if (!seen[allShots[i]])
-                shotsTakenAI.push(allShots[i]);
+        //place on board Carrier
+        document.getElementById("p2,5").style.background = "green";
+        document.getElementById("p2,4").style.background = "green";
+        document.getElementById("p2,3").style.background = "green";
+        document.getElementById("p2,2").style.background = "green";
+        document.getElementById("p2,1").style.background = "green";
 
-
-        //var shotsTakenAI = diffArray((allShots), (player.moveList));
-
-        // difference between all shots and hit ships
-
-
-
-        // for shots_taken, find the intersection with the AI ships.
-        // any intersections will indicate the player has hit the AI
-        // therefore for intersection set doc element background colour to red
-
-        //var hitShipsAI = intersection(shotsTakenAI, allShots);
-        
-        var m1 = (shotsTakenAI).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
-        var hitShipsAI = (allShots).filter(function(v) { return m1[v]; });
-
-
+        //Batteship
+        document.getElementById("p6,3").style.background = "green";
+        document.getElementById("p7,3").style.background = "green";
+        document.getElementById("p8,3").style.background = "green";
+        document.getElementById("p9,3").style.background = "green";
 
 
+        //Cruiser
+        document.getElementById("p7,5").style.background = "green";
+        document.getElementById("p7,6").style.background = "green";
+        document.getElementById("p7,7").style.background = "green";
 
-        // need to loop through hit_ships array to split it out and put into
-        // CSS ID format
-        var numLoops = hitShipsAI.length;
-        console.log(numLoops);
-        for(i=0; i<numLoops; i++) {
-            // get item in array
-            var getArray = hitShipsAI[i];
-            console.log(getArray);
-            // get row
-            var row = getArray[0];
-            var col = getArray[2];
-            var str2 = "ai";
-            var str3 = ",";
-            var hitCoords = str2+row+str3+col;
-            document.getElementById(hitCoords).style.background="red";
-            }
-                        
-        // then calculate the difference between shots_taken and hit_shits and colour the 
-        // difference as grey which indicates shots taken which didn't hit a ship
-        var m2 = (shotsTakenAI).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
-        var missedShipsAI = (hitShipsAI).filter(function(v) { return m1[v]; });
-        
+        //Submarine
+        document.getElementById("p9,7").style.background = "green";
+        document.getElementById("p9,8").style.background = "green";
+        document.getElementById("p9,9").style.background = "green";
 
-        var numLoops = missedShipsAI.length;
-        for(i=0; i<numLoops; i++) {
-            // get item in array
-            var getArray = missedShipsAI[i];
-            // get row
-            var row = getArray[0];
-            var col = getArray[2];
-            var str2 = "ai";
-            var str3 = ",";
-            var missedCoords = str2+row+str3+col;
-            document.getElementById(missedCoords).style.background="grey";
-            }
-
-
-
-       
-  */  }
-};
+        //Destroyer
+        document.getElementById("p1,8").style.background = "green";
+        document.getElementById("p2,8").style.background = "green";
+    }
+}
 

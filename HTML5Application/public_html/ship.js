@@ -48,7 +48,7 @@ ship.prototype = {
             }
         }
 
-        console.log(numofhits);
+       // console.log(numofhits);
 
         if (numofhits < this.size) {
             return true;

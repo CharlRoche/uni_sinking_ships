@@ -6,17 +6,12 @@
  *Contribution Log: Name/Date/Description
  *
  *Pete/17/10/2015/Created File, added ship definition Final Variables
- *
- * 
  */
 
-var userScore = playerShipsAlive();
-var compScore = aiShipsAlive();
 var userFleet = [];
 var compFleet = [];
 var gameWon = false;
 //ship variables
-
 var CARRIER_LEN = 5;
 var BATTLESHIP_LEN = 4;
 var CRUISER_LEN = 3;
@@ -35,46 +30,18 @@ function removeItemFromArray(array, value) {
         array.splice(index, 1);
     }
 }
-
-
-
-
-
-//DEPRECATED
-
-function isInFleet(user, target) {
-
-    var ship;
-    if (user) {
-        for (i = 0; i < userFleet.length; i++) {
-            for (j = 0; j < userFleet[i].coord.length; j++) {
-                if (target === userFleet[i].coord[j]) {
-                    ship = userFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
-        }
-    } else if (user === false) {
-        for (i = 0; i < compFleet.length; i++) {
-            for (j = 0; j < compFleet[i].coord.length; j++) {
-                if (target === compFleet[i].coord[j]) {
-                    ship = compFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
-        }
-    } else {
-        ship = -1;
-    }
-    return ship;
+function refreshTime(paused) {
+    var startTime = new Date;
+    setInterval(getTime, 1000, startTime, paused)
 }
-
-
-
-
+function getTime(startTime, paused) {
+    if (paused) {
+        //handle pausing later
+    } else {
+        var currentTime = new Date;
+        var timeDiff = new Date(currentTime - startTime);
+        var min = (('0000' + timeDiff.getMinutes()).slice(-2));
+        var sec = (('0000' + timeDiff.getSeconds()).slice(-2));
+        $('#clock').text(min + ':' + sec);
+    }
+}

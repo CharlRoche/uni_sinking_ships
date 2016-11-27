@@ -5,15 +5,16 @@
 
 
 function createArray(length) {
-	var arr = new Array(length || 0),
-			i = length;
+    var arr = new Array(length || 0),
+            i = length;
 
-	if (arguments.length > 1) {
-		var args = Array.prototype.slice.call(arguments, 1);
-		while(i--) arr[length-1 - i] = createArray.apply(this, args);
-	}
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while (i--)
+            arr[length - 1 - i] = createArray.apply(this, args);
+    }
 
-	return arr;
+    return arr;
 }
 
 //undefined = not hit or picked
@@ -22,51 +23,50 @@ function createArray(length) {
 
 
 
-function Grid(xSize, ySize){
-	this.xSize = xSize;
-	this.ySize = ySize;
-	this.grd = createArray(xSize, ySize);
+function Grid(xSize, ySize) {
+    this.xSize = xSize;
+    this.ySize = ySize;
+    this.grd = createArray(xSize, ySize);
 }
 
 Grid.prototype = {
-	constructor:Grid,
-	getGrid: function () {
-		return this.grd;
-	},
-	clearGridValue: function (x,y) {
-		this.grd[x][y] = undefined;
-	},
-	addShip:function(ship) {
-		for (var i = 0; i < ship.getLocations().length; i++){
-			currentloc = ship.getLocations()[i];
-			this.grd[currentloc[0]][currentloc[1]] = ship;
-		}
-	},
-	fireAtLocation: function (x,y, playerTurn) {
-		if (typeof this.getGrid()[x][y] != 'undefined')	{
-			currentShip = this.getGrid()[x][y];
-			console.log('Ship hit at [' + x + '], [' + y+']');
-                        //window.alert('You hit a ship at [' + x + ', ' + y+']');
-			currentShip.shootShip(x,y);
-                        if (playerTurn === true) {
-                            player.hitShipDraw(x,y);
-                        }if (playerTurn === false) {
-                            AI.hitShipDraw(x,y);
-                        }
-                                
+    constructor: Grid,
+    getGrid: function () {
+        return this.grd;
+    },
+    clearGridValue: function (x, y) {
+        this.grd[x][y] = undefined;
+    },
+    addShip: function (ship) {
+        for (var i = 0; i < ship.getLocations().length; i++) {
+            currentloc = ship.getLocations()[i];
+            this.grd[currentloc[0]][currentloc[1]] = ship;
+        }
+    },
+    fireAtLocation: function (x, y, playerTurn) {
+        if (this.getGrid()[x][y] instanceof ship) {
+            currentShip = this.getGrid()[x][y];
+                        console.log('Ship hit at [' + x + '], [' + y + ']');
+            currentShip.shootShip(x, y);
+            if (playerTurn === true) {
+                player.hitShipDraw(x, y);
+            }
+            if (playerTurn === false) {
+                AI.hitShipDraw(x, y);
+            }
+
+        } else {
+            console.log('No ship found');
+            //window.alert('You missed!');
+            if (playerTurn === true) {
+                player.missedShipDraw(x, y);
+            }
+            if (playerTurn === false) {
+                AI.missedShipDraw(x, y);
+            }
 
 
-		}else{
-			console.log('No ship found');
-                        //window.alert('You missed!');
-                        if (playerTurn === true) {
-                            player.missedShipDraw(x,y);
-                        }if (playerTurn === false) {
-                            AI.missedShipDraw(x,y);
-                        }
-
-
-		}
-	}
+        }
+    }
 };
 
