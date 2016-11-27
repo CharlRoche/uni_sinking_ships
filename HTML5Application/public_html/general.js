@@ -36,19 +36,12 @@ function refreshTime(paused) {
 }
 function getTime(startTime, paused) {
     if (paused) {
-            //handle pausing later
+        //handle pausing later
     } else {
         var currentTime = new Date;
-        
         var timeDiff = new Date(currentTime - startTime);
-        var min = (('0000'+timeDiff.getMinutes()).slice(-2));
-        var sec = (('0000'+timeDiff.getSeconds()).slice(-2));
-        
-                //console.log(min + ':' + sec);
-               
-               $('#clock').text(min + ':' + sec);
-        
-        //document.getElementById('ct').innerHTML = (date(now) - startTime);
-      
+        var min = (('0000' + timeDiff.getMinutes()).slice(-2));
+        var sec = (('0000' + timeDiff.getSeconds()).slice(-2));
+        $('#clock').text(min + ':' + sec);
     }
 }
