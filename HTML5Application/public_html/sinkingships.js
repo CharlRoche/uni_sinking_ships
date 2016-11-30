@@ -26,7 +26,7 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
     AI.drawInitialGrid(xLength, yLength);
     //debug console.log(player.grid);
     //debug console.log(AI.grid);
-refreshTime();
+    refreshTime();
     if (playerTurn === 'false') {
         makeAIMove();  //when player turn, function is started onclick
     }
@@ -52,12 +52,12 @@ function getSettings() {
     if ($_GET.hasOwnProperty('playerTurn')) {
         playerTurn = $_GET['playerTurn'];
     }
-    
+
 }
 ;
 
 function startPlayerMove(target) {
-    
+
     player.makePlayerMove(target);
     var userScore = playerShipsAlive();
 
