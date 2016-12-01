@@ -11,6 +11,7 @@ var xLength = 10;
 var yLength = 10;
 var difficulty = 'easy';
 var playerTurn = true;
+var AIthoughts = 0;
 //default settings
 getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
@@ -57,15 +58,21 @@ function getSettings() {
 ;
 
 function startPlayerMove(target) {
-
+    $('#aigameboard').children().off('click');
+    console.log(target);
     player.makePlayerMove(target);
-    var userScore = playerShipsAlive();
+    //var userScore = playerShipsAlive();
 
     if (gameWon === true) {
         endGame();
     } else
     {
-        makeAIMove();
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300)
     }
     document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive();
 }
@@ -75,15 +82,31 @@ function makeAIMove() {
     AI.makeComputerMoveEasy();
     aiShipsAlive();
     playerTurn = true;
-    var aiScore = aiShipsAlive();
+    //var aiScore = aiShipsAlive();
 
     if (gameWon === true) {
         endGame();
     }
+    restoreOnClick();
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
 }
 ;
+function restoreOnClick() {
 
+   
+       // locat = 'ai' + player.moveList[i];
+//console.log(locat);
+        //$(locat).on('click', function () {
+            //startPlayerMove('ai'+player.moveList[i]);
+       // });
+        
+        $('#aigameboard').children().one('click', function () {
+            startPlayerMove(this.id);
+        });
+    
+
+}
+;
 function endGame() {
     alert("Games Over");//should probs do something a little more interesting here
 }

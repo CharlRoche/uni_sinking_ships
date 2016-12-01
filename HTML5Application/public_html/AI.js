@@ -16,7 +16,7 @@ function AI(xSize, ySize, difficulty) {
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
-   }
+}
 
 AI.prototype = {
     constructor: AI,
@@ -35,6 +35,34 @@ AI.prototype = {
     getRandMove: function () {
         var rand = getRandFromArray(this.moveList);
         return rand;
+    },
+    think: function () {
+        var thought = setInterval(function () {
+            AI.think1(thought);
+        }, 200);
+    },
+    think1: function (thought) {
+        AIthoughts++;
+        if (AIthoughts > 10) {
+            AIthoughts = 0;
+            clearInterval(thought);
+        } else {
+            var rand = this.getRandMove();
+            var square = "p" + rand;
+            AI.think2(square);
+        }
+    },
+    think2: function (square) {
+        var prevColor = document.getElementById(square).style.background;
+        document.getElementById(square).style.background = 'blue';
+        setTimeout(function () {
+            AI.think3(square, prevColor);
+        }, 200);
+    },
+    think3: function (square, prevColor) {
+
+        document.getElementById(square).style.background = prevColor;
+
     },
     buildMoveList: function (xSize, ySize) {
         var moveList = [];
@@ -60,7 +88,6 @@ AI.prototype = {
 
                 // The ai signifys that it is the id for the players board
                 square.id = "ai" + String(i) + "," + String(j);
-
                 // set each grid square's coordinates: multiples of the current row or column number
                 var topPosition = j * squareSize;
                 var leftPosition = i * squareSize;

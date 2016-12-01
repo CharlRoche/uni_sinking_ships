@@ -46,7 +46,8 @@ Grid.prototype = {
     fireAtLocation: function (x, y, playerTurn) {
         if (this.getGrid()[x][y] instanceof ship) {
             currentShip = this.getGrid()[x][y];
-                        console.log('Ship hit at [' + x + '], [' + y + ']');
+            hitNoise.play();
+            console.log('Ship hit at [' + x + '], [' + y + ']');
             currentShip.shootShip(x, y);
             if (playerTurn === true) {
                 player.hitShipDraw(x, y);
@@ -56,6 +57,7 @@ Grid.prototype = {
             }
 
         } else {
+            missNoise.play();
             console.log('No ship found');
             //window.alert('You missed!');
             if (playerTurn === true) {
