@@ -7,28 +7,22 @@
 function createArray(length) {
     var arr = new Array(length || 0),
             i = length;
-
     if (arguments.length > 1) {
         var args = Array.prototype.slice.call(arguments, 1);
         while (i--)
             arr[length - 1 - i] = createArray.apply(this, args);
     }
-
     return arr;
 }
-
 //undefined = not hit or picked
 //ship with location index 2 == 0 is unhit
 //ship with location index 2 == 1 is hit
-
-
 
 function Grid(xSize, ySize) {
     this.xSize = xSize;
     this.ySize = ySize;
     this.grd = createArray(xSize, ySize);
 }
-
 Grid.prototype = {
     constructor: Grid,
     getGrid: function () {

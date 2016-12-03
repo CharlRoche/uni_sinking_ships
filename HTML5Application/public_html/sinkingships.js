@@ -15,8 +15,8 @@ var AIthoughts = 0;
 //default settings
 getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
-//var aiScore = aiShipsAlive();
-//var userScore = playerShipsAlive();
+var aiScore = aiShipsAlive();
+var userScore = playerShipsAlive();
 
 function startGame(xLength, yLength, difficulty, playerTurn) {//configures and starts the game
 
@@ -82,31 +82,30 @@ function makeAIMove() {
     AI.makeComputerMoveEasy();
     aiShipsAlive();
     playerTurn = true;
-    //var aiScore = aiShipsAlive();
+    var aiScore = aiShipsAlive();
 
     if (gameWon === true) {
         endGame();
     }
-    restoreOnClick();
+    setTimeout(function () {
+        restoreOnClick();
+    }, 3000);
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
 }
 ;
 function restoreOnClick() {
 
-   
-       // locat = 'ai' + player.moveList[i];
-//console.log(locat);
-        //$(locat).on('click', function () {
-            //startPlayerMove('ai'+player.moveList[i]);
-       // });
-        
-        $('#aigameboard').children().one('click', function () {
+
+    for (var i = 0; i < player.moveList.length; i++) {
+        locat = 'ai' + player.moveList[i];
+        $($(jq(locat))).on('click', function () {
             startPlayerMove(this.id);
         });
-    
 
+    }
 }
 ;
+
 function endGame() {
     alert("Games Over");//should probs do something a little more interesting here
 }
