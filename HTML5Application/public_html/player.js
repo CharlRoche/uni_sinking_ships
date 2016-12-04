@@ -11,6 +11,7 @@ function player(name, xSize, ySize) {
     this.grid = new Grid(xSize, ySize);
     this.hitPlayer = [];
     this.missedPlayer = [];
+    this.missNextGo = false;
 }
 
 player.prototype = {
