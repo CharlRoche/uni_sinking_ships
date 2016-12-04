@@ -65,46 +65,44 @@ AI.prototype = {
             console.log("hit first turn area");
         
             if (this.sunkLastTurn ===1) {
+                console.log("move easy sunk last ship");
                 AI.makeComputerMoveEasy();
                 this.status = "test";
             }
-            console.log("hit first turn area2");
+            //console.log("hit first turn area2");
             // list of adjacent squares to last move
             var move = this.lastHitTurn;
             var x = move[0];
             var y = move[1];
-            console.log("x" + x);
-            console.log("y" + y);
+            //console.log("x" + x);
+            //console.log("y" + y);
             
             var adjSquares = [[x+1, y] // one below
                                 , [x-1, y] // one above
                                 , [x, y-1] // one to left
                                 , [x, y+1]]; // one to the right
-            // TO DO: the below set difference isn't working
-            // Work around may be to just check if each coord is in list
-            // manually
-            console.log(adjSquares);
+            // TO DO: 
+            // Don't know if attmepts to hit a square already hit. Need to check
+            // logic below on line  if (this.moveList.includes(coord1)) {
+            
+            //console.log(adjSquares);
 
             // loop through each array in ajsSquares
- 
+            console.log("just befoe the loop");
             for(var i = 0; i < adjSquares.length; i++) {
-                var adjSquare = adjSquares[i];
-                for(var j = 0; j < adjSquare.length; j++) {
-                        // check if in grid
-                        // below line not working, we need to check if it's in
-                        // array of poss moves
-                        //if (Grid.getGrid()[x][y] instanceof this.moveList)  {
-                    var coord = x +","+y;
-                        //console.log(coord);
-                        //console.log(this.moveList);
-                        //stop = true;
-                    if (this.moveList.includes(coord)) {
-                        var alreadyHitX = i;
-                        var alreadyHitY = j;
+                var temp = adjSquares[i];
+                var coord1 = temp[0] + "," + temp[1];
+                //console.log("coord1" + coord1);
+                if (this.moveList.includes(coord1)) {
+                        //
+                    console.log("in the if in loop");
+                    var alreadyHitX = temp[0];
+                    var alreadyHitY = temp[1];
 
-                    } 
                 }
             }
+            
+
 
             
             // this code detects the hit
@@ -137,23 +135,38 @@ AI.prototype = {
              */
             
             
-            console.log("alreadyHitX: "+ alreadyHitX);
-            console.log("X: "+ x);
-             console.log("alreadyHitY: "+ alreadyHitY);
-            console.log("Y: "+ x);
+            //console.log("alreadyHitX: "+ alreadyHitX);
+            //console.log("X: "+ x);
+            //console.log("alreadyHitY: "+ alreadyHitY);
+            //console.log("Y: "+ x);
+            
+            console.log("x: "+ x);
+            console.log("y: "+ y);
+            console.log("alreadyHitXLOOP: "+ alreadyHitX);
+            console.log("alreadyHitYLOOP: "+ alreadyHitY);
+                    
+                    
+                    
             if (alreadyHitX > x) {
                     //  it's row below, same y val
                     // fire at (x+1, y);
-                console.log("it's row below, same y val");
-                player.grid.fireAtLocation(x+1, y, false);
-                removeItemFromArray(this.moveList, [x+1,y]);
+                //console.log("it's row below, same y val");
+                //player.grid.fireAtLocation(x+1, y, false);
+                console.log("hre1");
+                player.grid.fireAtLocation(alreadyHitX, alreadyHitY, false);
+                removeItemFromArray(this.moveList, [alreadyHitX, alreadyHitY]);
+                //removeItemFromArray(this.moveList, [x+1,y]);
+                this.status = "brainStepOne";
                     
             } else if (alreadyHitX < x) {
                     //  it's row above above, same y val
                     // fire at (x-1, y);
-                console.log(" it's row above above, same y val");
-                player.grid.fireAtLocation(x-1, y, false);
-                removeItemFromArray(this.moveList, [x-1,y]);
+                //console.log(" it's row above above, same y val");
+                //player.grid.fireAtLocation(x-1, y, false);
+                console.log("hre2");
+                player.grid.fireAtLocation(alreadyHitX, alreadyHitY, false);
+                removeItemFromArray(this.moveList, [alreadyHitX, alreadyHitY]);
+                this.status = "brainStepOne";
                    
             } else {
                     //  same row
@@ -161,22 +174,28 @@ AI.prototype = {
                 if (alreadyHitY > y) {
                         //      it's to the right
                         // fire at (x, y+1);
-                    console.log("  it's to the right");
-                    player.grid.fireAtLocation(x, y+1, false);
-                    removeItemFromArray(this.moveList, [x,y+1]);
+                    //console.log("  it's to the right");
+                    //player.grid.fireAtLocation(x, y+1, false);
+                    console.log("hre3");
+                    player.grid.fireAtLocation(alreadyHitX, alreadyHitY, false);
+                    removeItemFromArray(this.moveList, [alreadyHitX, alreadyHitY]);
                     this.status = "brainStepOne"; 
                 } else if (alreadyHitY < y) {
                         //      it's to the left
                         // fire at (x, y-1);
-                    console.log("  it's to the left");
-                    player.grid.fireAtLocation(x, y-1, false);
-                    removeItemFromArray(this.moveList, [x,y+1]);
+                    //console.log("  it's to the left");
+                    //player.grid.fireAtLocation(x, y-1, false);
+                    console.log("hre4");
+                    player.grid.fireAtLocation(alreadyHitX, alreadyHitY, false);
+                    removeItemFromArray(this.moveList, [alreadyHitX, alreadyHitY]);
                     this.status = "brainStepOne"; 
                 }
             // this is from above commented out   }
             } 
             // this else needs adding in some other way
             // perhaps where alreadyHitY null??? etx
+            
+            // Need to add in below once the below TO DO is done
             /*else {
                         getRandFromArray(adjSquares);
                         //code duped from user go easy so may take this bit and pop into
@@ -212,110 +231,179 @@ AI.prototype = {
             if (this.sunkLastTurn ===1) { //If last go sunk a ship 
                 AI.brainStepZero();
             } else {
+                // hit next square along in row
+                // compare LastTurn and lastHitTurn to find direction
+                //var hitMove = this.lastHitTurn;
+                //var moveX = lastMove[0];
+                //var moveY = lastMove[1];
+                
+                
+                
+                console.log("in first else, to get next square along");
                 var move = this.lastHitTurn;
                 var x = move[0];
                 var y = move[1];
                 // hit next square along. need a variable to hold last square hit
                 // check if left of it been hit already
-                var eleID = "p" + x + "," + y-1;
-                var colour = document.getElementById(eleID).style.background;
-                console.log(colour);
+                console.log("x: " + x);
+                console.log("y: " + y);
+                var eleID = "p" + String(x) + "," + String(y-1);
+                console.log("elementID: " + eleID);
+                var colour = (document.getElementById(eleID).style.background).trim();
+                console.log("colour: " + colour);
+
                 if (colour === "red") {
                     // it's been hit
                     // fire at x, y-2
+                    console.log("it was red");
                     player.grid.fireAtLocation(x, y-2, false);
                     removeItemFromArray(this.moveList, [x,y-2]);
                 } 
                 // check if right of it has been hit already
                 var eleID = "p" + x + "," + y+1;
-                var colour = document.getElementById(eleID).style.background;
+                var colour = (document.getElementById(eleID).style.background).trim();
                 console.log(colour);
+
                 if (colour === "red") {
                     //it's been hit
                     // fire at x, y+2
+                    console.log("it was red");
                     player.grid.fireAtLocation(x, y+2, false);
                     removeItemFromArray(this.moveList, [x,y+2]);
                 } 
                 // check if above it has been hit already
                 var eleID = "p" + x-1 + "," + y;
-                var colour = document.getElementById(eleID).style.background;
+                var colour = (document.getElementById(eleID).style.background).trim();
                 console.log(colour);
+
                 if (colour === "red") {
                     //it's been hit
                     // fire at x-2, y
+                    console.log("it was red");
                     player.grid.fireAtLocation(x-2, y, false);
                     removeItemFromArray(this.moveList, [x-2,y]);
                 }
 
                 // check if below it has been hit already
                 var eleID = "p" + x+1 + "," + y;
-                var colour = document.getElementById(eleID).style.background;
+                var colour = (document.getElementById(eleID).style.background).trim();
                 console.log(colour);
+
                 if (colour === "red") {
                     //it's been hit
                     // fire at x+2, y
+                    console.log("it was red");
                     player.grid.fireAtLocation(x+2, y, false);
                     removeItemFromArray(this.moveList, [x+2,y]);
                 }
 
                 this.status = "brainStepOne";
             } 
+        // if unsucessful fire other end of column
         } else { 
-            //	 Fire other end of row/ column
+            // hit next square other end of row
+            // compare LastTurn and lastHitTurn to find direction
+            
+            
+            //	 Fire other end of row/ column or other adjacent square?????
+            //	 
+            //	 
             // do as above but if find it's hit then move in opp direction
             // can you hitLastTurn because that shouldn't have changed
             // TO DO: make sure hitLastTurn only sets when they actually hit on
             // the last go
-            var x = this.lastTurnHit[0];
-            var y = this.lastTurnHit[1];
+            var move = this.lastHitTurn;
+            var x = move[0];
+            var y = move[1];
+            console.log("in else x: " + x);
+            console.log("in else y: " + y);
                 // hit next square along. need a variable to hold last square hit
                 // check if left of it been hit already
-            var eleID = "p" + x + "," + y-1;
-            var colour = document.getElementById(eleID).style.background;
+            var eleID = "p" + String(x) + "," + String(y-1);
+            var colour = (document.getElementById(eleID).style.background).trim();
             console.log(colour);
-            
+            console.log("1");
+            // TO DO: check coords don't go off the board
             if (colour === "red") {
                 // it's been hit
                 // fire at x, y+1
+                console.log("111");
                 player.grid.fireAtLocation(x, y+1, false);
                 removeItemFromArray(this.moveList, [x,y+1]);
-            } 
+                this.status = "brainStepZero";
+            } else {
+                console.log("11");
+                this.status = "brainStepZero";
+                AI.makeComputerMoveEasy();
+            }
+            
             var eleID = "p" + x + "," + y+1;
-            var colour = document.getElementById(eleID).style.background;
+            var colour = (document.getElementById(eleID).style.background).trim();
             console.log(colour);
+            console.log("2");
+
             if (colour === "red") {
                 //it's been hit
                 // fire at x, y-1
+                console.log("222");
                 player.grid.fireAtLocation(x, y-1, false);
                 removeItemFromArray(this.moveList, [x,y-1]);
-            } 
+                this.status = "brainStepZero";
+            } else {
+                console.log("22");
+                this.status = "brainStepZero";
+                AI.makeComputerMoveEasy();
+            }
+            
+            
             // check if above it has been hit already
             var eleID = "p" + x-1 + "," + y;
-            var colour = document.getElementById(eleID).style.background;
+            var colour = (document.getElementById(eleID).style.background).trim();
             console.log(colour);
-            
-            
+            console.log("3");
+
             if (colour === "red") { 
                 //it's been hit
                 // fire at x+1, y
+                console.log("333");
                 player.grid.fireAtLocation(x+1, y, false); 
                 removeItemFromArray(this.moveList, [x+1,y]); 
-            } 
+                this.status = "brainStepZero";
+            } else {
+                console.log("33");
+                this.status = "brainStepZero";
+                AI.makeComputerMoveEasy();
+            }
+            
+            
             // check if below it has been hit already
             var eleID = "p" + x+1 + "," + y;
-            var colour = document.getElementById(eleID).style.background;
+            var colour = (document.getElementById(eleID).style.background).trim();
             console.log(colour);
+            console.log("4");
+
             if (colour === "red") {
                 //it's been hit
                 // fire at x-1, y
+                console.log("444");
                 player.grid.fireAtLocation(x-1, y, false);
                 removeItemFromArray(this.moveList, [x-1,y]);
-            } 
-            this.status = "brainStepZero";
+                this.status = "brainStepZero";
+            } else {
+                console.log("44");
+                this.status = "brainStepZero";
+                AI.makeComputerMoveEasy();
+            }
+            if (colour == null) {
+                console.log("55");
+                this.status = "brainStepZero";
+                AI.makeComputerMoveEasy();
+            }
+            
         }
     
     return status;
-
+ 
     },
     /* defineCompFleetHack: function () {
      
@@ -410,6 +498,8 @@ AI.prototype = {
         console.log("status: " + this.status);
         console.log("lastTurn: " + this.lastTurn);
         console.log("lastHitTurn: " + this.lastHitTurn);
+        console.log("hitLastTurn flag: "+ this.hitLastTurn);
+        console.log("sunkLastTurn flag: "+ this.sunkLastTurn);
     },
     buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { 
         //Randomly Build AI Fleet
