@@ -6,12 +6,12 @@
  * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
 
-
 var xLength = 10;
 var yLength = 10;
 var difficulty = 'easy';
 var playerTurn = true;
 var AIthoughts = 0;
+var debug = true;
 //default settings
 getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
@@ -29,7 +29,12 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
     //debug console.log(AI.grid);
     refreshTime();
     if (playerTurn === 'false') {
-        makeAIMove();  //when player turn, function is started onclick
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);  //when player turn, function is started onclick
     }
 
 }
@@ -59,20 +64,25 @@ function getSettings() {
 
 function startPlayerMove(target) {
     $('#aigameboard').children().off('click');
-    console.log(target);
-    player.makePlayerMove(target);
-    //var userScore = playerShipsAlive();
 
+    player.makePlayerMove(target);
+    //var userScore = playerShipsAlive();    
     if (gameWon === true) {
         endGame();
-    } else
+    }
+
+    if (!debug && !AI.missNextGo)
     {
         setTimeout(function () {
             AI.think();
         }, 2000);
         setTimeout(function () {
             makeAIMove();
-        }, 4300)
+        }, 4300);
+    } else if (!AI.missNextGo) {
+        makeAIMove();
+    } else {
+        AI.missNextGo = false;
     }
     document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive();
 }
@@ -87,10 +97,31 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
-    setTimeout(function () {
+    if (player.missNextGo === true) {
+        player.missNextGo = false;
+        if (!debug && !AI.missNextGo)
+    {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);
+    } else if (!AI.missNextGo) {
+        makeAIMove();
+    } else {
+        AI.missNextGo = false;
+    }
+    } else if (debug) {
         restoreOnClick();
-    }, 3000);
+    } else {
+        setTimeout(function () {
+            restoreOnClick();
+        }, 3000);
+    }
+
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
+
 }
 ;
 function restoreOnClick() {

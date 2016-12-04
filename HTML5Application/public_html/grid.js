@@ -37,6 +37,15 @@ Grid.prototype = {
             this.grd[currentloc[0]][currentloc[1]] = ship;
         }
     },
+    addMine: function (mine) {
+        for (var i = 0; i < mine.getLocations().length; i++) {
+
+            currentloc = mine.getLocations()[i];
+
+            this.grd[currentloc[0]][currentloc[1]] = mine;
+
+        }
+    },
     fireAtLocation: function (x, y, playerTurn) {
         if (this.getGrid()[x][y] instanceof ship) {
             currentShip = this.getGrid()[x][y];
@@ -48,6 +57,17 @@ Grid.prototype = {
             }
             if (playerTurn === false) {
                 AI.hitShipDraw(x, y);
+            }
+
+        } else if (this.getGrid()[x][y] instanceof mine) {
+            hitNoise.play();
+            alert("YOU HIT A MINE");
+            if (playerTurn === true) {
+                player.missNextGo = true;
+            }
+            if (playerTurn === false) {
+                AI.hitShipDraw(x, y);
+                AI.missNextGo = true;
             }
 
         } else {
