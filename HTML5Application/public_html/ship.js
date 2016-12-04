@@ -51,8 +51,10 @@ ship.prototype = {
         console.log(numofhits);
 
         if (numofhits < this.size) {
+            AI.sunkLastTurn = 0;
             return true;
         } else {
+            AI.sunkLastTurn = 1;
             return false;
         }
     },
