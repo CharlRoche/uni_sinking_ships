@@ -89,7 +89,14 @@ function startPlayerMove(target) {
 ;
 function makeAIMove() {
 
-    AI.makeComputerMoveEasy();
+    if (difficulty == "easy") {
+        AI.makeComputerMoveEasy();
+    } else {
+        AI.makeComputerMoveHard();
+    }
+    
+    //
+    //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
     var aiScore = aiShipsAlive();
