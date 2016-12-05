@@ -12,7 +12,7 @@ function AI(xSize, ySize, difficulty) {
     this.mine = [];
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-    this.buildAIFleet(1, 1, 1, 1, 1, 1);
+    this.buildAIFleet(1, 1, 1, 1, 1, 2);
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
