@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+  
+    body {
+        background-color: lightskyblue;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: top center;
+        text-align: center;
+    }
+    
+    .inlineTable {
+            display: inline-block;
+        }
+span:before{
+    content:" "; 
+    display:inline-block; 
+    width:500px;
+}
+    .button {
+    background-color: #bfbfbf; /* Green */
+    border: 1px solid green;
+    color: #bfbfbf;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    float: left;
+}
+
+.button:hover {
+    background-color: #3333ff;
+}
+
+    .button2 {
+    background-color: #bfbfbf; /* Green */
+    border: 1px solid green;
+    color: #bfbfbf;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.button2:hover {
+    background-color: #3333ff;
+}
+td {
+    padding: 0px;
+} 
+#gameboard {
+	position:relative;
+	margin:0 auto 2em auto;
+	width:500px;
+	height:500px;
+}
+
+#gameboard div {
+	position:absolute;
+	-webkit-box-sizing: border-box; /* Safari 3.0 - 5.0, Chrome 1 - 9, Android 2.1 - 3.x */
+	-moz-box-sizing: border-box;    /* Firefox 1 - 28 */
+	box-sizing: border-box;         /* Safari 5.1+, Chrome 10+, Firefox 29+, Opera 7+, IE 8+, Android 4.0+, iOS any */
+	background: #f6f8f9; /* Old browsers */
+	border: 1px solid #ddd;
+	width:50px;
+	height:50px;
+
+
+    </style>
+    <h1>
+        Game Play
+    </h1>
+    <body>
+        <embed src="background_music.mp3" autostart="true" loop="true" width="2" height="0"></embed>
+	<p> <!-- Need to add quit/ back to welcome page link in-->
+		The content of the document......
+		<script src="example.js"></script> <!-- This points to an external js file-->
+	
+        <script src="GridCreation.js"></script>
+
+        </p>
+        <table border=1 class="inlineTable">
+        <p style="text-align:left;">
+            Your ships!
+            <span style="float:right;">Computer's sunken ships!</span>
+            	<div id="gameboard">
+	</div>
+        </p>
+        <tr> 
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+        </tr>
+    </table>
+    <span>   </span>
+    <table border=1 class="inlineTable">
+        <tr>
+            <td>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            </tr>
+            <td>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            </tr>
+            <td>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            </tr>
+            <td>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            </tr>
+            <td>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            <button class="button2">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+            <td>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            <button class="button">x</button>
+            </tr>
+        </tr>
+    </table>
+
+    </body>
+
+
+    
+
+</html>
