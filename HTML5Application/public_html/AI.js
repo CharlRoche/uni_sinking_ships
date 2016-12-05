@@ -16,14 +16,7 @@ function AI(xSize, ySize, difficulty) {
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
-    this.status = "none"; // is this the correct place to hold this?
-    this.hitLastTurn =0; // is this the correct place to hold this?
-    this.sunkLastTurn =0; // is this the correct place to hold this?
-    this.lastTurn = [0,0]; // this is the co-ords of the AI's last move
-    this.lastHitTurn = [0,0]; //place last hit on
     this.missNextGo = false;
-
-
 }
 
 AI.prototype = {
