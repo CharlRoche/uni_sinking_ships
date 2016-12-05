@@ -6,28 +6,96 @@
  * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
 
-
-startGame(10, 10);
+var xLength = 10;
+var yLength = 10;
+var difficulty = 'easy';
+var playerTurn = true;
+var AIthoughts = 0;
+var debug = true;
+//default settings
+getSettings();
+startGame(xLength, yLength, difficulty, playerTurn);
 var aiScore = aiShipsAlive();
 var userScore = playerShipsAlive();
 
-function startPlayerMove(target){
-player.makePlayerMove(target);
-    AI.drawGrid();
-    var userScore = playerShipsAlive();
+function startGame(xLength, yLength, difficulty, playerTurn) {//configures and starts the game
 
+    player = new player('Pete', xLength, yLength);
+    AI = new AI(xLength, yLength, difficulty);
+    player.definePlayerFleetHack();
+    player.drawInitialGrid(xLength, yLength);
+    AI.drawInitialGrid(xLength, yLength);
+    //debug console.log(player.grid);
+    //debug console.log(AI.grid);
+    refreshTime();
+    if (playerTurn === 'false') {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);  //when player turn, function is started onclick
+    }
+
+}
+;
+
+function getSettings() {
+    var parts = window.location.search.substr(1).split("&");
+    var $_GET = {};
+    for (var i = 0; i < parts.length; i++) {
+        var temp = parts[i].split("=");
+        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+    }
+
+    if ($_GET.hasOwnProperty('boardsize')) {
+        xLength = $_GET['boardsize'];
+        yLength = $_GET['boardsize'];
+    }
+    if ($_GET.hasOwnProperty('difficulty')) {
+        difficulty = $_GET['difficulty'];
+    }
+    if ($_GET.hasOwnProperty('playerTurn')) {
+        playerTurn = $_GET['playerTurn'];
+    }
+
+}
+;
+
+function startPlayerMove(target) {
+    $('#aigameboard').children().off('click');
+
+    player.makePlayerMove(target);
+    //var userScore = playerShipsAlive();    
     if (gameWon === true) {
         endGame();
-    } else
+    }
+
+    if (!debug && !AI.missNextGo)
     {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);
+    } else if (!AI.missNextGo) {
         makeAIMove();
+    } else {
+        AI.missNextGo = false;
     }
     document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive();
-};
+}
+;
 function makeAIMove() {
 
-    //AI.makeComputerMoveEasy();
-    AI.makeComputerMoveHard();
+    if (difficulty == "easy") {
+        AI.makeComputerMoveEasy();
+    } else {
+        AI.makeComputerMoveHard();
+    }
+    
+    //
     //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
@@ -36,28 +104,50 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
-
-    document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
-};
-function startGame(xLength, yLength){//configures and starts the game
-
-    player = new player('Pete', xLength, yLength);
-    AI = new AI(xLength, yLength);
-    player.definePlayerFleetHack();
-    player.drawInitialGrid();
-    AI.drawInitialGrid();
-    console.log(player.grid);
-    console.log(AI.grid);
-    playerTurn = true; //player goes first - can give choice for MVP
-
-    if (playerTurn === false) {
-        makeAIMove;  //when player turn, function is started onclick
+    if (player.missNextGo === true) {
+        player.missNextGo = false;
+        if (!debug && !AI.missNextGo)
+    {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);
+    } else if (!AI.missNextGo) {
+        makeAIMove();
+    } else {
+        AI.missNextGo = false;
+    }
+    } else if (debug) {
+        restoreOnClick();
+    } else {
+        setTimeout(function () {
+            restoreOnClick();
+        }, 3000);
     }
 
-};
+    document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
+
+}
+;
+function restoreOnClick() {
+
+
+    for (var i = 0; i < player.moveList.length; i++) {
+        locat = 'ai' + player.moveList[i];
+        $($(jq(locat))).on('click', function () {
+            startPlayerMove(this.id);
+        });
+
+    }
+}
+;
+
 function endGame() {
     alert("Games Over");//should probs do something a little more interesting here
-};
+}
+;
 function aiShipsAlive() {
 
     var deadAIShipCount = AI.ship.length;
@@ -70,32 +160,9 @@ function aiShipsAlive() {
         endGame();
     }
     return deadAIShipCount;
-};
+}
+;
 
-/*DEPREATED
- * 
- * function aiShipsAlive() {
- var deadAIShipCount = 5;
- if (AIShip1.checkIsAlive()) {
- deadAIShipCount--;
- }
- if (AIShip2.checkIsAlive()) {
- deadAIShipCount--;
- }
- if (AIShip3.checkIsAlive()) {
- deadAIShipCount--;
- }
- if (AIShip4.checkIsAlive()) {
- deadAIShipCount--;
- }
- if (AIShip5.checkIsAlive()) {
- deadAIShipCount--;
- }
- if (deadAIShipCount === 5) {
- endGame();
- }
- return deadAIShipCount;
- }*/
 function playerShipsAlive() {
     var deadPlayerShipCount = 5;
     if (PlayerShip1.checkIsAlive()) {
@@ -118,69 +185,3 @@ function playerShipsAlive() {
     }
     return deadPlayerShipCount;
 }
-/*
- g1 = new Grid(10,10);
- console.log(g1.getGrid());
- g2 = new Grid(10,10);
- player.drawGrid();
- AI.drawGrid();
- 
- //Needs a ship creation for each of the ships styles with the positioning set below. They will all be horizontally positioned at this point
- s1 = new Ship('destroyer', 1);
- s2 = new Ship('Battleship', 1);
- 
- //first index = x pos, second index = y pos, third index = if the position has been shot
- s1.setLocations([[8,8,0], [7,8,0]]);
- s2.setLocations([[3,0,0], [3,1,0], [3,2,0], [3, 3, 0], [3,4,0]]);
- 
- 
- g1.addShip(s1);
- g1.addShip(s2);
- 
- // These will need adding into the addShip function later
- // also have functionality to add ship on click
- //place s1 on grid
- document.getElementById("p88").style.background="black";
- document.getElementById("p78").style.background="black";
- 
- //place s2 on grid
- document.getElementById("p30").style.background="black";
- document.getElementById("p31").style.background="black";
- document.getElementById("p32").style.background="black";
- document.getElementById("p33").style.background="black";
- document.getElementById("p34").style.background="black";
- 
- 
- // example of what it looks like when user hit AI ship
- document.getElementById("ai14").style.background="red";
- document.getElementById("ai59").style.background="red";
- 
- // example of what it looks like when user has taken a go but missed
- document.getElementById("ai15").style.background="grey";
- document.getElementById("ai24").style.background="grey";
- document.getElementById("ai88").style.background="grey";
- document.getElementById("ai57").style.background="grey";
- document.getElementById("ai11").style.background="grey";
- 
- console.log(g1);
- console.dir(g1);
- //to fire at a ship use g1.fireAtLocation
- //g1.getGrid will get grid array, which you can visual aspects from
- 
- 
- //to have ai you will just need two grids. the human players interactions go through manual fireAtLocation,
- //the ais choice of location will be randomly generated
- 
- 
- //scoring needs to be added, can either be done by counting the number of hits or checking locations
- 
- 
- //example of code working, uncomment if needed
- 
- /*
- g1.fireAtLocation(1,1);
- s1.checkIsAlive();
- g1.fireAtLocation(1,2);
- s1.checkIsAlive();
- 
- */

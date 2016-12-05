@@ -5,18 +5,21 @@
  *Date: 17/10/2016
  *Contribution Log: Name/Date/Description
  *
- *Pete/17/10/2015/Created File, added ship definition Final Variables
- *
- * 
+ *Pete/17/10/2016/Created File, added ship definition Final Variables
+ *Pete/27/11/2016/Stopwatch, functions refreshTime, getTimes
  */
+var TIME = 0;
+var SEC = 0;
+var TIME_PAUSED = 0;
+var PAUSED_SEC = 0;
+var PAUSED = false;
 
-var userScore = playerShipsAlive();
-var compScore = aiShipsAlive();
+var hitNoise = new Audio('hitNoise.mp3');
+var missNoise = new Audio('missNoise.mp3');
 var userFleet = [];
 var compFleet = [];
 var gameWon = false;
 //ship variables
-
 var CARRIER_LEN = 5;
 var BATTLESHIP_LEN = 4;
 var CRUISER_LEN = 3;
@@ -35,46 +38,26 @@ function removeItemFromArray(array, value) {
         array.splice(index, 1);
     }
 }
-
-
-
-
-
-//DEPRECATED
-
-function isInFleet(user, target) {
-
-    var ship;
-    if (user) {
-        for (i = 0; i < userFleet.length; i++) {
-            for (j = 0; j < userFleet[i].coord.length; j++) {
-                if (target === userFleet[i].coord[j]) {
-                    ship = userFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
+function refreshTime() {    
+    setInterval(getTime, 1000)
+};
+function getTime() {
+    if (!PAUSED) {
+        TIME++;
+        var min = Math.floor((TIME) / 60);
+        var sec = Math.floor((TIME) % 60);
+        if (min < 10) {
+            min = '0' + min;
         }
-    } else if (user === false) {
-        for (i = 0; i < compFleet.length; i++) {
-            for (j = 0; j < compFleet[i].coord.length; j++) {
-                if (target === compFleet[i].coord[j]) {
-                    ship = compFleet[i];
-                    break;
-                }
-            }
-            if (typeof ship !== 'undefined') {
-                break;
-            }
+        if (sec < 10) {
+            sec = '0' + sec;
         }
-    } else {
-        ship = -1;
+        $('#clock').text(min + ':' + sec);
     }
-    return ship;
+};
+function jq(myid) {
+
+    return "#" + myid.replace(/(:|\.|\[|\]|,|=)/g, "\\$1");
+
 }
-
-
-
-
+;

@@ -1,5 +1,4 @@
 /* 
- * 
  *Author: Peter Henderson
  *Date: 18/10/2016
  *Contribution Log: Name/Date/Description
@@ -7,12 +6,13 @@
  *
  */
 
-function AI(xSize, ySize) {
-    this.difficulty = 'easy';
+function AI(xSize, ySize, difficulty) {
+    this.difficulty = difficulty;
     this.ship = [];
+    this.mine = [];
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-    this.buildAIFleet(1, 1, 1, 1, 1);
+    this.buildAIFleet(1, 1, 1, 1, 1, 1);
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
@@ -21,7 +21,7 @@ function AI(xSize, ySize) {
     this.sunkLastTurn =0; // is this the correct place to hold this?
     this.lastTurn = [0,0]; // this is the co-ords of the AI's last move
     this.lastHitTurn = [0,0]; //place last hit on
-
+    this.missNextGo = false;
 
 
 }
@@ -34,9 +34,6 @@ AI.prototype = {
         var x = coord[0];
         var y = coord[1];
         player.grid.fireAtLocation(x, y, false);
-        //this.lastTurn = [x,y];
-        var eleID = "p" + x + "," + y-1;
-        var colour = document.getElementById(eleID).style.background;
         removeItemFromArray(this.moveList, move);
     },
     makeComputerMoveMed: function () {
@@ -80,6 +77,7 @@ AI.prototype = {
             AI.makeComputerMoveEasy();
         }
     },
+
     hitNextSquare: function () { 
         console.log("AI in the hitNextSquare function");
        // list of adjacent squares to last move
@@ -272,9 +270,38 @@ AI.prototype = {
             
            
     },
+
     getRandMove: function () {
         var rand = getRandFromArray(this.moveList);
         return rand;
+    },
+    think: function () {
+        var thought = setInterval(function () {
+            AI.think1(thought);
+        }, 200);
+    },
+    think1: function (thought) {
+        AIthoughts++;
+        if (AIthoughts > 10) {
+            AIthoughts = 0;
+            clearInterval(thought);
+        } else {
+            var rand = this.getRandMove();
+            var square = "p" + rand;
+            AI.think2(square);
+        }
+    },
+    think2: function (square) {
+        var prevColor = document.getElementById(square).style.background;
+        document.getElementById(square).style.background = 'blue';
+        setTimeout(function () {
+            AI.think3(square, prevColor);
+        }, 200);
+    },
+    think3: function (square, prevColor) {
+
+        document.getElementById(square).style.background = prevColor;
+
     },
     buildMoveList: function (xSize, ySize) {
         var moveList = [];
@@ -285,36 +312,33 @@ AI.prototype = {
         }
         return moveList;
     },
-    drawInitialGrid: function () {
-        var squareSize = 50;
+    drawInitialGrid: function (xLength, yLength) {
+        var squareSize = 35;
         var gameBoardContainer = document.getElementById("aigameboard");
         // this has been hard coded for the hack, taken form gridCreation
         // below draws initial grid
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
+        for (i = 0; i < xLength; i++) {
+            for (j = 0; j < yLength; j++) {
 
                 // create a new div HTML element for each grid square and make it the right size
                 var square = document.createElement("div");
                 gameBoardContainer.appendChild(square);
-
                 // give each div element a unique id based on its row and column, like "s00"
-                //square.id = Number(String(i) + String(j)) ;	
-                // The p signifys that it is the id for the players board
-                square.id = "ai" + String(i) + "," + String(j);
-                square.onclick = function () {
-                    startPlayerMove(this.id);
-                };
 
+                // The ai signifys that it is the id for the players board
+                square.id = "ai" + String(i) + "," + String(j);
                 // set each grid square's coordinates: multiples of the current row or column number
                 var topPosition = j * squareSize;
                 var leftPosition = i * squareSize;
-
                 // use CSS absolute positioning to place each grid square on the page
                 square.style.top = topPosition + 'px';
                 square.style.left = leftPosition + 'px';
             }
         }
-
+        //set click event for player move
+        $('#aigameboard').children().one('click', function () {
+            startPlayerMove(this.id);
+        });
     },
     hitShipDraw: function (x, y) {
         var eleID = "p" + x + "," + y;
@@ -346,48 +370,57 @@ AI.prototype = {
         console.log("sunkLastTurn flag: "+ this.sunkLastTurn);
         console.log("end of go");
     },
-    buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount) { 
+    buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount, noOfMines) {
         //Randomly Build AI Fleet
         var shipCount = 0; //index for this.ship array
+        var mineCount = 0; //index for this.mine array
+
         //for each ship type
         for (var i = 0; i < carrierCount; i++) {
-            var location = this.getRandShipLocation(5); //get positions
-            this.ship[shipCount] = new ship('Carrier', 1);//create ship
-            this.ship[shipCount].setLocations(location);//add locations
-            this.grid.addShip(this.ship[shipCount]);//add ship to grid
+            var location = this.getRandShipLocation(5, false); //get positions
+            this.ship[shipCount] = new ship('Carrier', 1); //create ship
+            this.ship[shipCount].setLocations(location); //add locations
+            this.grid.addShip(this.ship[shipCount]); //add ship to grid
             shipCount++;
         }
         for (var i = 0; i < battleshipCount; i++) {
-            var location = this.getRandShipLocation(4);
+            var location = this.getRandShipLocation(4, false);
             this.ship[shipCount] = new ship('Battleship', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
         }
         for (var i = 0; i < crusierCount; i++) {
-            var location = this.getRandShipLocation(3);
+            var location = this.getRandShipLocation(3, false);
             this.ship[shipCount] = new ship('Cruiser', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
         }
         for (var i = 0; i < submarineCount; i++) {
-            var location = this.getRandShipLocation(3);
+            var location = this.getRandShipLocation(3, false);
             this.ship[shipCount] = new ship('Submarine', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
         }
         for (var i = 0; i < destroyerCount; i++) {
-            var location = this.getRandShipLocation(2);
+            var location = this.getRandShipLocation(2, false);
             this.ship[shipCount] = new ship('Destroyer', 1);
             this.ship[shipCount].setLocations(location);
             this.grid.addShip(this.ship[shipCount]);
             shipCount++;
         }
-    },
-    getRandShipLocation: function (length) {
+        for (var i = 0; i < noOfMines; i++) {
+            var location = this.getRandShipLocation(1, true); //get positions
+            this.mine[mineCount] = new mine(); //create mine
+            this.mine[mineCount].setLocations(location); //add location
+            this.grid.addMine(this.mine[mineCount]); //add mine to grid
+            mineCount++;
 
+        }
+    },
+    getRandShipLocation: function (length, isMine) {
 
         invalidLocation = true;
         while (invalidLocation === true) {//repeat finding a random position until a valid location is found
@@ -395,47 +428,47 @@ AI.prototype = {
             var target = getRandFromArray(this.moveList); // get random start position
             var coord = target.split(',').map(Number); //split to x and y
             var x = coord[0];
-            var y = coord[0];
-            var direction = getRandFromArray(['n', 's', 'e', 'w']); //select a random direction
+            var y = coord[1];
             var locat = [];
-
 //build location array of each grid
-            switch (direction) {
-                case 'n':
-                    for (var i = 0; i < length; i++) {
-                        locat.push([x, (y + i)]);
-                    }
-                    break;
-                case 's':
+            if (!isMine) {
+                var direction = getRandFromArray(['n', 's', 'e', 'w']); //select a random direction
+                switch (direction) {
+                    case 'n':
+                        for (var i = 0; i < length; i++) {
+                            locat.push([x, (y + i)]);
+                        }
+                        break;
+                    case 's':
 
-                    for (var i = 0; i < length; i++) {
-                        locat.push([x, (y - i)]);
-                    }
-                    break;
-                case 'e':
-                    for (var i = 0; i < length; i++) {
-                        locat.push([(x + i), y]);
-                    }
-                    break;
-                case 'w':
-                    for (var i = 0; i < length; i++) {
-                        locat.push([(x - i), y]);
+                        for (var i = 0; i < length; i++) {
+                            locat.push([x, (y - i)]);
+                        }
+                        break;
+                    case 'e':
+                        for (var i = 0; i < length; i++) {
+                            locat.push([(x + i), y]);
+                        }
+                        break;
+                    case 'w':
+                        for (var i = 0; i < length; i++) {
+                            locat.push([(x - i), y]);
+                        }
+                        break;
+                }
+            } else {
 
-                    }
-                    break;
+                locat.push([x, y]);
+
             }
+
             invalidLocation = this.validateShipLocation(locat);
         }
-        
+
         for (i = 0; i < locat.length; i++) {
             //remove each seleted location from move list so it cannot be selected again
             var remove = locat[i][0] + ',' + locat[i][1];
             removeItemFromArray(this.moveList, remove);
-           
-        }
-        //DEBUG
-        for (i=0;i<locat.length;i++){
-            console.log(locat[i][0]+','+locat[i][1]);
         }
         return locat;
     },
@@ -449,87 +482,5 @@ AI.prototype = {
             }
         }
         return invalid;
-
-    },
-    drawGrid: function () { //draw the AI's grid containing their ships (hidden)
-
-
-        /*
-         // creates general array of al possible moves
-         // hardcoded to grid size ten, will need to amend for MVP
-         var allShots = [];
-         for (i = 0; i < 10; i++) {
-         for (j = 0; j < 10; j++) {
-         allShots.push(i + ',' + j);
-         }
-         }
-         
-         
-         // shots_taken is the shots they have taken:
-         // it is the difference between allShots and AI.movelist
-         //var shotsTakenAI = allShots.filter(x > player.moveList.indexOf(x) < 0);
-         //var shotsTakenPlayer = diffArray(allShots, AI.moveList);
-         
-         var seen = [];
-         var shotsTakePlayer = [];
-         for ( var i = 0; i < AI.moveList.length; i++)
-         seen[AI.moveList[i]] = true;
-         for ( var i = 0; i < allShots.length; i++)
-         if (!seen[allShots[i]])
-         shotsTakePlayer.push(allShots[i]);
-         
-         
-         
-         
-         // for shots_taken, find the intersection with the AI ships.
-         // any intersections will indicate the player has hit the AI
-         // therefore for intersection set doc element background colour to red
-         
-         //var hitShipsPlayer = intersection(shotsTakenPlayer, allShots);
-         
-         var m1 = (shotsTakePlayer).reduce(function(m1, v) { m1[v] = 1; return m1; }, {});
-         var hitShipsPlayer = (allShots).filter(function(v) { return m1[v]; });
-         
-         // need to loop through hit_ships array to split it out and put into
-         // CSS ID format
-         var numLoops = hitShipsPlayer.length;
-         for(i=0; i<numLoops; i++) {
-         // get item in array
-         var getArray = hitShipsPlayer[i];
-         // get row
-         var row = getArray[0];
-         var col = getArray[2];
-         var str2 = "p";
-         var str3 = ",";
-         var hitCoords1 = str2+row+str3+col;
-         document.getElementById(hitCoords1).style.background="red";
-         }
-         
-         // then calculate the difference between shots_taken and hit_shits and colour the 
-         // difference as grey which indicates shots taken which didn't hit a ship
-         
-         //var missedShipsPlayer = shotsTakenPlayer.filter(x => hitShipsPlayer.indexOf(x) < 0 );
-         var m2 = (shotsTakePlayer).reduce(function(m2, v) { m2[v] = 1; return m2; }, {});
-         var missedShipsPlayer = (hitShipsPlayer).filter(function(v) { return m1[v]; });
-         
-         
-         var numLoops = missedShipsPlayer.length;
-         for(i=0; i<numLoops; i++) {
-         // get item in array
-         var getArray = missedShipsPlayer[i];
-         // get row
-         var row = getArray[0];
-         var col = getArray[2];
-         var str2 = "p";
-         var str3 = ",";
-         var missedCoords1 = str2+row+str3+col;
-         document.getElementById(missedCoords1).style.background="grey";
-         }
-         
-         
-         
-         
-         
-         
-         */}
+    }
 };
