@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <style>
+        body, html {
+            background-color: lightskyblue;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top center;
+            text-align: center;
+            height: 100%;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            float: left;
+        }
+        .clearfix {
+            clear:both;
+        }
+        #wrapper {
+            margin: 10px auto;
+            width: 520px;
+            height: 520px;
+            border: 5px solid black;
+        }
+        .draggable {
+            float:left;
+            height: 52px;
+            background-color: gray;
+        }
+        .carrier {
+            width: 104px;
+        }
+        .destroyer {
+            width: 52px;
+            height: 104px;
+        }
+        .submarine {
+            width: 104px;
+            height: 52px;
+        }
+        .battleship {
+            width: 52px;
+        }
+        .cruiser {
+            width: 104px;
+        }
+        .mine1 {
+            width: 52px;
+        }
+        .mine2 {
+            width: 52px;
+        }
+        .mine3 {
+            width: 52px;
+        }
+
+        .draggable p {
+            text-align: center;
+            padding: -20px 0 0 0;
+            font-weight:900;
+        }
+        .draggable.ui-draggable-dragging {
+            background: red;
+        }
+    </style>
+    <head>
+        <title>Place your ships and mines</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    <div id="wrapper">
+    <div class="square" id="1"></div>
+    <div class="square" id="2"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    </div>
+    
+    <div class="draggable battleship" id="battleship">
+        <p>Battleship</p>
+    </div>
+    <div class="draggable cruiser" id="cruiser">
+        <p>Cruiser</p>
+    </div>
+    <div class="draggable carrier" id="carrier">
+        <p>Carrier</p>
+    </div>
+    <div class="draggable destroyer" id="destroyer">
+        <p>Destroyer</p>
+    </div>
+    <div class="draggable submarine" id="submarine">
+        <p>Submarine</p>
+    </div>
+    <div class="draggable mine1" id="mine1">
+        <p>Mine1</p>
+    </div>
+    <div class="draggable mine2" id="mine2">
+        <p>Mine2</p>
+    </div>
+    <div class="draggable mine3" id="mine3">
+        <p>Mine3</p>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+    $(function () {
+        $('.draggable').draggable({
+            containment: 'parent',
+            cursor: 'move',
+            revert: true
+        });
+    });
+
+    $(function () {
+        $('.square').droppable({
+            drop: handleDrop
+        });
+    });
+
+    function handleDrop(event, ui) {
+        ui.draggable.position({
+            of: $(this),
+            my: 'left top',
+            at: 'left top'
+        });
+        ui.draggable.draggable('option', 'revert', false);
+        ui.draggable.draggable("option", "grid", [52, 52]);
+    }
+    var playersShipLocations = localStorage.positions || "{}",
+        positions = JSON.parse(playersShipLocations);
+    $.each(positions, function (id, pos) {
+        $("#" + id).css(pos)
+    })
+    $("#battleship").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#carrier").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#cruiser").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#submarine").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#destroyer").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#mine1").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#mine2").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    $("#mine3").draggable({
+        containment: "#wrapper",
+        scroll: false,
+        stop: function (event, ui) {
+            positions[this.id] = ui.position
+            localStorage.positions = JSON.stringify(positions)
+        }
+    });
+    </script>
+    
+        <form action="index.html" method="get"> 
+            <p><input type="Submit" value="Start" style="height:50px; width:200px"/></p>
+        </form>
+    </body>
+</html>
