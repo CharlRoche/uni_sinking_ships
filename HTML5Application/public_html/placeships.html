@@ -230,74 +230,103 @@ and open the template in the editor.
         ui.draggable.draggable('option', 'revert', false);
         ui.draggable.draggable("option", "grid", [52, 52]);
     }
-    var playersShipLocations = localStorage.positions || "{}",
-        positions = JSON.parse(playersShipLocations);
-    $.each(positions, function (id, pos) {
-        $("#" + id).css(pos)
-    })
-    $("#battleship").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#carrier").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#cruiser").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#submarine").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#destroyer").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#mine1").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#mine2").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#mine3").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position
-            localStorage.positions = JSON.stringify(positions)
-        }
+    $(function() {
+        $("#battleship").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var batx = thisPos.left - parentPos.left;
+                var baty = thisPos.top - parentPos.top;
+            }
+        });
+        $("#destroyer").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var desx = thisPos.left - parentPos.left;
+                var desy = thisPos.top - parentPos.top;
+            }
+        });
+        $("#submarine").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var subx = thisPos.left - parentPos.left;
+                var suby = thisPos.top - parentPos.top;
+            }
+        });
+        $("#carrier").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var carx = thisPos.left - parentPos.left;
+                var cary = thisPos.top - parentPos.top;
+            }
+        });
+        $("#cruiser").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var crux = thisPos.left - parentPos.left;
+                var cruy = thisPos.top - parentPos.top;
+            }
+        });
+        $("#mine1").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var mine1x = thisPos.left - parentPos.left;
+                var mine1y = thisPos.top - parentPos.top;
+            }
+        });
+        $("#mine2").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var mine2x = thisPos.left - parentPos.left;
+                var mine2y = thisPos.top - parentPos.top;
+            }
+        });
+        $("#mine3").draggable({
+            containment: "#wrapper",
+            scroll: false,
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var mine3x = thisPos.left - parentPos.left;
+                var mine3y = thisPos.top - parentPos.top;
+            }
+        });
     });
     </script>
     
