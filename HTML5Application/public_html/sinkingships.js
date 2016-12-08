@@ -22,7 +22,7 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
 
     player = new player('Pete', xLength, yLength);
     AI = new AI(xLength, yLength, difficulty);
-    player.definePlayerFleetHack();
+    player.definePlayerFleetMVP();
     player.drawInitialGrid(xLength, yLength);
     AI.drawInitialGrid(xLength, yLength);
     //debug console.log(player.grid);
