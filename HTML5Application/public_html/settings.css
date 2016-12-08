@@ -1,0 +1,110 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25-Nov-2016, 17:22:33
+    Author     : DABIODUN
+*/
+
+html {
+  font-size: 100%;
+  line-height: 1.5;
+  height: 100%;
+   
+}
+body {
+  position: relative;
+  margin: 0;
+  min-height: 90%;
+  background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
+  color: #777;
+}
+
+.settings {
+  width: 480px;
+  padding: 100px 50px;
+  margin: auto;
+ display: block;
+ position: relative;
+ height: 50px ;
+ margin-top: -70px;
+}
+
+h1{
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif
+}
+    
+/* radio-one hidden styles */
+[type="radio"] {
+  border: 0;
+  height: 3px; margin: -1px;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/*Radio button per line*/
+label {
+  display: block;
+  cursor: pointer; 
+  line-height: 2.5;
+  font-size: 1.5em;
+}
+
+/* Styling for the unchecked button */
+[type="radio"] + span:before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.25em;
+  border-radius: 1em;           /*hard border*/
+  border: 0.125em solid white;
+  box-shadow: 0 0 0 0.105em #000;   /*light shadow*/
+  margin-right: 0.75em;
+  transition: 0.5s ease all;    /*animation here*/
+}
+
+  /* Styling for the checked button :checked pseudo class */
+[type="radio"]:checked + span:before {
+  background: darkblue;
+  box-shadow: 0 0 0 0.20em #000;
+}
+ 
+span{
+    color:white;
+    font-size: 25px;  
+  font-weight: bold;
+}
+
+legend{
+    color:darkslategrey;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+fieldset{
+border: solid;
+}
+
+input[type=Submit] {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 200%;
+  border: none;
+  padding: 1px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 15px;
+  position: relative;
+  transition: 0.3s ease all;
+  margin: auto;
+ display: block;
+}
