@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
-
     <head> <link rel="stylesheet" href="Settings.css"> </head>
-    <h1> Select Your Game Options:</h1>
-
+    <h1> Select Your Game Options</h1>
 
     <body>
 
 
 
+        <audio autoplay="true" loop>
+        <source src="Background_music.mp3" type="audio/mpeg">
+         Your browser does not support the audio element.
+        </audio>
+
+         <div class ="settings">
         <audio autoplay  loop>
         <source src="background_music.mp3" type="audio/mpeg">
 
          Your browser does not support the audio element.
         </audio>
 
-        <div class ="settings">
+         <div class ="settings">
         <form action="index.html" method="get"> 
-            
             
         <fieldset>    
                 <legend>Who Goes First:</legend>
@@ -63,13 +66,25 @@
             </fieldset>
             
 
-            <!--- HIDING TILL WE DECIDE HOW TO IMPLEMENT
+          <!----
             <fieldset>
-                <legend>How big will player's fleets be:</legend>
-                <p><input type="radio" name="fleetsize" value="3" checked="checked" /> 3 Ships</p>
-                <p><input type="radio" name="fleetsize" value="5" /> 5 Ships</p>
-                <p><input type="radio" name="fleetsize" value="8" /> 8 Ships</p>
-            </fieldset>    -->                    
+            <legend>How big will player's fleets be:</legend>
+            <label for="radio-eight">
+            <input type="radio" name="fleetsize" value="3" checked="checked" id="radio-eight">
+            <span>3 Ships</span>
+            </label>
+            
+            <label for="radio-nine">
+            <input type="radio" name="fleetsize" value="5" id="radio-nine">
+            <span>5 Ships</span>
+            </label>
+            
+            <label for="radio-ten">
+            <input type="radio" name="fleetsize" value="8" id="radio-ten">
+            <span>8 Ships</span>
+            </fieldset>   
+          --->
+                           
 
             <p><input type="Submit" value="Start" style="height:50px; width:200px"/></p>
         </form>
