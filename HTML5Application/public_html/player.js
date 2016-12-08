@@ -97,6 +97,10 @@ player.prototype = {
         this.missedPlayer.push(eleID);
         document.getElementById(eleID).style.background = "grey";
     },
+    hitMineDraw: function (x, y) {
+        var eleID = "ai" + x + "," + y;
+        document.getElementById(eleID).style.background = "black";
+    },
     drawGrid: function () { //draw the players grid containing their ships
 
         //place on board Carrier
