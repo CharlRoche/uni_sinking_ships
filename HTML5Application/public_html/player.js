@@ -11,6 +11,7 @@ function player(name, xSize, ySize) {
     this.grid = new Grid(xSize, ySize);
     this.hitPlayer = [];
     this.missedPlayer = [];
+    this.missNextGo = false;
 }
 
 player.prototype = {
@@ -19,7 +20,6 @@ player.prototype = {
         return this.name;
     },
     makePlayerMove: function (move) {
-
         var moveCoord = move.substring(2);
         var coord = moveCoord.split(',').map(Number);
         var x = coord[0];

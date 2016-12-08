@@ -6,16 +6,18 @@
  * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
 
-
 var xLength = 10;
 var yLength = 10;
 var difficulty = 'easy';
 var playerTurn = true;
+var AIthoughts = 0;
+var debug = true;
 //default settings
 getSettings();
+setHalfVolume();
 startGame(xLength, yLength, difficulty, playerTurn);
-//var aiScore = aiShipsAlive();
-//var userScore = playerShipsAlive();
+var aiScore = aiShipsAlive();
+var userScore = playerShipsAlive();
 
 function startGame(xLength, yLength, difficulty, playerTurn) {//configures and starts the game
 
@@ -26,9 +28,14 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
     AI.drawInitialGrid(xLength, yLength);
     //debug console.log(player.grid);
     //debug console.log(AI.grid);
-refreshTime();
+    refreshTime();
     if (playerTurn === 'false') {
-        makeAIMove();  //when player turn, function is started onclick
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);  //when player turn, function is started onclick
     }
 
 }
@@ -52,27 +59,45 @@ function getSettings() {
     if ($_GET.hasOwnProperty('playerTurn')) {
         playerTurn = $_GET['playerTurn'];
     }
-    
+
 }
 ;
 
 function startPlayerMove(target) {
-    
-    player.makePlayerMove(target);
-    var userScore = playerShipsAlive();
+    $('#aigameboard').children().off('click');
 
+    player.makePlayerMove(target);
+    //var userScore = playerShipsAlive();    
     if (gameWon === true) {
         endGame();
-    } else
+    }
+
+    if (!debug && !AI.missNextGo)
     {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);
+    } else if (!AI.missNextGo) {
         makeAIMove();
+    } else {
+        AI.missNextGo = false;
     }
     document.getElementById("pscore").innerHTML = "Your Score: " + aiShipsAlive();
 }
 ;
 function makeAIMove() {
 
-    AI.makeComputerMoveEasy();
+    if (difficulty == "easy") {
+        AI.makeComputerMoveEasy();
+    } else {
+        AI.makeComputerMoveHard();
+    }
+    
+    //
+    //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
     var aiScore = aiShipsAlive();
@@ -80,7 +105,43 @@ function makeAIMove() {
     if (gameWon === true) {
         endGame();
     }
+    if (player.missNextGo === true) {
+        player.missNextGo = false;
+        if (!debug && !AI.missNextGo)
+    {
+        setTimeout(function () {
+            AI.think();
+        }, 2000);
+        setTimeout(function () {
+            makeAIMove();
+        }, 4300);
+    } else if (!AI.missNextGo) {
+        makeAIMove();
+    } else {
+        AI.missNextGo = false;
+    }
+    } else if (debug) {
+        restoreOnClick();
+    } else {
+        setTimeout(function () {
+            restoreOnClick();
+        }, 3000);
+    }
+
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
+
+}
+;
+function restoreOnClick() {
+
+
+    for (var i = 0; i < player.moveList.length; i++) {
+        locat = 'ai' + player.moveList[i];
+        $($(jq(locat))).on('click', function () {
+            startPlayerMove(this.id);
+        });
+
+    }
 }
 ;
 
