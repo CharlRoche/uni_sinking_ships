@@ -64,10 +64,12 @@ Grid.prototype = {
             alert("YOU HIT A MINE");
             if (playerTurn === true) {
                 player.missNextGo = true;
+                player.hitMineDraw(x, y);
             }
             if (playerTurn === false) {
                 AI.hitShipDraw(x, y);
                 AI.missNextGo = true;
+                AI.hitMineDraw(x, y);
             }
 
         } else {

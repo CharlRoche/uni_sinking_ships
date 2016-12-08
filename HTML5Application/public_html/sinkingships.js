@@ -11,7 +11,7 @@ var yLength = 10;
 var difficulty = 'easy';
 var playerTurn = true;
 var AIthoughts = 0;
-var debug = true;
+var debug = true; //turn AI thinking on or off / true or false
 //default settings
 getSettings();
 setHalfVolume();
@@ -36,6 +36,9 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
         setTimeout(function () {
             makeAIMove();
         }, 4300);  //when player turn, function is started onclick
+    } else {
+        $("#turn").text("Player Go");
+        $("#turn").css({'color': 'blue'});
     }
 
 }
@@ -89,13 +92,14 @@ function startPlayerMove(target) {
 }
 ;
 function makeAIMove() {
-
+    
+    
     if (difficulty == "easy") {
         AI.makeComputerMoveEasy();
     } else {
         AI.makeComputerMoveHard();
     }
-    
+
     //
     //player.drawGrid();
     aiShipsAlive();
@@ -108,18 +112,18 @@ function makeAIMove() {
     if (player.missNextGo === true) {
         player.missNextGo = false;
         if (!debug && !AI.missNextGo)
-    {
-        setTimeout(function () {
-            AI.think();
-        }, 2000);
-        setTimeout(function () {
+        {
+            setTimeout(function () {
+                AI.think();
+            }, 2000);
+            setTimeout(function () {
+                makeAIMove();
+            }, 4300);
+        } else if (!AI.missNextGo) {
             makeAIMove();
-        }, 4300);
-    } else if (!AI.missNextGo) {
-        makeAIMove();
-    } else {
-        AI.missNextGo = false;
-    }
+        } else {
+            AI.missNextGo = false;
+        }
     } else if (debug) {
         restoreOnClick();
     } else {
@@ -140,8 +144,9 @@ function restoreOnClick() {
         $($(jq(locat))).on('click', function () {
             startPlayerMove(this.id);
         });
-
     }
+    $("#turn").text("Player Go");
+    $("#turn").css({'color': 'blue'});
 }
 ;
 
