@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html>
-    <style>
 
-        body {
-            background-color: lightskyblue;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: top center;
-            text-align: center;
-        }
-
-    </style>
-    
+    <head> <link rel="stylesheet" href="Settings.css"> </head>
     <h1> Select Your Game Options:</h1>
 
 
     <body>
-<<<<<<< HEAD
-        <audio autoplay="true" loop>
-        <source src="Background_music.mp3" type="audio/mpeg">
-=======
+
+
+
         <audio autoplay  loop>
         <source src="background_music.mp3" type="audio/mpeg">
->>>>>>> Matt
+
          Your browser does not support the audio element.
         </audio>
 
-        
+        <div class ="settings">
         <form action="index.html" method="get"> 
             
-            <fieldset>
-                <legend>Who Goes First?</legend>
-                <p><input type="radio" name="playerTurn" value=true checked="checked" /> You</p>
-                <p><input type="radio" name="playerTurn" value=false /> Computer</p>
+            
+        <fieldset>    
+                <legend>Who Goes First:</legend>
+                <label for="radio-one">
+                <input type="radio" name="playerTurn" value=true checked="checked" id="radio-one">
+                <span> You </span>
+                </label>
+                
+                <label for="radio-two">
+                <input type="radio" name="playerTurn" value=false id="radio-two">
+                <span>Computer</span>
             </fieldset> 
 
             <fieldset>
-                <legend>Difficulty:</legend>
-                <p><input type="radio" name="difficulty" value="easy" checked="checked" /> Easy</p>
-                <p><input type="radio" name="difficulty" value="hard" /> Hard</p>
+            <legend>Difficulty:</legend>
+                <label for="radio-three">
+                <input type="radio" name="difficulty" value="easy" checked="checked" id="radio-three">
+                <span>Easy</span>
+                </label>
+               
+                <label for="radio-four">
+                <input type="radio" name="difficulty" value="hard" id="radio-four">
+                <span>Hard</span>
+                </label>
             </fieldset> 
 
             <fieldset>
-                <legend>How Big Would you like the game board to be:</legend>
-                <p><input type="radio" name="boardsize" value="10" checked="checked" /> 10x10</p>
-                <p><input type="radio" name="boardsize" value="15" /> 15x15</p>
-                <p><input type="radio" name="boardsize" value="20" /> 20x20</p>
+            <legend>Board Size:</legend>
+                <label for="radio-five">
+                <input type="radio" name="boardsize" value="10" checked="checked" id="radio-five">
+                <span>10x10</span>
+                </label>
+            
+                <label for="radio-six">
+                <input type="radio" name="boardsize" value="15" id="radio-six">
+                <span>15x15</span>
+                </label>
+            
+                <label for="radio-seven">
+                <input type="radio" name="boardsize" value="20" id="radio-seven">
+                <span>20x20</span>
+                </label>
             </fieldset>
+            
 
             <!--- HIDING TILL WE DECIDE HOW TO IMPLEMENT
             <fieldset>
