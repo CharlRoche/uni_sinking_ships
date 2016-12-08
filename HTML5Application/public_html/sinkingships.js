@@ -14,6 +14,7 @@ var AIthoughts = 0;
 var debug = true;
 //default settings
 getSettings();
+setHalfVolume();
 startGame(xLength, yLength, difficulty, playerTurn);
 var aiScore = aiShipsAlive();
 var userScore = playerShipsAlive();
