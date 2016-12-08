@@ -38,26 +38,30 @@ player.prototype = {
         }
         return moveList;
     },
-    definePlayerFleetHack: function () {
+    definePlayerFleetMVP: function () {
 
-        PlayerShip1 = new ship('Carrier', 1);
+        /*PlayerShip1 = new ship('Carrier', 1);
         PlayerShip1.setLocations([[2, 5, 0], [2, 4, 0], [2, 3, 0], [2, 2, 0], [2, 1, 0]]);
+        this.grid.addShip(PlayerShip1);*/
+        
+        PlayerShip1 = new ship('Carrier', 1);
+        PlayerShip1.setLocations([[placeships.carX, placeships.carY, 0], [placeships.carX, placeships.carY+1, 0], [placeships.carX, placeships.carY+2, 0], [placeships.carX, placeships.carY+3, 0], [placeships.carX, placeships.carY+4, 0]]);
         this.grid.addShip(PlayerShip1);
 
         PlayerShip2 = new ship('Battleship', 1);
-        PlayerShip2.setLocations([[6, 3, 0], [7, 3, 0], [8, 3, 0], [9, 3, 0]]);
+        PlayerShip2.setLocations([[placeships.batX, placeships.batY, 0], [placeships.batX+1, placeships.batY, 0], [placeships.batX+2, placeships.batY, 0], [placeships.batX+3, placeships.batY, 0]]);
         this.grid.addShip(PlayerShip2);
 
         PlayerShip3 = new ship('Cruiser', 1);
-        PlayerShip3.setLocations([[7, 5, 0], [7, 6, 0], [7, 7, 0]]);
+        PlayerShip3.setLocations([[placeships.cruX, placeships.cruY, 0], [placeships.cruX, placeships.cruY+1, 0], [placeships.cruX, placeships.cruY+2, 0]]);
         this.grid.addShip(PlayerShip3);
 
         PlayerShip4 = new ship('Submarine', 1);
-        PlayerShip4.setLocations([[9, 7, 0], [9, 8, 0], [9, 9, 0]]);
+        PlayerShip4.setLocations([[placeships.subX, placeships.subY, 0], [placeships.subX, placeships.subY+1, 0], [placeships.subX, placeships.subY+2, 0]]);
         this.grid.addShip(PlayerShip4);
 
         PlayerShip5 = new ship('Destroyer', 1);
-        PlayerShip5.setLocations([[1, 8, 0], [2, 8, 0]]);
+        PlayerShip5.setLocations([[placeships.desX, placeships.desY, 0], [placeships.desX+1, placeships.desY, 0]]);
         this.grid.addShip(PlayerShip5);
 
     },
