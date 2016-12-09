@@ -219,40 +219,65 @@ and open the template in the editor.
             document.cookie = name+"="+value+expires+"; path=/";
             console.log("Created Cookie")
     }
+    function getSettings() {
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
 
+        if ($_GET.hasOwnProperty('boardsize')) {
+            xLength = $_GET['boardsize'];
+            yLength = $_GET['boardsize'];
+        }
+        if ($_GET.hasOwnProperty('difficulty')) {
+            difficulty = $_GET['difficulty'];
+        }
+        if ($_GET.hasOwnProperty('playerTurn')) {
+            playerTurn = $_GET['playerTurn'];
+        }
+        var playerSettings = {'xLength' :xLength, 'yLength': yLength,'difficulty' : difficulty, 'playerTurn': playerTurn};
+        console.log(JSON.stringify(playerSettings));
+        createCookie('playerSettings',JSON.stringify(playerSettings),100);
+
+    }
+    
+    
     
     function setLocs(){
         var carPos = $(carrier).position();
-        carX = Math.round((carPos.left - 240)/52) + 1;
-        carY = Math.round((carPos.top - 14)/52) + 1;
+        carX = Math.round((carPos.left - 240)/52) ;
+        carY = Math.round((carPos.top - 14)/52) ;
 
         var cruPos = $(cruiser).position();
-        cruX = Math.round((cruPos.left - 240)/52) + 1;
-        cruY = Math.round((cruPos.top - 14)/52) + 1;
+        cruX = Math.round((cruPos.left - 240)/52) ;
+        cruY = Math.round((cruPos.top - 14)/52) ;
 
         var batPos = $(battleship).position();
-        batX = Math.round((batPos.left - 240)/52) + 1;
-        batY = Math.round((batPos.top - 14)/52) + 1;
+        batX = Math.round((batPos.left - 240)/52) ;
+        batY = Math.round((batPos.top - 14)/52) ;
         
         var desPos = $(destroyer).position();
-        desX = Math.round((desPos.left - 240)/52) + 1;
-        desY = Math.round((desPos.top - 14)/52) + 1;
+        desX = Math.round((desPos.left - 240)/52); 
+        desY = Math.round((desPos.top - 14)/52) ;
         
         var subPos = $(submarine).position();
-        subX = Math.round((subPos.left - 240)/52) + 1;
-        subY = Math.round((subPos.top - 14)/52) + 1;
+        subX = Math.round((subPos.left - 240)/52) ;
+        subY = Math.round((subPos.top - 14)/52) ;
 
         var mine1Pos = $(mine1).position();
-        mine1X = Math.round((mine1Pos.left - 240)/52) + 1;
-        mine1Y = Math.round((mine1Pos.top - 14)/52) + 1;
+        mine1X = Math.round((mine1Pos.left - 240)/52) ;
+        mine1Y = Math.round((mine1Pos.top - 14)/52) ;
 
         var mine2Pos = $(mine2).position();
-        mine2X = Math.round((mine2Pos.left - 240)/52) + 1;
-        mine2Y = Math.round((mine2Pos.top - 14)/52) + 1;
+        mine2X = Math.round((mine2Pos.left - 240)/52) ;
+        mine2Y = Math.round((mine2Pos.top - 14)/52) ;
 
         var mine3Pos = $(mine3).position();
-        mine3X = Math.round((mine3Pos.left - 240)/52) + 1;
-        mine3Y = Math.round((mine3Pos.top - 14)/52) + 1;
+        mine3X = Math.round((mine3Pos.left - 240)/52) ;
+        mine3Y = Math.round((mine3Pos.top - 14)/52) ;
+        getSettings();
     }
 
     function getCookie(name) {
@@ -279,14 +304,11 @@ and open the template in the editor.
     function handleDrop( event, ui ) {
         ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
         ui.draggable.draggable( 'option', 'revert', false );
-        
-        positions[this.id] = ui.position;
-        localStorage.positions = JSON.stringify(positions)
 
         setLocs();
 
         var shipsPos = {'mine1X' :mine1X, 'mine1Y': mine1Y,'mine2X' : mine2X, 'mine2Y': mine2Y,'mine3X' : mine3X, 'mine3Y': mine3Y,'cruX' :cruX, 'cruY': cruY,'batX' : batX, 'batY': batY,'subX' : subX, 'subY': subY,'carX' : carX, 'carY': carY, 'desX' : desX, 'desY': desY}
-        console.log(JSON.stringify(shipsPos))
+        console.log(shipsPos)
         createCookie('shipLocation',JSON.stringify(shipsPos),100);
         
     }
