@@ -5,15 +5,23 @@
  * Peter Henderson/30/10/2016/Completely reworked gameflow to allow for waiting for user click for their move.
  * Peter Henderson/17/11/2016/Rewrote aiShipsAlive to work with a dynamic number of ships
  */
+function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
-var xLength = 10;
-var yLength = 10;
-var difficulty = 'easy';
-var playerTurn = true;
+var playerSettings = getCookie('playerSettings');
+var playerSettings = JSON.parse(playerSettings);
+        
+
+var xLength = playerSettings.xLength;
+var yLength = playerSettings.yLength;
+var difficulty = playerSettings.difficulty;
+var playerTurn = playerSettings.playerTurn;
 var AIthoughts = 0;
 var debug = true;
 //default settings
-getSettings();
 startGame(xLength, yLength, difficulty, playerTurn);
 var aiScore = aiShipsAlive();
 var userScore = playerShipsAlive();
@@ -40,27 +48,6 @@ function startGame(xLength, yLength, difficulty, playerTurn) {//configures and s
 }
 ;
 
-function getSettings() {
-    var parts = window.location.search.substr(1).split("&");
-    var $_GET = {};
-    for (var i = 0; i < parts.length; i++) {
-        var temp = parts[i].split("=");
-        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
-    }
-
-    if ($_GET.hasOwnProperty('boardsize')) {
-        xLength = $_GET['boardsize'];
-        yLength = $_GET['boardsize'];
-    }
-    if ($_GET.hasOwnProperty('difficulty')) {
-        difficulty = $_GET['difficulty'];
-    }
-    if ($_GET.hasOwnProperty('playerTurn')) {
-        playerTurn = $_GET['playerTurn'];
-    }
-
-}
-;
 
 function startPlayerMove(target) {
     $('#aigameboard').children().off('click');
