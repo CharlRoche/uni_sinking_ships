@@ -12,7 +12,7 @@ function AI(xSize, ySize, difficulty) {
     this.mine = [];
     this.moveList = this.buildMoveList(xSize, ySize);
     this.grid = new Grid(xSize, ySize);
-    this.buildAIFleet(1, 1, 1, 1, 1, 1);
+    this.buildAIFleet(1, 1, 1, 1, 1, 2);
     this.moveList = this.buildMoveList(xSize, ySize); //restore Movelist as buildAIFleet mangles it
     this.hitAI = [];
     this.missedAI = [];
@@ -269,6 +269,8 @@ AI.prototype = {
         return rand;
     },
     think: function () {
+        $("#turn").text("Computer Go");
+        $("#turn").css({ 'color': 'red'});
         var thought = setInterval(function () {
             AI.think1(thought);
         }, 200);
@@ -362,6 +364,13 @@ AI.prototype = {
         console.log("hitLastTurn flag: "+ this.hitLastTurn);
         console.log("sunkLastTurn flag: "+ this.sunkLastTurn);
         console.log("end of go");
+    },
+    hitMineDraw: function (x, y) {
+        var eleID = "p" + x + "," + y;
+        this.missedAI.push(eleID);
+        document.getElementById(eleID).style.background = "black";
+        
+       
     },
     buildAIFleet: function (carrierCount, battleshipCount, crusierCount, submarineCount, destroyerCount, noOfMines) {
         //Randomly Build AI Fleet

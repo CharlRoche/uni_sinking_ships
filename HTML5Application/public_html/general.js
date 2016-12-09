@@ -26,13 +26,10 @@ var CRUISER_LEN = 3;
 var SUBMARINE_LEN = 3;
 var DESTROYER_LEN = 2;
 function getRandFromArray(array) {
-
     var rand = array[Math.floor(Math.random() * array.length)];
     return rand;
 }
-
 function removeItemFromArray(array, value) {
-
     var index = array.indexOf(value);
     if (index > -1) {
         array.splice(index, 1);
@@ -59,5 +56,11 @@ function jq(myid) {
 
     return "#" + myid.replace(/(:|\.|\[|\]|,|=)/g, "\\$1");
 
+};
+
+
+function setHalfVolume() {
+    var myAudio = document.getElementById("audio1");  
+    myAudio.volume = 0.5; //Changed this to 0.5 or 50% volume since the function is called Set Half Volume ;)
 }
-;
+
