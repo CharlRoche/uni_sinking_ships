@@ -111,7 +111,6 @@ player.prototype = {
     },
     drawGrid: function () { //draw the players grid containing their ships
 
-        document.getElementById("p"+placeships.carX+","+placeships.carY).style.background = "green";
         //place on board Carrier
         document.getElementById("p"+placeships.carX+","+(placeships.carY + 4)).style.background = "green";
         document.getElementById("p"+placeships.carX+","+(placeships.carY + 3)).style.background = "green";
