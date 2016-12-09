@@ -71,6 +71,18 @@ player.prototype = {
         PlayerShip5 = new ship('Destroyer', 1);
         PlayerShip5.setLocations([[placeships.desX, placeships.desY, 0], [placeships.desX+1, placeships.desY, 0]]);
         this.grid.addShip(PlayerShip5);
+        
+        mine1 = new mine();
+        mine1.setLocations([[placeships.mine1X], [placeships.mine1Y]]);
+        this.grid.addMine(mine1);
+        
+        mine2 = new mine();
+        mine2.setLocations([[placeships.mine2X], [placeships.mine2Y]]);
+        this.grid.addMine(mine2);
+        
+        mine3 = new mine();
+        mine3.setLocations([[placeships.mine3X], [placeships.mine3Y]]);
+        this.grid.addMine(mine3);
 
     },
     drawInitialGrid: function (xLength, yLength) {
@@ -139,6 +151,10 @@ player.prototype = {
         document.getElementById("p"+(placeships.desX)+","+(placeships.desY)).style.background = "green";
         document.getElementById("p"+(placeships.desX+1)+","+(placeships.desY)).style.background = "green";
         
+        //Mines
+        document.getElementById("p"+(placeships.mine1X)+","+(placeships.mine1Y)).style.background = "red";
+        document.getElementById("p"+(placeships.mine2X)+","+(placeships.mine2Y)).style.background = "red"; 
+        document.getElementById("p"+(placeships.mine3X)+","+(placeships.mine3Y)).style.background = "red";
     }
 }
 
