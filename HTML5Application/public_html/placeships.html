@@ -79,8 +79,8 @@ and open the template in the editor.
     </head>
     <body>
     <div id="wrapper">
-    <div class="square" id="1"></div>
-    <div class="square" id="2"></div>
+    <div class="square"></div>
+    <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
@@ -321,7 +321,7 @@ and open the template in the editor.
         $("#" + id).css(pos)
     })
 
-
+    /*
     $("#battleship").draggable({
         containment: "#wrapper",
         scroll: false,
@@ -340,24 +340,18 @@ and open the template in the editor.
         containment: "#wrapper",
         scroll: false,
         stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
         }
     });
     $("#cruiser").draggable({
         containment: "#wrapper",
         scroll: false,
         stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
         }
     });
     $("#carrier").draggable({
         containment: "#wrapper",
         scroll: false,
         stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
         }
     });
     $("#mine1").draggable({
@@ -385,7 +379,7 @@ and open the template in the editor.
         }
     });
 
-
+    */
     
     </script>
     
