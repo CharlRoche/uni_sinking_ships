@@ -156,9 +156,9 @@ player.prototype = {
         document.getElementById("p"+(placeships.desX+1)+","+(placeships.desY)).style.background = "green";
         
         //Mines
-        document.getElementById("p"+(placeships.mine1X)+","+(placeships.mine1Y)).style.background = "red";
-        document.getElementById("p"+(placeships.mine2X)+","+(placeships.mine2Y)).style.background = "red"; 
-        document.getElementById("p"+(placeships.mine3X)+","+(placeships.mine3Y)).style.background = "red";
+        document.getElementById("p"+(placeships.mine1X)+","+(placeships.mine1Y)).style.background = "blue";
+        document.getElementById("p"+(placeships.mine2X)+","+(placeships.mine2Y)).style.background = "blue"; 
+        document.getElementById("p"+(placeships.mine3X)+","+(placeships.mine3Y)).style.background = "blue";
     }
 }
 
