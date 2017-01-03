@@ -247,36 +247,36 @@ and open the template in the editor.
     
     function setLocs(){
         var carPos = $(carrier).position();
-        carX = Math.round((carPos.left - 240)/52) ;
-        carY = Math.round((carPos.top - 14)/52) ;
+        carX = Math.round((carPos.left - 240)/52) - 5;
+        carY = Math.round((carPos.top - 14)/52);
 
         var cruPos = $(cruiser).position();
-        cruX = Math.round((cruPos.left - 240)/52) ;
-        cruY = Math.round((cruPos.top - 14)/52) ;
+        cruX = Math.round((cruPos.left - 240)/52) - 5 ;
+        cruY = Math.round((cruPos.top - 14)/52);
 
         var batPos = $(battleship).position();
-        batX = Math.round((batPos.left - 240)/52) ;
-        batY = Math.round((batPos.top - 14)/52) ;
+        batX = Math.round((batPos.left - 240)/52) - 5;
+        batY = Math.round((batPos.top - 14)/52);
         
         var desPos = $(destroyer).position();
-        desX = Math.round((desPos.left - 240)/52); 
-        desY = Math.round((desPos.top - 14)/52) ;
+        desX = Math.round((desPos.left - 240)/52) - 5; 
+        desY = Math.round((desPos.top - 14)/52);
         
         var subPos = $(submarine).position();
-        subX = Math.round((subPos.left - 240)/52) ;
-        subY = Math.round((subPos.top - 14)/52) ;
+        subX = Math.round((subPos.left - 240)/52) - 5;
+        subY = Math.round((subPos.top - 14)/52);
 
         var mine1Pos = $(mine1).position();
-        mine1X = Math.round((mine1Pos.left - 240)/52) ;
-        mine1Y = Math.round((mine1Pos.top - 14)/52) ;
+        mine1X = Math.round((mine1Pos.left - 240)/52) - 5;
+        mine1Y = Math.round((mine1Pos.top - 14)/52);
 
         var mine2Pos = $(mine2).position();
-        mine2X = Math.round((mine2Pos.left - 240)/52) ;
-        mine2Y = Math.round((mine2Pos.top - 14)/52) ;
+        mine2X = Math.round((mine2Pos.left - 240)/52) - 5;
+        mine2Y = Math.round((mine2Pos.top - 14)/52);
 
         var mine3Pos = $(mine3).position();
-        mine3X = Math.round((mine3Pos.left - 240)/52) ;
-        mine3Y = Math.round((mine3Pos.top - 14)/52) ;
+        mine3X = Math.round((mine3Pos.left - 240)/52) - 5;
+        mine3Y = Math.round((mine3Pos.top - 14)/52);
         getSettings();
     }
 
