@@ -8,7 +8,6 @@ function getCookie(name) {
         var parts = value.split("; " + name + "=");
         if (parts.length == 2) return parts.pop().split(";").shift();
 }
-
         var shipsPos = getCookie('shipLocation');
         var placeships = JSON.parse(shipsPos);
         
