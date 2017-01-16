@@ -30,7 +30,7 @@ and open the template in the editor.
             height: 520px;
             border: 5px solid black;
         }
-        .draggable {
+        #draggable {
             float:left;
             height: 52px;
             background-color: gray;
@@ -77,7 +77,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <audio autoplay  loop>
+    <source src="background_music.mp3" type="audio/mpeg">
     <body>
+<!--
     <div id="wrapper">
     <div class="square"></div>
     <div class="square"></div>
@@ -180,7 +183,6 @@ and open the template in the editor.
     <div class="square"></div>
     <div class="square"></div>
     </div>
-    
     <div class="draggable battleship" id="battleship">
         <p>Battleship</p>
     </div>
@@ -196,19 +198,82 @@ and open the template in the editor.
     <div class="draggable submarine" id="submarine">
         <p>Submarine</p>
     </div>
-    <div class="draggable mine1" id="mine1">
-        <p>Mine1</p>
+ -->
+    <button id="button">rotate</button>
+        <br /><br />
+    <div id="div"></div>
+  
+    <div class="wrapper"> The Boats
+        <div class="draggable destroyer"> <p>Destroyer: </p>
+            <div><img src="Destroyer.png"  id="destroyer" width="52px" height="104px"/></div>
+        </div>
+        <div class="draggable carrier"> <p>Carrier </p>
+            <div><img src="Carrier.png"  id="carrier" width="52px" height="260px"/></div>
+        </div>
+        <div class="draggable cruiser"> <p>Cruiser: </p>
+            <div><img src="Cruiser.png"  id="cruiser" width="52px" height="156px"/></div>
+        </div>
+        <div class="draggable battleship"> <p>Battleship: </p>
+            <div><img src="Battleship.png"  id="battleship" width="208px" height="52px"/></div>
+        </div>
+        <div class="draggable submarine"> <p>Submarine: </p>
+            <div><img src="Submarine.png" id="submarine" width="52px" height="156px"/></div>
+        </div>
+        <div class="draggable mine1" id="mine1">
+            <p>Mine1</p>
+        </div>
+        <div class="draggable mine2" id="mine2">
+            <p>Mine2</p>
+        </div>
+        <div class="draggable mine3" id="mine3">
+            <p>Mine3</p>
+        </div>
     </div>
-    <div class="draggable mine2" id="mine2">
-        <p>Mine2</p>
-    </div>
-    <div class="draggable mine3" id="mine3">
-        <p>Mine3</p>
-    </div>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script>
-    
+    var rotated = false;
+
+    document.getElementById('button').onclick = function() {
+        var div = document.getElementById('draggable'),
+            deg = rotated ? 0 : 90;
+
+        div.style.webkitTransform = 'rotate('+deg+'deg)'; 
+        div.style.mozTransform    = 'rotate('+deg+'deg)'; 
+        div.style.msTransform     = 'rotate('+deg+'deg)'; 
+        div.style.oTransform      = 'rotate('+deg+'deg)'; 
+        div.style.transform       = 'rotate('+deg+'deg)'; 
+
+        rotated = !rotated;
+    }
+    function buildGrid() {
+        if ($_GET.hasOwnProperty('boardsize')) {
+            xLength = $_GET['boardsize'];
+            yLength = $_GET['boardsize'];
+        }
+        var rows = xLength;
+        var columns = yLength;
+        var $row = $('<div class="square"></div>', {
+            class: 'row'
+        });
+        var $square = $('<div class="square"></div>', {
+            class: 'square'
+        });
+
+        $(document).ready(function () {
+            //add columns to the the temp row object
+
+            for (var i = 0; i < columns; i++) {
+                $row.append($square.clone());
+            }
+            //clone the temp row object with the columns to the wrapper
+            for (var i = 0; i < rows; i++) {
+                $("#wrapper").append($row.clone());
+            }
+        });
+    }
+    buildGrid();
     function createCookie(name,value,days) {
             if (days) {
                     var date = new Date();
@@ -219,6 +284,7 @@ and open the template in the editor.
             document.cookie = name+"="+value+expires+"; path=/";
             console.log("Created Cookie")
     }
+    
     function getSettings() {
         var parts = window.location.search.substr(1).split("&");
         var $_GET = {};
@@ -238,12 +304,8 @@ and open the template in the editor.
             playerTurn = $_GET['playerTurn'];
         }
         var playerSettings = {'xLength' :xLength, 'yLength': yLength,'difficulty' : difficulty, 'playerTurn': playerTurn};
-        console.log(JSON.stringify(playerSettings));
         createCookie('playerSettings',JSON.stringify(playerSettings),100);
-
     }
-    
-    
     
     function setLocs(){
         var carPos = $(carrier).position();
@@ -277,7 +339,6 @@ and open the template in the editor.
         var mine3Pos = $(mine3).position();
         mine3X = Math.round((mine3Pos.left - 240)/52) - 5;
         mine3Y = Math.round((mine3Pos.top - 14)/52);
-        getSettings();
     }
 
     function getCookie(name) {
@@ -288,7 +349,7 @@ and open the template in the editor.
 
     $(function(){
         $('.draggable').draggable({
-          containment: 'parent',
+          containment: '#wrapper',
           cursor: 'move',
           revert: true
         });
@@ -319,68 +380,7 @@ and open the template in the editor.
    
     $.each(positions, function (id, pos) {
         $("#" + id).css(pos)
-    })
-
-    /*
-    $("#battleship").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
-
-        }
-    });
-    $("#destroyer").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: handleDrop()
-    });
-    $("#submarine").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-        }
-    });
-    $("#cruiser").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-        }
-    });
-    $("#carrier").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-        }
-    });
-    $("#mine1").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#mine2").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-    $("#mine3").draggable({
-        containment: "#wrapper",
-        scroll: false,
-        stop: function (event, ui) {
-            positions[this.id] = ui.position-parentPos;
-            localStorage.positions = JSON.stringify(positions)
-        }
-    });
-
-    */
-    
+    })    
     </script>
     
     <form action="index.html" method="get"> 
