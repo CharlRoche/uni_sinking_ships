@@ -115,6 +115,8 @@ and open the template in the editor.
     <div class="draggable mine3" id="mine3">
         <p>Mine3</p>
     </div>
+    
+    <button type="button" onclick="Sheild()">Use Shield?</button>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -352,16 +354,26 @@ and open the template in the editor.
 
     function handleDrop( event, ui ) {
         console.log(ui.draggable.context.id);
-        if(ui.draggable.context.id == 'carrier'){
+        if(ui.draggable.context.id == 'carrier' && carRot == 0){
             ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
-        }else if (ui.draggable.context.id == 'battleship'){
+        }else if (ui.draggable.context.id == 'battleship' && batRot == 0){
             ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
-        }else if (ui.draggable.context.id == 'destroyer'){
+        }else if (ui.draggable.context.id == 'destroyer' && desRot == 0){
             ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
-        }else if (ui.draggable.context.id == 'cruiser'){
+        }else if (ui.draggable.context.id == 'cruiser' && cruRot == 0){
             ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
-        }else if (ui.draggable.context.id == 'submarine'){
+        }else if (ui.draggable.context.id == 'submarine' && subRot == 0){
             ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else if(ui.draggable.context.id == 'carrier' && carRot == 1){
+            ui.draggable.position( { of: $(this), my: 'left top-104', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'battleship' && batRot == 0){
+            ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'destroyer' && desRot == 0){
+            ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'cruiser' && cruRot == 0){
+            ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'submarine' && subRot == 0){
+            ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
         }else {
             ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
         }
