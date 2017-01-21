@@ -75,7 +75,7 @@ Grid.prototype = {
         } else {
             missNoise.play();
             console.log('No ship found');
-            //window.alert('You missed!');
+            alert('You missed!');
             if (playerTurn === true) {
                 player.missedShipDraw(x, y);
             }

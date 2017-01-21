@@ -13,8 +13,8 @@ function getCookie(name) {
 
 var playerSettings = getCookie('playerSettings');
 var playerSettings = JSON.parse(playerSettings);
+console.log()
         
-
 var xLength = playerSettings.xLength;
 var yLength = playerSettings.yLength;
 var difficulty = playerSettings.difficulty;
@@ -140,7 +140,15 @@ function restoreOnClick() {
 ;
 
 function endGame() {
-    alert("Games Over");//should probs do something a little more interesting here
+    var winner;
+    if (playerShipsAlive() === 0){
+        winner = 'You';
+    }
+    else {
+        winner = 'Computer';
+    }
+    alert("Games Over\n\
+    The Winner is: " + winner );//should probs do something a little more interesting here
 }
 ;
 function aiShipsAlive() {
@@ -175,7 +183,7 @@ function playerShipsAlive() {
     if (PlayerShip5.checkIsAlive()) {
         deadPlayerShipCount--;
     }
-    if (deadPlayerShipCount === 5) {
+    if (deadPlayerShipCount === 0) {
         endGame();
     }
     return deadPlayerShipCount;
