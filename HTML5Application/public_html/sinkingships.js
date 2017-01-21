@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /**
  * Created by Charlotte Roche on 25/10/2016.
  * Contribution Log: Name/Date/Description
@@ -14,7 +14,7 @@ function getCookie(name) {
 
 var playerSettings = getCookie('playerSettings');
 var playerSettings = JSON.parse(playerSettings);
-console.log()
+console.log();
         
 var xLength = playerSettings.xLength;
 var yLength = playerSettings.yLength;
@@ -124,8 +124,7 @@ function makeAIMove() {
 
     document.getElementById("cscore").innerHTML = "Computer's Score: " + playerShipsAlive()
 
-}
-;
+};
 function restoreOnClick() {
 
 
@@ -189,7 +188,7 @@ function playerShipsAlive() {
     }
     return deadPlayerShipCount;
 }
-=======
+
 /**
  * Created by Charlotte Roche on 25/10/2016.
  * Contribution Log: Name/Date/Description
@@ -380,4 +379,4 @@ function playerShipsAlive() {
     }
     return deadPlayerShipCount;
 }
->>>>>>> 49f02476fa5f5751afe9c93d020222f98f713cf4
+
