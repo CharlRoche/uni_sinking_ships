@@ -41,22 +41,29 @@ and open the template in the editor.
             background: #313131;
         }
         .destroyer {
+            height: 52px;
             width: 104px;
+            background-image:url('Destroyer.png');
         }
         .carrier {
-            width: 52px;
-            height: 260px;
+            height: 52px;
+            width: 260px;
+            background-image:url('Carrier.png');
         }
         .submarine {
-            width: 52px;
-            height: 156px;
+            height: 52px;
+            width: 156px;
+            background-image:url('Submarine.png');
         }
         .battleship {
+            height: 52px;
             width: 208px;
+            background-image:url('Battleship.png');
         }
         .cruiser {
-            width: 52px;
-            height: 156px;
+            height: 52px;
+            width: 156px;
+            background-image:url('Cruiser.png');
         }
         .mine1 {
             width: 52px;
@@ -94,21 +101,11 @@ and open the template in the editor.
 
     <div id="wrapper"></div>
     
-    <div class="draggable destroyer">
-        <div><img src="Destroyer.png"  id="destroyer" width="104px" height="52px"/></div>
-    </div>
-    <div class="draggable carrier">
-        <div><img src="Carrier.png"  id="carrier" width="52px" height="260px"/></div>
-    </div>
-    <div class="draggable cruiser">
-        <div><img src="Cruiser.png"  id="cruiser" width="52px" height="156px"/></div>
-    </div>
-    <div class="draggable battleship">
-        <div><img src="Battleship.png"  id="battleship" width="208px" height="52px"/></div>
-    </div>
-    <div class="draggable submarine">
-        <div><img src="Submarine.png" id="submarine" width="52px" height="156px"/></div>
-    </div>
+    <div class="draggable destroyer"  id="destroyer"></div>
+    <div class="draggable carrier" id="carrier"></div>
+    <div class="draggable cruiser" id="cruiser"></div>
+    <div class="draggable battleship" id="battleship"></div>
+    <div class="draggable submarine" id="submarine"></div>
     <div class="draggable mine1" id="mine1">
         <p>Mine1</p>
     </div>
@@ -149,7 +146,7 @@ and open the template in the editor.
         var rows = gridSize;
         var columns = gridSize;
         
-        var $row = $("<div />", {class: 'row'});
+        var $row = $("<div />", {class: 'square'});
         var $square = $("<div />", {class: 'square'});
         $(document).ready(function () {
             //add columns to the the temp row object
@@ -173,46 +170,90 @@ and open the template in the editor.
             else var expires = "";
             document.cookie = name+"="+value+expires+"; path=/";
     }
-    /*var batRotate = document.getElementById('draggable battleship');
-    batRotate.addEventListener("click", function(){
-      batRotate.style.animation = "rotate 2s";
-      batRotate.style.webkitAnimation = "rotate 2s";
-    });
-    var desRotate = document.getElementById('draggable destroyer');
-    desRotate.addEventListener("click", function(){
-      desRotate.style.animation = "rotate 2s";
-      desRotate.style.webkitAnimation = "rotate 2s";
-    });
-    var divrotate = document.getElementById('draggable submarine');
-    boxopen.addEventListener("click", function(){
-      boxopen.style.animation = "rotate 2s";
-      boxopen.style.webkitAnimation = "rotate 2s";
-    });
-    var carRotate = document.getElementById('draggable carrier');
-    carRotate.addEventListener("click", function(){
-      carRotate.style.animation = "rotate 2s";
-      carRotate.style.webkitAnimation = "rotate 2s";
-    });
-    var cruRotate = document.getElementById('draggable cruiser');
-    cruRotate.addEventListener("click", function(){
-      cruRotate.style.animation = "rotate 4s";
-      cruRotate.style.webkitAnimation = "rotate 2s";
-    });
-*/
-    $('#submarine').click(function(){
+    
+    var subRot = 0;
+    var desRot = 0;
+    var batRot = 0;
+    var cruRot = 0;
+    var carRot = 0;
+    
+    $('#submarine').dblclick(function(){
         $(this).toggleClass('rotated');
+
+        if (subRot == 0){
+            subRot = 1;
+
+            document.getElementById("submarine").style.height = "156px";
+            document.getElementById("submarine").style.width = "52px";
+        }
+        else {
+            subRot = 0;
+
+            document.getElementById("submarine").style.height = "52px";
+            document.getElementById("submarine").style.width = "156px";
+        }
     });
-    $('#destroyer').click(function(){
+    
+    $('#destroyer').dblclick(function(){
         $(this).toggleClass('rotated');
+        if (desRot == 0){
+            desRot = 1;
+
+            document.getElementById("destroyer").style.height = "104px";
+            document.getElementById("destroyer").style.width = "52px";
+        }
+        else {
+            desRot = 0;
+
+            document.getElementById("destroyer").style.height = "52px";
+            document.getElementById("destroyer").style.width = "104px";
+        }
     });
-    $('#battleship').click(function(){
+    
+    $('#battleship').dblclick(function(){
         $(this).toggleClass('rotated');
+        if (batRot == 0){
+            batRot = 1;
+
+            document.getElementById("battleship").style.height = "208px";
+            document.getElementById("battleship").style.width = "52px";
+        }
+        else {
+            batRot = 0;
+
+            document.getElementById("battleship").style.height = "52px";
+            document.getElementById("battleship").style.width = "208px";
+        }
     });
-    $('#cruiser').click(function(){
+    $('#cruiser').dblclick(function(){
         $(this).toggleClass('rotated');
+        if (cruRot == 0){
+            cruRot = 1;
+
+            document.getElementById("cruiser").style.height = "156px";
+            document.getElementById("cruiser").style.width = "52px";
+        }
+        else {
+            cruRot = 0;
+
+            document.getElementById("cruiser").style.height = "52px";
+            document.getElementById("cruiser").style.width = "156px";
+        }
     });
-    $('#carrier').click(function(){
+    $('#carrier').dblclick(function(){
         $(this).toggleClass('rotated');
+        if (carRot == 0){
+            carRot = 1;
+
+            document.getElementById("carrier").style.height = "260px";
+            document.getElementById("carrier").style.width = "52px";
+        }
+        else {
+            carRot = 0;
+
+            document.getElementById("carrier").style.height = "52px";
+            document.getElementById("carrier").style.width = "260px";
+        }
     });
     function getSettings() {
         var parts = window.location.search.substr(1).split("&");
@@ -237,27 +278,28 @@ and open the template in the editor.
     }
 
     function setLocs(){
-        var gridPos =  $(wrapper).position();
+        var gridPos =  $(wrapper).offset();
         gridX = gridPos.left;
         gridY = gridPos.top;
+        
         var carPos = $(carrier).position();
-        carX = Math.round((carPos.left - gridX)/52) - 5;
-        carY = Math.round((carPos.top - gridY)/52);
+        carX = Math.round((carPos.left - gridX)/52) -1;
+        carY = Math.round((carPos.top - gridY)/52); 
 
         var cruPos = $(cruiser).position();
-        cruX = Math.round((cruPos.left - gridX)/52);
+        cruX = Math.round((cruPos.left - gridX)/52) -1;
         cruY = Math.round((cruPos.top - gridY)/52);
 
         var batPos = $(battleship).position();
-        batX = Math.round((batPos.left - gridX)/52);
+        batX = Math.round((batPos.left - gridX)/52) -1;
         batY = Math.round((batPos.top - gridY)/52);
         
         var desPos = $(destroyer).position();
-        desX = Math.round((desPos.left - gridX)/52); 
+        desX = Math.round((desPos.left - gridX)/52) -1; 
         desY = Math.round((desPos.top - gridY)/52);
         
         var subPos = $(submarine).position();
-        subX = Math.round((subPos.left - gridX)/52);
+        subX = Math.round((subPos.left - gridX)/52) -1;
         subY = Math.round((subPos.top - gridY)/52);
 
         var mine1Pos = $(mine1).position();
@@ -295,15 +337,14 @@ and open the template in the editor.
     });
 
     function handleDrop( event, ui ) {
-        ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+        
+        ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
         ui.draggable.draggable( 'option', 'revert', false );
-
         setLocs();
 
-        var shipsPos = {'mine1X' :mine1X, 'mine1Y': mine1Y,'mine2X' : mine2X, 'mine2Y': mine2Y,'mine3X' : mine3X, 'mine3Y': mine3Y,'cruX' :cruX, 'cruY': cruY,'batX' : batX, 'batY': batY,'subX' : subX, 'subY': subY,'carX' : carX, 'carY': carY, 'desX' : desX, 'desY': desY}
-        console.log(shipsPos)
+        var shipsPos = {'mine1X' :mine1X, 'mine1Y': mine1Y, 'mine2X' : mine2X, 'mine2Y': mine2Y,'mine3X' : mine3X, 'mine3Y': mine3Y,'cruX' :cruX, 'cruY': cruY, 'cruRot': cruRot,'batX' : batX, 'batY': batY, 'batRot': batRot,'subX' : subX, 'subY': subY, 'subRot': subRot,'carX' : carX, 'carY': carY, 'carRot': carRot, 'desX' : desX, 'desY': desY, 'desRot': desRot}
         createCookie('shipLocation',JSON.stringify(shipsPos),100);
-        
+        //console.log(Math.round(($(this).position().left - gridX)/52) +  "   " + Math.round(($(this).position().top - gridY)/52)) 
     }
    
     </script>
