@@ -14,6 +14,7 @@ function getCookie(name) {
 var playerSettings = getCookie('playerSettings');
 var playerSettings = JSON.parse(playerSettings);
         
+var winner = whoWon();
 var xLength = playerSettings.xLength;
 var yLength = playerSettings.yLength;
 var difficulty = playerSettings.difficulty;
