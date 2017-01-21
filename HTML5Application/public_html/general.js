@@ -64,3 +64,13 @@ function setHalfVolume() {
     myAudio.volume = 0.5; //Changed this to 0.5 or 50% volume since the function is called Set Half Volume ;)
 };
 
+$(document).ready(function () {
+    console.log( "ready!" );
+    
+$("#btnMultiShot").click(function () {
+    player.extraShot = 2;
+    $("#btnMultiShot").prop('disabled', true);
+    console.log("TESTING");
+    });
+});
+

@@ -17,6 +17,7 @@ function AI(xSize, ySize, difficulty) {
     this.hitAI = [];
     this.missedAI = [];
     this.missNextGo = false;
+    this.extraShot = 0;
 }
 
 AI.prototype = {

@@ -19,6 +19,7 @@ function player(name, xSize, ySize) {
     this.hitPlayer = [];
     this.missedPlayer = [];
     this.missNextGo = false;
+    this.extraShot = 0;
 }
 
 player.prototype = {
