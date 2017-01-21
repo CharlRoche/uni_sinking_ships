@@ -283,23 +283,23 @@ and open the template in the editor.
         gridY = gridPos.top;
         
         var carPos = $(carrier).position();
-        carX = Math.round((carPos.left - gridX)/52) -1;
+        carX = Math.round((carPos.left - gridX)/52);
         carY = Math.round((carPos.top - gridY)/52); 
 
         var cruPos = $(cruiser).position();
-        cruX = Math.round((cruPos.left - gridX)/52) -1;
+        cruX = Math.round((cruPos.left - gridX)/52);
         cruY = Math.round((cruPos.top - gridY)/52);
 
         var batPos = $(battleship).position();
-        batX = Math.round((batPos.left - gridX)/52) -1;
+        batX = Math.round((batPos.left - gridX)/52);
         batY = Math.round((batPos.top - gridY)/52);
         
         var desPos = $(destroyer).position();
-        desX = Math.round((desPos.left - gridX)/52) -1; 
+        desX = Math.round((desPos.left - gridX)/52); 
         desY = Math.round((desPos.top - gridY)/52);
         
         var subPos = $(submarine).position();
-        subX = Math.round((subPos.left - gridX)/52) -1;
+        subX = Math.round((subPos.left - gridX)/52);
         subY = Math.round((subPos.top - gridY)/52);
 
         var mine1Pos = $(mine1).position();
@@ -337,14 +337,26 @@ and open the template in the editor.
     });
 
     function handleDrop( event, ui ) {
-        
-        ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
+        console.log(ui.draggable.context.id);
+        if(ui.draggable.context.id == 'carrier'){
+            ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'battleship'){
+            ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'destroyer'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'cruiser'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'submarine'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else {
+            ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+        }
         ui.draggable.draggable( 'option', 'revert', false );
         setLocs();
 
         var shipsPos = {'mine1X' :mine1X, 'mine1Y': mine1Y, 'mine2X' : mine2X, 'mine2Y': mine2Y,'mine3X' : mine3X, 'mine3Y': mine3Y,'cruX' :cruX, 'cruY': cruY, 'cruRot': cruRot,'batX' : batX, 'batY': batY, 'batRot': batRot,'subX' : subX, 'subY': subY, 'subRot': subRot,'carX' : carX, 'carY': carY, 'carRot': carRot, 'desX' : desX, 'desY': desY, 'desRot': desRot}
         createCookie('shipLocation',JSON.stringify(shipsPos),100);
-        //console.log(Math.round(($(this).position().left - gridX)/52) +  "   " + Math.round(($(this).position().top - gridY)/52)) 
+        console.log(shipsPos) 
     }
    
     </script>
