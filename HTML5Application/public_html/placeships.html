@@ -386,14 +386,19 @@ and open the template in the editor.
             subMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
         }else if(ui.draggable.context.id == 'carrier' && carRot == 1){
+            carMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left top-104', at: 'left top' } );
         }else if (ui.draggable.context.id == 'battleship' && batRot == 0){
+            batMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
         }else if (ui.draggable.context.id == 'destroyer' && desRot == 0){
+            desMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
         }else if (ui.draggable.context.id == 'cruiser' && cruRot == 0){
+            cruMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
         }else if (ui.draggable.context.id == 'submarine' && subRot == 0){
+            subMoved = 1;
             ui.draggable.position( { of: $(this), my: 'left top-52', at: 'left top' } );
         }else {
             ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
