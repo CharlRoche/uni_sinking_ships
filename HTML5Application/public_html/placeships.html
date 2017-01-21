@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <style>
+        body, html {
+            background-color: lightskyblue;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top center;
+            text-align: center;
+            height: 100%;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            float: left;
+        }
+        .clearfix {
+            clear:both;
+        }
+        #wrapper {
+            margin: 10px auto;
+            width: 520px;
+            height: 520px;
+            border: 5px solid black;
+        }
+        #draggable {
+            float:left;
+            height: 52px;
+            background-color: gray;
+        }
+        .row {
+            width: auto;
+            height: auto;
+            background: #313131;
+        }
+        .destroyer {
+            height: 52px;
+            width: 104px;
+            background-image:url('Destroyer.png');
+        }
+        .carrier {
+            height: 52px;
+            width: 260px;
+            background-image:url('Carrier.png');
+        }
+        .submarine {
+            height: 52px;
+            width: 156px;
+            background-image:url('Submarine.png');
+        }
+        .battleship {
+            height: 52px;
+            width: 208px;
+            background-image:url('Battleship.png');
+        }
+        .cruiser {
+            height: 52px;
+            width: 156px;
+            background-image:url('Cruiser.png');
+        }
+        .mine1 {
+            width: 52px;
+        }
+        .mine2 {
+            width: 52px;
+        }
+        .mine3 {
+            width: 52px;
+        }
+        .draggable p {
+            text-align: center;
+            padding: -20px 0 0 0;
+            font-weight:900;
+        }
+        .draggable.ui-draggable-dragging {
+            background: red;
+        }
+        .rotated { 
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        
+
+    </style>
+    <head>
+        <title>Place your ships and mines</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+    <div id="wrapper"></div>
+    
+    <div class="draggable destroyer"  id="destroyer"></div>
+    <div class="draggable carrier" id="carrier"></div>
+    <div class="draggable cruiser" id="cruiser"></div>
+    <div class="draggable battleship" id="battleship"></div>
+    <div class="draggable submarine" id="submarine"></div>
+    <div class="draggable mine1" id="mine1">
+        <p>Mine1</p>
+    </div>
+    <div class="draggable mine2" id="mine2">
+        <p>Mine2</p>
+    </div>
+    <div class="draggable mine3" id="mine3">
+        <p>Mine3</p>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+
+    function buildGrid() {
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+        if ($_GET.hasOwnProperty('boardsize')) {
+            gridSize = $_GET['boardsize'];
+        }
+        
+        if (gridSize == 20) {
+            document.getElementById("wrapper").style.width = "1040px";
+            document.getElementById("wrapper").style.height = "1040px";
+        }
+        else if (gridSize == 15) {
+            document.getElementById("wrapper").style.width = "780px";
+            document.getElementById("wrapper").style.height = "780px";
+        }
+        else {
+            document.getElementById("wrapper").style.width = "520px";
+            document.getElementById("wrapper").style.height = "520px";
+        }
+        var rows = gridSize;
+        var columns = gridSize;
+        
+        var $row = $("<div />", {class: 'square'});
+        var $square = $("<div />", {class: 'square'});
+        $(document).ready(function () {
+            //add columns to the the temp row object
+
+            for (var i = 0; i < columns; i++) {
+                $row.append($square.clone());
+            }
+            //clone the temp row object with the columns to the wrapper
+            for (var i = 0; i < rows; i++) {
+                $("#wrapper").append($row.clone());
+            }
+        });
+    }
+    buildGrid();
+    function createCookie(name,value,days) {
+            if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    var expires = "; expires="+date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name+"="+value+expires+"; path=/";
+    }
+    
+    var subRot = 0;
+    var desRot = 0;
+    var batRot = 0;
+    var cruRot = 0;
+    var carRot = 0;
+    
+    $('#submarine').dblclick(function(){
+
+        if (subRot == 0){
+            subRot = 1;
+
+            document.getElementById("submarine").style.height = "156px";
+            document.getElementById("submarine").style.width = "52px";
+            document.getElementById("submarine").style.background = image = "url('Submarine_rotated.png')";
+        }
+        else {
+            subRot = 0;
+
+            document.getElementById("submarine").style.height = "52px";
+            document.getElementById("submarine").style.width = "156px";
+            
+            document.getElementById("submarine").style.background = image = "url('Submarine.png')";
+        }
+    });
+    
+    $('#destroyer').dblclick(function(){
+        if (desRot == 0){
+            desRot = 1;
+
+            document.getElementById("destroyer").style.height = "104px";
+            document.getElementById("destroyer").style.width = "52px";
+            
+            document.getElementById("destroyer").style.background = image = "url('Destroyer_rotated.png')";
+        }
+        else {
+            desRot = 0;
+
+            document.getElementById("destroyer").style.height = "52px";
+            document.getElementById("destroyer").style.width = "104px";
+            
+            document.getElementById("destroyer").style.background = image = "url('Destroyer.png')";
+        }
+    });
+    
+    $('#battleship').dblclick(function(){
+        if (batRot == 0){
+            batRot = 1;
+
+            document.getElementById("battleship").style.height = "208px";
+            document.getElementById("battleship").style.width = "52px";
+            
+            document.getElementById("battleship").style.background = image = "url('Battleship_rotated.png')";
+        }
+        else {
+            batRot = 0;
+
+            document.getElementById("battleship").style.height = "52px";
+            document.getElementById("battleship").style.width = "208px";
+            
+            document.getElementById("battleship").style.background = image = "url('Battleship.png')";
+        }
+    });
+    $('#cruiser').dblclick(function(){
+        if (cruRot == 0){
+            cruRot = 1;
+
+            document.getElementById("cruiser").style.height = "156px";
+            document.getElementById("cruiser").style.width = "52px";
+            
+            document.getElementById("cruiser").style.background = image = "url('Cruiser_rotated.png')";
+        }
+        else {
+            cruRot = 0;
+
+            document.getElementById("cruiser").style.height = "52px";
+            document.getElementById("cruiser").style.width = "156px";
+            
+            document.getElementById("cruiser").style.background = image = "url('Cruiser.png')";
+        }
+    });
+    $('#carrier').dblclick(function(){
+        if (carRot == 0){
+            carRot = 1;
+
+            document.getElementById("carrier").style.height = "260px";
+            document.getElementById("carrier").style.width = "52px";
+            
+            document.getElementById("carrier").style.background = image = "url('Carrier_rotated.png')";
+        }
+        else {
+            carRot = 0;
+
+            document.getElementById("carrier").style.height = "52px";
+            document.getElementById("carrier").style.width = "260px";
+            
+            document.getElementById("carrier").style.background = image = "url('Carrier.png')";
+        }
+    });
+    function getSettings() {
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+
+        if ($_GET.hasOwnProperty('boardsize')) {
+            xLength = $_GET['boardsize'];
+            yLength = $_GET['boardsize'];
+        }
+        if ($_GET.hasOwnProperty('difficulty')) {
+            difficulty = $_GET['difficulty'];
+        }
+        if ($_GET.hasOwnProperty('playerTurn')) {
+            playerTurn = $_GET['playerTurn'];
+        }
+        var playerSettings = {'xLength' :xLength, 'yLength': yLength,'difficulty' : difficulty, 'playerTurn': playerTurn};
+        createCookie('playerSettings',JSON.stringify(playerSettings),100);
+    }
+
+    function setLocs(){
+        var gridPos =  $(wrapper).offset();
+        gridX = gridPos.left;
+        gridY = gridPos.top;
+        
+        var carPos = $(carrier).position();
+        carX = Math.round((carPos.left - gridX)/52);
+        carY = Math.round((carPos.top - gridY)/52); 
+
+        var cruPos = $(cruiser).position();
+        cruX = Math.round((cruPos.left - gridX)/52);
+        cruY = Math.round((cruPos.top - gridY)/52);
+
+        var batPos = $(battleship).position();
+        batX = Math.round((batPos.left - gridX)/52);
+        batY = Math.round((batPos.top - gridY)/52);
+        
+        var desPos = $(destroyer).position();
+        desX = Math.round((desPos.left - gridX)/52); 
+        desY = Math.round((desPos.top - gridY)/52);
+        
+        var subPos = $(submarine).position();
+        subX = Math.round((subPos.left - gridX)/52);
+        subY = Math.round((subPos.top - gridY)/52);
+
+        var mine1Pos = $(mine1).position();
+        mine1X = Math.round((mine1Pos.left - gridX)/52);
+        mine1Y = Math.round((mine1Pos.top - gridY)/52);
+
+        var mine2Pos = $(mine2).position();
+        mine2X = Math.round((mine2Pos.left - gridX)/52);
+        mine2Y = Math.round((mine2Pos.top - gridY)/52);
+
+        var mine3Pos = $(mine3).position();
+        mine3X = Math.round((mine3Pos.left - gridX)/52);
+        mine3Y = Math.round((mine3Pos.top - gridY)/52);
+    }
+
+    function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+    $(function(){
+        $('.draggable').draggable({
+          containment: '#wrapper',
+          cursor: 'move',
+          revert: true
+        });
+    });
+
+
+    $(function() {
+        $('.square').droppable({
+            drop: handleDrop
+        });
+    });
+
+    function handleDrop( event, ui ) {
+        console.log(ui.draggable.context.id);
+        if(ui.draggable.context.id == 'carrier'){
+            ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'battleship'){
+            ui.draggable.position( { of: $(this), my: 'left-104 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'destroyer'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'cruiser'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else if (ui.draggable.context.id == 'submarine'){
+            ui.draggable.position( { of: $(this), my: 'left-52 top', at: 'left top' } );
+        }else {
+            ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+        }
+        ui.draggable.draggable( 'option', 'revert', false );
+        setLocs();
+
+        var shipsPos = {'mine1X' :mine1X, 'mine1Y': mine1Y, 'mine2X' : mine2X, 'mine2Y': mine2Y,'mine3X' : mine3X, 'mine3Y': mine3Y,'cruX' :cruX, 'cruY': cruY, 'cruRot': cruRot,'batX' : batX, 'batY': batY, 'batRot': batRot,'subX' : subX, 'subY': subY, 'subRot': subRot,'carX' : carX, 'carY': carY, 'carRot': carRot, 'desX' : desX, 'desY': desY, 'desRot': desRot}
+        createCookie('shipLocation',JSON.stringify(shipsPos),100);
+    }
+    getSettings();
+   
+    </script>
+    
+    <form action="index.html" method="get"> 
+        <input type="Submit" value="Start" style="height:50px; width:200px"/>
+    </form>
+    </body>
+</html>

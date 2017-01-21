@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Game Finished</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript">
+            window.opener.popupCallback('Game over'); //Call callback function 
+            $(function(){
+                $('#button').click(function() {
+                    window.close();
+                    window.open('http://www.google.com/'); 
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div>'Game Over'</div>
+    </body>
+</html>
