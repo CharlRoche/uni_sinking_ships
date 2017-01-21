@@ -47,28 +47,45 @@ player.prototype = {
     },
     definePlayerFleetMVP: function () {
 
-        /*PlayerShip1 = new ship('Carrier', 1);
-        PlayerShip1.setLocations([[2, 5, 0], [2, 4, 0], [2, 3, 0], [2, 2, 0], [2, 1, 0]]);
-        this.grid.addShip(PlayerShip1);*/
 
         PlayerShip1 = new ship('Carrier', 1);
-        PlayerShip1.setLocations([[placeships.carX, placeships.carY, 0], [placeships.carX, placeships.carY+1, 0], [placeships.carX, placeships.carY+2, 0], [placeships.carX, placeships.carY+3, 0], [placeships.carX, placeships.carY+4, 0]]);
+        if(placeships.carRot == 0){
+            PlayerShip1.setLocations([[placeships.carX, placeships.carY, 0], [placeships.carX+1, placeships.carY, 0], [placeships.carX+2, placeships.carY+2, 0], [placeships.carX+3, placeships.carY, 0], [placeships.carX+4, placeships.carY, 0]]);
+        }else{
+            PlayerShip1.setLocations([[placeships.carX, placeships.carY, 0], [placeships.carX, placeships.carY+1, 0], [placeships.carX, placeships.carY+2, 0], [placeships.carX, placeships.carY+3, 0], [placeships.carX, placeships.carY+4, 0]]);
+        }
         this.grid.addShip(PlayerShip1);
 
         PlayerShip2 = new ship('Battleship', 1);
-        PlayerShip2.setLocations([[placeships.batX, placeships.batY, 0], [placeships.batX+1, placeships.batY, 0], [placeships.batX+2, placeships.batY, 0], [placeships.batX+3, placeships.batY, 0]]);
+        if(placeships.batRot == 0){
+            PlayerShip2.setLocations([[placeships.batX, placeships.batY, 0], [placeships.batX+1, placeships.batY, 0], [placeships.batX+2, placeships.batY, 0], [placeships.batX+3, placeships.batY, 0]]);
+        }else{
+            PlayerShip2.setLocations([[placeships.batX, placeships.batY, 0], [placeships.batX, placeships.batY+1, 0], [placeships.batX, placeships.batY+2, 0], [placeships.batX, placeships.batY+3, 0]]);  
+        }
         this.grid.addShip(PlayerShip2);
 
         PlayerShip3 = new ship('Cruiser', 1);
-        PlayerShip3.setLocations([[placeships.cruX, placeships.cruY, 0], [placeships.cruX, placeships.cruY+1, 0], [placeships.cruX, placeships.cruY+2, 0]]);
+        if(placeships.cruRot == 0){
+            PlayerShip3.setLocations([[placeships.cruX, placeships.cruY, 0], [placeships.cruX+1, placeships.cruY, 0], [placeships.cruX+2, placeships.cruY, 0]]);
+        }else{
+            PlayerShip3.setLocations([[placeships.cruX, placeships.cruY, 0], [placeships.cruX, placeships.cruY+1, 0], [placeships.cruX, placeships.cruY+2, 0]]);
+        }
         this.grid.addShip(PlayerShip3);
 
         PlayerShip4 = new ship('Submarine', 1);
-        PlayerShip4.setLocations([[placeships.subX, placeships.subY, 0], [placeships.subX, placeships.subY+1, 0], [placeships.subX, placeships.subY+2, 0]]);
+        if(placeships.subRot == 0){
+            PlayerShip4.setLocations([[placeships.subX, placeships.subY, 0], [placeships.subX+1, placeships.subY, 0], [placeships.subX+2, placeships.subY, 0]]);
+        }else{
+            PlayerShip4.setLocations([[placeships.subX, placeships.subY, 0], [placeships.subX, placeships.subY+1, 0], [placeships.subX, placeships.subY+2, 0]]);
+        }
         this.grid.addShip(PlayerShip4);
 
         PlayerShip5 = new ship('Destroyer', 1);
-        PlayerShip5.setLocations([[placeships.desX, placeships.desY, 0], [placeships.desX+1, placeships.desY, 0]]);
+        if(placeships.desRot == 0){
+            PlayerShip5.setLocations([[placeships.desX, placeships.desY, 0], [placeships.desX+1, placeships.desY, 0]]);
+        }else{
+            PlayerShip5.setLocations([[placeships.desX, placeships.desY, 0], [placeships.desX, placeships.desY+1, 0]]);
+        }
         this.grid.addShip(PlayerShip5);
         
         mine1 = new mine();
@@ -125,34 +142,72 @@ player.prototype = {
         document.getElementById(eleID).style.background = "black";
     },
     drawGrid: function () { //draw the players grid containing their ships
-
+    
         //place on board Carrier
-        document.getElementById("p"+placeships.carX+","+(placeships.carY + 4)).style.background = "green";
-        document.getElementById("p"+placeships.carX+","+(placeships.carY + 3)).style.background = "green";
-        document.getElementById("p"+placeships.carX+","+(placeships.carY + 2)).style.background = "green";
-        document.getElementById("p"+placeships.carX+","+(placeships.carY + 1)).style.background = "green";
-        document.getElementById("p"+placeships.carX+","+placeships.carY).style.background = "green";
+        if (placeships.carRot == 1){
+            document.getElementById("p"+placeships.carX+","+(placeships.carY + 4)).style.background = "green";
+            document.getElementById("p"+placeships.carX+","+(placeships.carY + 3)).style.background = "green";
+            document.getElementById("p"+placeships.carX+","+(placeships.carY + 2)).style.background = "green";
+            document.getElementById("p"+placeships.carX+","+(placeships.carY + 1)).style.background = "green";
+            document.getElementById("p"+placeships.carX+","+placeships.carY).style.background = "green";
+        }
+        else if (placeships.carRot == 0){
+            document.getElementById("p"+(placeships.carX + 4)+","+placeships.carY).style.background = "green";
+            document.getElementById("p"+(placeships.carX + 3)+","+placeships.carY).style.background = "green";
+            document.getElementById("p"+(placeships.carX + 2)+","+placeships.carY).style.background = "green";
+            document.getElementById("p"+(placeships.carX + 1)+","+placeships.carY).style.background = "green";
+            document.getElementById("p"+placeships.carX+","+placeships.carY).style.background = "green";
+        };
+        
 
         //Batteship
-        document.getElementById("p"+placeships.batX+","+placeships.batY).style.background = "green";
-        document.getElementById("p"+(placeships.batX+1)+","+placeships.batY).style.background = "green";
-        document.getElementById("p"+(placeships.batX+2)+","+placeships.batY).style.background = "green";
-        document.getElementById("p"+(placeships.batX+3)+","+placeships.batY).style.background = "green";
+        if (placeships.batRot == 0){
+            document.getElementById("p"+placeships.batX+","+placeships.batY).style.background = "green";
+            document.getElementById("p"+(placeships.batX+1)+","+placeships.batY).style.background = "green";
+            document.getElementById("p"+(placeships.batX+2)+","+placeships.batY).style.background = "green";
+            document.getElementById("p"+(placeships.batX+3)+","+placeships.batY).style.background = "green";
+        }
+        else if (placeships.batRot == 1){
+            document.getElementById("p"+placeships.batX+","+placeships.batY).style.background = "green";
+            document.getElementById("p"+placeships.batX+","+(placeships.batY+1)).style.background = "green";
+            document.getElementById("p"+placeships.batX+","+(placeships.batY+2)).style.background = "green";
+            document.getElementById("p"+placeships.batX+","+(placeships.batY+3)).style.background = "green";            
+        };
 
 
         //Cruiser
-        document.getElementById("p"+(placeships.cruX)+","+placeships.cruY).style.background = "green";
-        document.getElementById("p"+(placeships.cruX)+","+(placeships.cruY+1)).style.background = "green";
-        document.getElementById("p"+(placeships.cruX)+","+(placeships.cruY+2)).style.background = "green";
-
+        if (placeships.cruRot == 0){
+            document.getElementById("p"+(placeships.cruX)+","+placeships.cruY).style.background = "green";
+            document.getElementById("p"+((placeships.cruX)+1)+","+placeships.cruY).style.background = "green";
+            document.getElementById("p"+((placeships.cruX)+2)+","+placeships.cruY).style.background = "green";          
+        }
+        else if (placeships.cruRot == 1){
+            document.getElementById("p"+(placeships.cruX)+","+placeships.cruY).style.background = "green";
+            document.getElementById("p"+(placeships.cruX)+","+(placeships.cruY+1)).style.background = "green";
+            document.getElementById("p"+(placeships.cruX)+","+(placeships.cruY+2)).style.background = "green";
+        };
+        
         //Submarine
-        document.getElementById("p"+(placeships.subX)+","+(placeships.subY)).style.background = "green";
-        document.getElementById("p"+(placeships.subX)+","+(placeships.subY+1)).style.background = "green";
-        document.getElementById("p"+(placeships.subX)+","+(placeships.subY+2)).style.background = "green";
-
+        if (placeships.subRot == 0){
+            document.getElementById("p"+(placeships.subX)+","+(placeships.subY)).style.background = "green";
+            document.getElementById("p"+(placeships.subX+1)+","+placeships.subY).style.background = "green";
+            document.getElementById("p"+(placeships.subX+2)+","+placeships.subY).style.background = "green";
+        }
+        else if (placeships.subRot == 1){
+            document.getElementById("p"+(placeships.subX)+","+(placeships.subY)).style.background = "green";
+            document.getElementById("p"+(placeships.subX)+","+(placeships.subY+1)).style.background = "green";
+            document.getElementById("p"+(placeships.subX)+","+(placeships.subY+2)).style.background = "green";
+        };
+        
         //Destroyer
-        document.getElementById("p"+(placeships.desX)+","+(placeships.desY)).style.background = "green";
-        document.getElementById("p"+(placeships.desX+1)+","+(placeships.desY)).style.background = "green";
+        if (placeships.desRot == 0){
+            document.getElementById("p"+(placeships.desX)+","+(placeships.desY)).style.background = "green";
+            document.getElementById("p"+(placeships.desX+1)+","+(placeships.desY)).style.background = "green";
+        }
+        else if (placeships.desRot == 1){
+            document.getElementById("p"+(placeships.desX)+","+(placeships.desY)).style.background = "green";
+            document.getElementById("p"+(placeships.desX)+","+(placeships.desY+1)).style.background = "green";
+        };
         
         //Mines
         document.getElementById("p"+(placeships.mine1X)+","+(placeships.mine1Y)).style.background = "blue";
