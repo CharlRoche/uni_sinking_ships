@@ -91,8 +91,6 @@ function makeAIMove() {
         AI.makeComputerMoveHard();
     }
 
-    //
-    //player.drawGrid();
     aiShipsAlive();
     playerTurn = true;
 
