@@ -29,6 +29,7 @@ and open the template in the editor.
             width: 520px;
             height: 520px;
             border: 5px solid black;
+            float: right;
         }
         #draggable {
             float:left;
@@ -111,8 +112,6 @@ and open the template in the editor.
     <div class="draggable mine1" id="mine1"></div>
     <div class="draggable mine2" id="mine2"></div>
     <div class="draggable mine3" id="mine3"></div>
-    
-    <button type="button" onclick="Sheild()">Use Shield?</button>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -412,13 +411,13 @@ and open the template in the editor.
    
     </script>
 
-    <form id = "formaction" method="get"> 
+    <form id = "formaction" action="index.html" method="get"> 
         <input type="Submit" value="Start" style="height:50px; width:200px"/>
     </form>
     <script>
-        if (shipsMoved == 1){
-            document.getElementById("formaction").action="index.html";        
-        }
+        //if (shipsMoved == 1){
+          //  document.getElementById("formaction").action="index.html";        
+        //}
     </script>
     </body>
 </html>
