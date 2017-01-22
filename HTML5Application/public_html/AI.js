@@ -17,6 +17,7 @@ function AI(xSize, ySize, difficulty) {
     this.hitAI = [];
     this.missedAI = [];
     this.missNextGo = false;
+    this.extraShot = 0;
     this.counter = 0;
     this.firstStep = [];
     this.secondStep = [];
@@ -633,7 +634,7 @@ AI.prototype = {
            
     },
 
-    getRandMove: function () {
+    getRandMove: function () { //selects random move from remainder of move list
         var rand = getRandFromArray(this.moveList);
         return rand;
     },
