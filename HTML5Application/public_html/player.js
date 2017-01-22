@@ -19,7 +19,6 @@ function player(name, xSize, ySize) {
     this.hitPlayer = [];
     this.missedPlayer = [];
     this.missNextGo = false;
-    this.extraShot = 0;
 }
 
 player.prototype = {
@@ -38,7 +37,6 @@ player.prototype = {
 
     },
     buildMoveList: function (xSize, ySize) {
-        //move list used to control available shots
         var moveList = [];
         for (i = 0; i < ySize; i++) {
             for (j = 0; j < xSize; j++) {

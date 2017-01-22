@@ -361,7 +361,6 @@ AI.prototype = {
                         player.grid.fireAtLocation(hitX, hitY, false);
                         var remove = hitX + ',' + hitY;
                         this.direction2 = null;
-                        console.log(remove);
                         removeItemFromArray(this.moveList, remove);
                     } else {
                         hitX = hitX + 1; 
@@ -395,7 +394,6 @@ AI.prototype = {
                         player.grid.fireAtLocation(hitX, hitY, false);
                         this.direction2 = null;
                         var remove = hitX + ',' + hitY;
-                        console.log(remove);
                         removeItemFromArray(this.moveList, remove);
                     } else {
                         hitX = hitX - 1; 
@@ -431,7 +429,6 @@ AI.prototype = {
                         player.grid.fireAtLocation(hitX, hitY, false);
                         var remove = hitX + ',' + hitY;
                         this.direction2 = null;
-                        console.log(remove);
                         removeItemFromArray(this.moveList, remove);
                     } else {
                         hitY = hitY + 1;                     
@@ -464,7 +461,6 @@ AI.prototype = {
                         this.status = "hitNextSqaure";
                         player.grid.fireAtLocation(hitX, hitY, false);
                         var remove = hitX + ',' + hitY;
-                        console.log(remove);
                         removeItemFromArray(this.moveList, remove);
                     } else {
                          hitY = hitY - 1;                         
