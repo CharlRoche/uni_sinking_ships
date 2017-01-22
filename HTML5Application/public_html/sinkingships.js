@@ -82,7 +82,7 @@ function startPlayerMove(target) {
 };
 function makeAIMove() {
     
-
+    
     if (difficulty == "easy") {
         AI.makeComputerMoveEasy();
     } else {

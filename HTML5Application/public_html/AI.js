@@ -133,8 +133,8 @@ AI.prototype = {
         
         // If the AI has had more than two hits against one ship
         else if(this.counter>2 ) {
-            console.log("direction: " + direction);
-            console.log("directoin2: " + direction2);
+            console.log("direction: " + this.direction);
+            console.log("directoin2: " + this.direction2);
             // go to AI.smartMove
            AI.smartMove(); 
             
