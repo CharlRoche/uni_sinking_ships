@@ -182,7 +182,7 @@ function playerShipsAlive() {
     }
     if (PlayerShip5.checkIsAlive()) {
         deadPlayerShipCount--;
-
+    }
     if (deadPlayerShipCount === 0) {
         gameWon = true;
     }
