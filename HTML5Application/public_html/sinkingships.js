@@ -22,7 +22,7 @@ var yLength = playerSettings.yLength;
 var difficulty = playerSettings.difficulty;
 var playerTurn = playerSettings.playerTurn;
 var AIthoughts = 0;
-var debug = false; //turn AI thinking on or off / true or false
+var debug = true; //turn AI thinking on or off / true or false
 //default settings
 
 setHalfVolume();
