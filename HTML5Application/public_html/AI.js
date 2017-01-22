@@ -265,7 +265,7 @@ AI.prototype = {
            
     },
 
-    getRandMove: function () {
+    getRandMove: function () { //selects random move from remainder of move list
         var rand = getRandFromArray(this.moveList);
         return rand;
     },
