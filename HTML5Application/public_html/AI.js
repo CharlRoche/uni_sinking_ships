@@ -62,7 +62,7 @@ AI.prototype = {
         removeItemFromArray(this.moveList, move);
     },
     makeComputerMoveMed: function () {
-        // Previous hard code
+
         if (this.status === "none" ){
             // AI's first move so should be random
             this.status = "gameStarted";

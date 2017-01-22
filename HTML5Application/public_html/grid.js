@@ -49,6 +49,7 @@ Grid.prototype = {
     fireAtLocation: function (x, y, playerTurn) {
         if (this.getGrid()[x][y] instanceof ship) {
             currentShip = this.getGrid()[x][y];
+            console.log(currentShip);
             hitNoise.play();
             console.log('Ship hit at [' + x + '], [' + y + ']');
             currentShip.shootShip(x, y);

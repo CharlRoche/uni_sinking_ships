@@ -85,8 +85,12 @@ function makeAIMove() {
     
     if (difficulty == "easy") {
         AI.makeComputerMoveEasy();
-    } else {
+    } else if (difficulty == "medium") {
+        AI.makeComputerMoveMed();
+    } else if (difficulty == "hard") {
         AI.makeComputerMoveHard();
+    } else {
+        window.alert("Error: Difficulty setting not detected. ");
     }
 
     //
